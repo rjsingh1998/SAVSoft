@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:ui="http://java.sun.com/jsf/facelets">
+
+<ui:composition template="../templates/template.xhtml">
+	<ui:define name="body">
+		<div align="center">
+			<h1>Ajout pannes</h1>
+		</div>
+
+		<div align="center">
+			<h:form id="f1">
+
+               <p:growl id="growl" life="3000" />
+
+				<p:panel style="width:50%">
+				
+				<h:panelGrid columns="3"  cellpadding="5" cellspacing="8">
+
+
+				
+						<p:outputLabel value="Nom*" />
+						<p:inputText value="#{panneBean.designationPan}" id="nomId"
+							required="true" requiredMessage="Le nom ne doit pas être vide." />
+						<p:message for="nomId" severity="error"
+							styleClass="ui-message-error-detail" />
+
+                         
+								 <p:outputLabel value="Service" />
+						
+							<p:selectOneMenu value="#{panneBean.idservice}" id="ser"
+								style="width:125px">
+								<f:selectItem itemLabel="----Selectioner----" itemValue=" " />
+								<f:selectItems value="#{panneBean.services}" var="ser"
+									itemLabel="#{ser.designationSer}" itemValue="#{ser.idservice}" />
+							</p:selectOneMenu>
+							<p:commandButton icon="ui-icon-plus"
+								oncomplete="PF('dialogmodif').show()" update=":f3:dlg">
+								<p:ajax listener="#{serviceBean.ajouterService}"/>
+							</p:commandButton>
+					
+					
+						</h:panelGrid>
+						<h:panelGrid columns="2">
+						<p:commandButton value="Valider" icon="ui-icon-check"
+							actionListener="#{panneBean.validation()}" update=":f1"
+							action="GestionPanne.xhtml" />
+						<p:commandButton value="Annuler"
+							icon="ui-icon-arrowreturnthick-1-n" update=":f1" 
+						 action="GestionPanne.xhtml"	immediate="true" />
+					    </h:panelGrid>
+					    
+						</p:panel>	
+						
+			</h:form>
+					
+					
+
+			
+				
+			<h:form id="f3">
+							<p:dialog id="dlg" widgetVar="dialogmodif" modal="true"
+						closable="false" resizable="true"
+						header="#{serviceBean.action} Service">
+								<p:panel id="dialogmodif">
+								<h:panelGrid columns="3" cellspacing="5%">
+								<p:outputLabel value="Nom" />
+								<p:inputText value="#{serviceBean.designationSer}" id="serv" />								 
+								<h:message for="serv"/>
+								</h:panelGrid>
+						    	 <h:panelGrid columns="2">
+								<p:commandButton value="Valider" icon="ui-icon-check"
+										actionListener="#{serviceBean.ajouterSevceApresValidation}" 
+									update=":f1"
+									            />
+											<p:commandButton value="Annuler"
+												icon="ui-icon-arrowreturnthick-1-n" onclick="PF('dialogmodif').hide()"   />
+								</h:panelGrid>
+									
+								</p:panel>
+							</p:dialog>
+						</h:form>
+						
+		</div>
+	</ui:define>
+</ui:composition>
+</html>

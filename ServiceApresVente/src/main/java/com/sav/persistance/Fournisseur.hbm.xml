@@ -1,0 +1,56 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated 22 janv. 2015 15:05:41 by Hibernate Tools 3.4.0.CR1 -->
+<hibernate-mapping>
+	<class name="com.sav.persistance.Fournisseur" table="fournisseur"
+		catalog="sav">
+
+		<id name="idfournisseur" type="java.lang.Integer">
+			<column name="idfournisseur" />
+			<generator class="increment" />
+		</id>
+
+		<property name="nomfour" type="string">
+			<column name="nomfour" length="45" />
+		</property>
+		<property name="mailfour" type="string">
+			<column name="mailfour" length="45" />
+		</property>
+		<property name="adrfour" type="string">
+			<column name="adrfour" length="45" />
+		</property>
+
+		<property name="gsm1four" type="string">
+			<column name="gsm1four" length="45" />
+		</property>
+		
+		
+		<property name="gsm2four" type="string">
+			<column name="gsm2four" length="45" />
+		</property>
+		
+		<property name="telfour" type="string">
+			<column name="telfour" length="45" />
+		</property>
+		
+		<property name="faxfour" type="string">
+			<column name="faxfour" length="45" />
+		</property>
+		
+		<many-to-one name="ville" class="com.sav.persistance.Ville" fetch="select" lazy="false">
+			<column name="idville"  />
+		</many-to-one>
+		
+		<many-to-one name="type_four" class="com.sav.persistance.Type_four" fetch="select" lazy="false">
+			<column name="idtype_four"  />
+		</many-to-one>
+		<set name="app_fours" table="app_four" inverse="true" lazy="true" fetch="select">
+			<key>
+				<column name="idfournisseur"  />
+			</key>
+			<one-to-many class="com.sav.persistance.App_four" />
+		</set>
+		
+	</class>
+</hibernate-mapping>

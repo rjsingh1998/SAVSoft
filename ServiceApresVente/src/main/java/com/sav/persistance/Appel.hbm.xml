@@ -1,0 +1,136 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated 22 janv. 2015 15:05:41 by Hibernate Tools 3.4.0.CR1 -->
+<hibernate-mapping>
+	<class name="com.sav.persistance.Appel" table="appel"
+	
+		catalog="sav">
+
+		<id name="idappel" type="java.lang.Integer">
+			<column name="idappel" />
+			<generator class="increment" />
+		</id>
+		
+		<property name="emplacement" type="string">
+			<column name="emplacement" length="45" />
+		</property>
+		
+		<property name="date_entre" type="java.util.Date">
+			<column name="date_entre" sql-type="DATETIME"/>
+		</property>
+		
+		<property name="date_sortie" type="java.util.Date">
+			<column name="date_sortie" sql-type="DATETIME"/>
+		</property>
+		
+		<property name="note" type="string">
+			<column name="note" length="250" />
+		</property>
+		<property name="info1" type="string">
+			<column name="info1" length="45" />
+		</property>
+		<property name="info2" type="string">
+			<column name="info2" length="45" />
+		</property>
+		<property name="info3" type="string">
+			<column name="info3" length="45" />
+		</property>
+		<property name="info4" type="string">
+			<column name="info4" length="45" />
+		</property>
+		<property name="info5" type="string">
+			<column name="info5" length="45" />
+		</property>
+		<property name="info6" type="string">
+			<column name="info6" length="45" />
+		</property>
+		<property name="info7" type="string">
+			<column name="info7" length="45" />
+		</property>
+		<property name="info8" type="string">
+			<column name="info8" length="45" />
+		</property>
+		<property name="info9" type="string">
+			<column name="info9" length="45" />
+		</property>
+		<property name="info10" type="string">
+			<column name="info10" length="45" />
+		</property>
+		<property name="info11" type="string">
+			<column name="info11" length="45" />
+		</property>
+		<property name="info12" type="string">
+			<column name="info12" length="45" />
+		</property>
+		
+		 <property name="diag" type="boolean">
+            <column name="diag" length="1"  default="false" />
+        </property>
+		
+
+		<set name="infos" table="info_apl" inverse="true" lazy="false" fetch="select">
+			<key>
+				<column name="idappel" precision="2" scale="0" />
+			</key>
+			<one-to-many class="com.sav.persistance.Info_apl" />
+		</set>
+
+		
+		<many-to-one name="client" class="com.sav.persistance.Client" fetch="select" lazy="false">
+			<column name="idclient"  />
+		</many-to-one>
+			<many-to-one name="etat" class="com.sav.persistance.Etat"  lazy="false" fetch="select">
+			<column name="idetat"  />
+		</many-to-one>
+		<many-to-one name="machine" class="com.sav.persistance.Machine" fetch="select" lazy="false">
+			<column name="idmachine"  />
+		</many-to-one>
+		
+		<set name="app_pannes" table="app_panne" inverse="true" lazy="true" fetch="select">
+			<key>
+				<column name="idappel"  />
+			</key>
+			<one-to-many class="com.sav.persistance.App_panne" />
+		</set>
+		<set name="app_statuts" table="app_stat" inverse="true" lazy="true" fetch="select">
+			<key>
+				<column name="idappel"  />
+			</key>
+			<one-to-many class="com.sav.persistance.App_stat" />
+		</set>
+		<set name="app_accs" table="app_acc" inverse="true" lazy="true" fetch="select">
+			<key>
+				<column name="idappel"  />
+			</key>
+			<one-to-many class="com.sav.persistance.App_acc" />
+		</set>
+		<set name="app_fils" table="app_fil" inverse="true" lazy="true" fetch="select">
+			<key>
+				<column name="idappel"  />
+			</key>
+			<one-to-many class="com.sav.persistance.App_fil" />
+		</set>
+		<set name="app_fours" table="app_four" inverse="true" lazy="true" fetch="select">
+			<key>
+				<column name="idappel"  />
+			</key>
+			<one-to-many class="com.sav.persistance.App_four" />
+		</set>
+		
+		<set name="det_etat" table="detaille_etat" inverse="true" lazy="true" fetch="select">
+			<key>
+				<column name="idappel"  />
+			</key>
+			<one-to-many class="com.sav.persistance.Detaille_Etat" />
+		</set>
+		 
+		 <set name="diagnostiques" table="diagnostique" inverse="true" lazy="true" fetch="select">
+			<key>
+				<column name="idapl" precision="2" scale="0" not-null="true" />
+			</key>
+			<one-to-many class="com.sav.persistance.Diagnostique" />
+		</set>
+		
+	</class>
+</hibernate-mapping>

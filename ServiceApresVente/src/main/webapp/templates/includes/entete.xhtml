@@ -1,0 +1,57 @@
+<ui:composition 
+	xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:f="http://java.sun.com/jsf/core">
+	
+<h:form>
+
+ <p:panel style="height: 75px;background-color:#BBD2E1">
+  <table style="width:100%" >
+   <tr>
+     <td  width="10%" valign="top"  style=" width : 56px;"><h:graphicImage value="../images/savimg14.png" /></td>
+     <td valign="middle">
+         <p:toolbar  style="font-size:small;font-weight:bold;height:30px" >
+
+           <f:facet name="left">
+             <p:commandButton  value="Accueil" icon="ui-icon-home" style="font-size:small;font-weight:bold"
+                   action="PageAccueil" /> 
+             <p:commandButton  value="Appel" icon="ui-icon-contact" action="GestionAppel"/>
+             <p:commandButton  value="Fiche" icon="ui-icon-clipboard"
+                 action="Fiche" />
+             <p:menuButton value="Paramétrage" >
+				
+				<p:menuitem value="Type Fournisseur" url="GestionType_four.xhtml" rendered="#{connectionBean.gestionTypFour}"/>
+				<p:separator  rendered="#{connectionBean.gestionTypFour}"/>
+				<p:menuitem value="Type Machine" url="GestionType.xhtml" rendered="#{connectionBean.gestionTypMach}" />
+				<p:separator rendered="#{connectionBean.gestionTypMach}"/>
+				<p:menuitem value="ville" url="GestionVille.xhtml" rendered="#{connectionBean.gestionVil}" />
+				<p:separator  rendered="#{connectionBean.gestionVil}" />
+				<p:menuitem value="Marque" url="GestionMarque.xhtml" rendered="#{connectionBean.gestionMarq}"/>
+				<p:separator rendered="#{connectionBean.gestionMarq}" />
+				<p:menuitem value="Service" url="GestionService.xhtml" rendered="#{connectionBean.gestionSrvice}" />
+				<p:separator  rendered="#{connectionBean.gestionSrvice}"  />
+				<p:menuitem value="Statut" url="GestionStatut.xhtml" rendered="#{connectionBean.gestionStatut}"/>
+				<p:separator rendered="#{connectionBean.gestionStatut}" />
+				<p:menuitem value="Grade" url="GestionGrade.xhtml" rendered="#{connectionBean.gestionGrade}" />
+
+			</p:menuButton>
+             <p:commandButton type="button" value="Rapports" icon="ui-icon-bookmark" />
+              <p:commandButton value="Info Complementaire" action="Info.xhtml" actionListener="#{appelBean.init_info()}"/>
+              
+               <p:commandButton  value="Profile" icon="ui-icon-person"
+                 action="Profile" />
+           </f:facet>
+           <f:facet name="right">
+             <p:commandButton type="button" value="Déconnecter" icon="ui-icon-extlink" />
+            
+           </f:facet>
+         </p:toolbar>
+    </td> 
+     <td  width="10%" valign="top"  style=" width : 56px;"><h:graphicImage value="../images/savimg14.png" /></td>
+  </tr>
+</table>
+</p:panel>
+</h:form>
+</ui:composition>

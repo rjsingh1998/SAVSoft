@@ -1,0 +1,240 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:ui="http://java.sun.com/jsf/facelets">
+
+<h:head>
+	<title>Liste pannes</title>
+	<link rel="stylesheet" type="text/css" href="../css/styles.css"></link>
+</h:head>
+<h:body
+	style="background-image: url(../images/k11.jpg); background-repeat: no-repeat; background-size: cover;">
+	<p:graphicImage width="100%" value="/imageTitre/titrepannes.png"></p:graphicImage>
+	<br />
+	<br />
+
+
+	<div align="center">
+		<h:form id="f1">
+			<br />
+			<div align="left">
+				<h:panelGrid columns="3" cellspacing="5">
+					<h:outputLink value="Acceuil2.xhtml">
+					     <p:graphicImage value="/images/home3.png" ></p:graphicImage>
+		           </h:outputLink>
+					<h:outputLink value="Parametrage.xhtml">
+						<p:graphicImage value="/images/retourArr.png"></p:graphicImage>
+					</h:outputLink>
+
+					<h:commandLink actionListener="#{panneBean.viewListePanne}" target="_blanc">
+						<p:graphicImage value="/images/PDF.png"></p:graphicImage>
+					</h:commandLink>
+				</h:panelGrid>
+			</div>
+
+			<p:panel>
+
+				<div align="center">
+					<h:panelGrid columns="6">
+						<h:outputText value="Recherche: " />
+						<p:inputText value="#{panneBean.valeurRecherche}" />
+
+						<p:selectOneMenu id="recherche" filterMatchMode="startsWith"
+							value="#{panneBean.attribut}" filter="true" effect="fade">
+							<p:ajax event="change" listener="#{panneBean.onselectchange}"
+								update=":f1" />
+							<f:selectItems value="#{panneBean.listesRecherches}" var="jo"
+								itemLabel="#{jo.toString()}" itemValue="#{jo}" />
+						</p:selectOneMenu>
+
+						<h:panelGroup id="listeser">
+							<p:selectOneMenu value="#{panneBean.valser}"
+								disabled="#{panneBean.actifser}" style="width:155px">
+								<p:ajax event="change" listener="#{panneBean.onSeviceChange}"
+									update=":f1"></p:ajax>
+								<f:selectItem itemLabel="----Selectioner----" itemValue=" " />
+								<f:selectItems value="#{panneBean.services}" var="ser"
+									itemLabel="#{ser.designationSer}"
+									itemValue="#{ser.designationSer}" />
+							</p:selectOneMenu>
+						</h:panelGroup>
+
+						<p:commandButton icon="ui-icon-search" title="Recherche panne"
+							update=":f1" />
+						<p:commandButton icon="ui-icon-refresh" title="Actualiser"
+							actionListener="#{panneBean.annulerRecherche}" update=":f1" />
+
+					</h:panelGrid>
+				</div>
+				<br />
+				<div style="width: 50%">
+					<div align="right">
+						<p:commandButton value="Nouveau" icon="ui-icon-plusthick"
+							style="font-size:small;font-weight:bold" update=":f2:dlg"
+							oncomplete="PF('dialogmodif').show()"
+							actionListener="#{panneBean.ajouterPanne}"
+							rendered="#{connectionBean.nouvPanne}" />
+					</div>
+
+
+					<p:dataTable var="panne" value="#{panneBean.pannes}"
+						emptyMessage="Pas de pannes" border="1" paginator="true"
+						paginatorPosition="bottom"
+						paginatorTemplate=" {FirstPageLink} {PreviousPageLink} {PageLinks} 
+				              {NextPageLink} {LastPageLink}  "
+						rows="5">
+						<p:column width="20%">
+							<f:facet name="header">
+								<h:outputLabel value="Id" />
+							</f:facet>
+							<h:outputText value="#{panne.idpanne}"
+								style="font-size:small;font-weight:bold" />
+
+						</p:column>
+						<p:column>
+							<f:facet name="header">
+								<h:outputLabel value="Panne" />
+							</f:facet>
+							<h:outputText value="#{panne.designationPan}"
+								style="font-size:small;font-weight:bold" />
+
+						</p:column>
+
+						<p:column>
+							<f:facet name="header">
+								<h:outputLabel value="Service" />
+							</f:facet>
+							<h:outputText value="#{panne.service.designationSer}"
+								style="font-size:small;font-weight:bold" />
+
+						</p:column>
+
+
+
+
+
+						<p:column style="width:20%">
+							<p:commandButton
+								actionListener="#{panneBean.modifierPanne(panne)}"
+								oncomplete="PF('dialogmodif').show()" update=":f2:dlg"
+								icon="ui-icon-pencil" title="Modification"
+								rendered="#{connectionBean.modifPanne}" />
+
+
+							<p:commandButton
+								actionListener="#{panneBean.Supprimer(panne.idpanne)}"
+								icon="ui-icon-trash" title="Suppression Panne"
+								update=":f2:growl" rendered="#{connectionBean.supPanne}">
+								<p:confirm header="Suppression Panne"
+									message="Voulez-vous vraiment supprimer cette Panne ?"
+									icon="ui-icon-alert" />
+							</p:commandButton>
+						</p:column>
+					</p:dataTable>
+				</div>
+
+				<p:confirmDialog global="true" hideEffect="fade">
+					<p:commandButton value="Oui" type="button"
+						styleClass="ui-confirmdialog-yes" icon="ui-icon-check" />
+					<p:commandButton value="Non" type="button"
+						styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
+				</p:confirmDialog>
+			</p:panel>
+		</h:form>
+
+
+		<h:form id="f2">
+			<p:growl id="growl" life="3000" />
+			<p:dialog id="dlg" widgetVar="dialogmodif" modal="true"
+				closable="false" resizable="true" header="#{panneBean.action} Panne">
+				<p:panel id="panel1">
+					<h:panelGrid columns="2" cellspacing="5%">
+						<p:outputLabel value="Panne" />
+						<p:inputText value="#{panneBean.designationPan}" id="pan" />
+
+						<p:outputLabel value="Service" />
+						<h:panelGrid columns="2" >
+							<p:selectOneMenu value="#{panneBean.idservice}" id="serv"
+								style="width:155px">
+								<f:selectItem itemLabel="----Selectioner----" itemValue=" " />
+								<f:selectItems value="#{panneBean.services}" var="ser"
+									itemLabel="#{ser.designationSer}" itemValue="#{ser.idservice}" />
+							</p:selectOneMenu>
+							<p:commandButton icon="ui-icon-plus"
+								oncomplete="PF('dialogmodif1').show()">
+								<p:ajax listener="#{panneBean.ajouterService()}" update="dlg1" />
+							</p:commandButton>
+
+						</h:panelGrid>
+
+					</h:panelGrid>
+
+					<h:panelGrid columns="2">
+						<p:commandButton value="Valider" icon="ui-icon-check"
+							actionListener="#{panneBean.ajouterPanApresValidation}"
+							update=":f2:growl"
+							oncomplete="handleLoginRequest(xhr, status, args)" />
+						<p:commandButton value="Annuler"
+							icon="ui-icon-arrowreturnthick-1-n"
+							onclick="PF('dialogmodif').hide()" />
+					</h:panelGrid>
+
+				</p:panel>
+			</p:dialog>
+
+
+
+			<p:dialog id="dlg1" widgetVar="dialogmodif1" modal="true"
+				closable="false" resizable="true"
+				header="#{panneeBean.action} Service ">
+
+				<p:panel id="dialogmodif1">
+					<h:panelGrid columns="2" cellspacing="20px">
+						<p:outputLabel value="Service" />
+						<p:inputText value="#{panneBean.designationSer}" />
+
+
+					</h:panelGrid>
+
+
+					<h:panelGrid columns="2">
+						<p:commandButton value="Valider" icon="ui-icon-check"
+							actionListener="#{panneBean.ajouterSevceApresValidation}"
+							update=":f2:growl,panel1" onclick="PF('dialogmodif').show()" />
+						<p:commandButton value="Annuler"
+							icon="ui-icon-arrowreturnthick-1-n"
+							onclick="PF('dialogmodif1').hide();" />
+
+					</h:panelGrid>
+
+				</p:panel>
+
+
+			</p:dialog>
+
+
+			<script type="text/javascript">
+					function handleLoginRequest(xhr, status, args) {
+						if (args.validationFailed || !args.addValid) {
+							PF('dialogmodif').jq.effect("shake", {
+								times : 5
+							}, 100);
+						} else {
+							PF('dialogmodif').hide();
+							$('#loginLink').fadeOut();
+						}
+					}
+				</script>
+		</h:form>
+
+	</div>
+
+	<hr></hr>
+	<div align="center">DSI_2015(Développement Solution Informatique)</div>
+
+</h:body>
+</html>

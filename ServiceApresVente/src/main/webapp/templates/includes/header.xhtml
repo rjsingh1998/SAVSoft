@@ -1,0 +1,173 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:f="http://java.sun.com/jsf/core">
+	<h:form>
+    <p:panel style="background-color:#84D2F8">	
+     <table style="width:100%" >
+     <tr>
+     <td  width="10%" valign="top"  style=" width : 56px;"><h:graphicImage value="../images/savimg14.png" /></td>
+     <td valign="middle">
+         <p:toolbar  style="font-size:small;font-weight:bold;height:30px" >
+
+           <f:facet name="left">
+             
+             <p:commandButton  value="Accueil" icon="ui-icon-home" style="font-size:small;font-weight:bold"
+                   action="PageAccueil" /> 
+             <p:commandButton  value="Appel" icon="ui-icon-contact"/>
+             <p:commandButton  value="Fiche" icon="ui-icon-clipboard"
+                 action="Fiche"/>
+             <p:menuButton value="Paramétrage" >
+				<p:menuitem value="Type Fournisseur"/>
+				<p:separator />
+				<p:menuitem value="Type Machine" />
+				<p:separator />
+				<p:menuitem value="Marque"/>
+				<p:separator />
+				<p:menuitem value="Service" />
+				<p:separator />
+				<p:menuitem value="Statut" />
+			</p:menuButton>
+             <p:commandButton type="button" value="Rapports" icon="ui-icon-bookmark"/>
+           </f:facet>
+           <f:facet name="right">
+             <p:commandButton type="button" value="Déconnecter" icon="ui-icon-extlink" />
+            
+           </f:facet>
+         </p:toolbar>
+    </td> 
+     <td  width="10%" valign="top"  style=" width : 56px;"><h:graphicImage value="../images/savimg14.png" /></td>
+     </tr>
+ 
+     
+ 
+ 
+ 
+</table>
+    
+    
+       
+       <div align="center">
+		<table  >
+			<tr>
+				<td>
+					<table>
+						<tr>
+							<td valign="top"><h:graphicImage
+									value="../images/aplsuivante.png" /></td>
+						</tr>
+						<tr>
+							<td align="center"><h:outputText value="Apl suivante"
+									style="font-size:10px;color:#0562B9;
+              font-weight:bold;font-style:italic" />
+							</td>
+						</tr>
+					</table>
+				</td>
+				<td>
+				    <table>
+						<tr>
+							<td valign="top"><h:graphicImage
+									value="../images/ajouterApl.png" /></td>
+						</tr>
+						<tr>
+							<td align="center"><h:outputText value="Ajouter Apl"
+									style="font-size:10px;color:#0562B9;
+              font-weight:bold;font-style:italic" />
+							</td>
+						</tr>
+
+					</table>
+				</td>
+			    <td>
+					<table>
+						<tr>
+							<td valign="top"><h:graphicImage
+									value="../images/filatt1.png" /></td>
+						</tr>
+						<tr>
+							<td align="center"><h:outputText value="fil electro"
+							         style="font-size:10px;color:#0562B9;
+                                      font-weight:bold;font-style:italic" />
+							</td>
+						</tr>
+					</table>
+				</td>
+				<td>
+					<table>
+						<tr>
+							<td valign="top"><h:graphicImage
+									value="../images/filatt2.png" /></td>
+						</tr>
+						<tr>
+							<td align="center"><h:outputText value="fil info"
+							         style="font-size:10px;color:#0562B9;
+                                      font-weight:bold;font-style:italic" />
+							</td>
+						</tr>
+					</table>
+				</td>
+				<td>
+					<table>
+						<tr>
+							<td valign="top"><h:graphicImage
+									value="../images/filatt3.png" /></td>
+						</tr>
+						<tr>
+							<td align="center"><h:outputText value="fil3"
+							         style="font-size:10px;color:#0562B9;
+                                      font-weight:bold;font-style:italic" />
+							</td>
+						</tr>
+					</table>
+				</td>	
+				<td>
+					<table>
+						<tr>
+							<td valign="top"><h:graphicImage
+									value="../images/filatt4.png" /></td>
+						</tr>
+						<tr>
+							<td align="center"><h:outputText value="fil4"
+							         style="font-size:10px;color:#0562B9;
+                                      font-weight:bold;font-style:italic" />
+							</td>
+						</tr>
+					</table>
+				</td>
+			    <td>
+					<table>
+						<tr>
+							<td valign="top"><h:graphicImage
+									value="../images/filatt5.png" /></td>
+						</tr>
+						<tr>
+							<td align="center"><h:outputText value="fil5"
+							         style="font-size:10px;color:#0562B9;
+                                      font-weight:bold;font-style:italic" />
+							</td>
+						</tr>
+					</table>
+				</td>
+			    <td>
+					<table>
+						<tr>
+							<td valign="top"><h:graphicImage
+									value="../images/filatt7.png" /></td>
+						</tr>
+						<tr>
+							<td align="center"><h:outputText value="fil6"
+							         style="font-size:10px;color:#0562B9;
+                                      font-weight:bold;font-style:italic" />
+							</td>
+						</tr>
+					</table>
+				</td>
+			    
+			</tr>
+		</table>
+		</div>
+	</p:panel>
+	</h:form>
+</ui:composition>

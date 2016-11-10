@@ -1,0 +1,315 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:ui="http://java.sun.com/jsf/facelets">
+
+<h:head>
+	<title>Liste machines</title>
+	<link rel="stylesheet" type="text/css" href="../css/styles.css"></link>
+</h:head>
+<h:body
+	style="background-image: url(../images/k11.jpg); background-repeat: no-repeat; background-size: cover;">
+	<p:graphicImage width="100%" value="/imageTitre/titreFour.png"></p:graphicImage>
+	<br />
+
+	<div align="center">
+		<h:form id="f1">
+			<br />
+			
+			<div align="left" >
+			<h:panelGrid columns="3" cellspacing="5" >
+				<h:outputLink value="Acceuil2.xhtml">
+					<p:graphicImage value="/images/home3.png" ></p:graphicImage>
+		       </h:outputLink>
+				<h:outputLink value="Parametrage.xhtml">
+						<p:graphicImage value="/images/retourArr.png"></p:graphicImage>
+					</h:outputLink>
+				
+				<h:commandLink actionListener="#{fournisseurBean.viewListeFournisseur}" target="_blanc">
+					<p:graphicImage  value="/images/PDF.png"></p:graphicImage>
+				</h:commandLink>
+			</h:panelGrid>
+		</div>
+			<p:panel>
+			<div align="center">
+				<h:panelGrid columns="5">
+					<h:outputText value="Recherche: " />
+					<p:inputText value="#{fournisseurBean.valeurRecherche}" />
+					<p:selectOneMenu id="recherche" filterMatchMode="startsWith"
+						value="#{fournisseurBean.attribut}" filter="true" effect="fade">
+						<f:selectItems value="#{fournisseurBean.listesRecherches}"
+							var="jo" itemLabel="#{jo.toString()}" itemValue="#{jo}" />
+
+					</p:selectOneMenu>
+					<p:commandButton icon="ui-icon-search"
+						title="Recherche Fournisseur" update=":f1" />
+					<p:commandButton icon="ui-icon-refresh" title="Actualiser"
+						actionListener="#{fournisseurBean.annulerRecherche}" update=":f1" />
+				</h:panelGrid>
+			</div>
+
+
+			<div style="width: 95%">
+				<div align="right">
+					<p:commandButton value="Nouveau" icon="ui-icon-plusthick"
+						style="font-size:small;font-weight:bold" update=":f2:dlg"
+						actionListener="#{fournisseurBean.ajouterFournisseur()}"
+						oncomplete="PF('dialogmodif').show()"
+						rendered="#{connectionBean.nouvFournisseur}" />
+				</div>
+
+
+				<p:dataTable style="width: 100%" var="fournisseur" id="fr"
+					value="#{fournisseurBean.fournisseurs}"
+					emptyMessage="Pas de fournisseurs" border="1" paginator="true"
+					paginatorPosition="bottom"
+					paginatorTemplate=" {FirstPageLink} {PreviousPageLink} {PageLinks} 
+				              {NextPageLink} {LastPageLink} "
+					rows="5">
+
+
+
+					<p:column width="18%">
+						<f:facet name="header">
+							<h:outputText value="Fournisseur" />
+						</f:facet>
+						<h:outputText value="#{fournisseur.nomfour}"
+							style="font-size:small;font-weight:bold" />
+
+					</p:column>
+
+
+
+					<p:column width="20%">
+						<f:facet name="header">
+							<h:outputText value="Email" />
+						</f:facet>
+						<h:outputText value="#{fournisseur.mailfour}"
+							style="font-size:small;font-weight:bold" />
+
+
+					</p:column>
+
+					<p:column width="25%">
+						<f:facet name="header">
+							<h:outputText value="Gsm" />
+						</f:facet>
+						<h:outputText
+							value="#{fournisseur.gsm1four} - #{fournisseur.gsm2four}"
+							style="font-size:small;font-weight:bold" />
+					</p:column>
+
+
+
+
+					<p:column width="15%">
+						<f:facet name="header">
+							<h:outputText value="Tel" />
+						</f:facet>
+						<h:outputText value="#{fournisseur.telfour}"
+							style="font-size:small;font-weight:bold" />
+
+					</p:column>
+
+					<p:column width="15%">
+						<f:facet name="header">
+							<h:outputText value="Fax" />
+						</f:facet>
+						<h:outputText value="#{fournisseur.faxfour}"
+							style="font-size:small;font-weight:bold" />
+
+					</p:column>
+
+					<p:column width="28%">
+						<f:facet name="header">
+							<h:outputText value="Adresse" />
+						</f:facet>
+						<h:outputText
+							value="#{fournisseur.adrfour} - #{fournisseur.ville.designationVille}"
+							style="font-size:small;font-weight:bold" />
+
+					</p:column>
+
+					<p:column headerText="Type" style="width:15%">
+						<h:outputText value="#{fournisseur.type_four.nomtype}"
+							style="font-size:small;font-weight:bold" />
+					</p:column>
+
+					<p:column style="width:20%">
+						<p:commandButton
+							actionListener="#{fournisseurBean.modifierFournisseur(fournisseur)}"
+							update=":f2:dlg" oncomplete="PF('dialogmodif').show()"
+							icon="ui-icon-pencil" title="Modification"
+							rendered="#{connectionBean.modifFournisseur}" />
+
+
+						<p:commandButton
+							actionListener="#{fournisseurBean.Supprimer(fournisseur.idfournisseur)}"
+							icon="ui-icon-trash" title="Suppression Fournisseur" update=":f2:growl"
+							rendered="#{connectionBean.supFournisseur}">
+							<p:confirm header="Suppression Fournisseur"
+								message="Voulez-vous vraiment supprimer cette Fournisseur ?"
+								icon="ui-icon-alert" />
+						</p:commandButton>
+					</p:column>
+				</p:dataTable>
+			</div>
+
+			<p:confirmDialog global="true" showEffect="fade" hideEffect="explode">
+				<p:commandButton value="Oui" type="button"
+					styleClass="ui-confirmdialog-yes" icon="ui-icon-check" />
+				<p:commandButton value="Non" type="button"
+					styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
+			</p:confirmDialog>
+		 
+		 </p:panel>
+		 </h:form>
+
+
+
+		<h:form id="f2">
+			<p:growl id="growl" life="3000" />
+			<p:dialog id="dlg" widgetVar="dialogmodif" modal="true"
+				closable="false" resizable="true"
+				header="#{fournisseurBean.action} Fournisseur">
+
+
+				<p:panel style="width:100%" id="panel">
+					<h:panelGrid columns="2"  cellspacing="5">
+
+						<p:outputLabel value="Nom*" />
+						<p:inputText value="#{fournisseurBean.nomfour}" />
+
+						<p:outputLabel value="Adresse" />
+						<p:inputText value="#{fournisseurBean.adrfour}" id="pro9" />
+
+						<p:outputLabel value="Email" />
+						<p:inputText value="#{fournisseurBean.mailfour}" id="mailId"/>
+
+						<p:outputLabel value="Gsm1" />
+						<p:inputText value="#{fournisseurBean.gsm1four}" id="pro7" />
+
+						<p:outputLabel value="Gsm2" />
+						<p:inputText value="#{fournisseurBean.gsm2four}" id="pro6" />
+
+						<p:outputLabel value="Tel" />
+						<p:inputText value="#{fournisseurBean.telfour}" id="pro5" />
+
+						<p:outputLabel value="Fax" />
+						<p:inputText value="#{fournisseurBean.faxfour}" id="pro4" />
+
+					<p:outputLabel value="Ville" />
+					<h:panelGrid columns="2" >
+							<p:selectOneMenu value="#{fournisseurBean.idville}"
+								style="width:155px">
+
+								<f:selectItem itemLabel="----Selectioner----" itemValue=" " />
+								<f:selectItems value="#{fournisseurBean.villes}" var="vil"
+									itemLabel="#{vil.designationVille}" itemValue="#{vil.idville}" />
+							</p:selectOneMenu>
+							<p:commandButton icon="ui-icon-plus"
+								oncomplete="PF('dialogmodif2').show()">
+								<p:ajax listener="#{fournisseurBean.ajouterVille}" update="dlg2" />
+							</p:commandButton>
+
+						</h:panelGrid>
+
+						<p:outputLabel value="Type*" />
+						<h:panelGrid columns="2" >
+							<p:selectOneMenu value="#{fournisseurBean.idtype_four}"
+								style="width:155px">
+								<f:selectItem itemLabel="----Selectioner----" itemValue=" " />
+								<f:selectItems value="#{fournisseurBean.type_fours}" var="tfour"
+									itemLabel="#{tfour.nomtype}" itemValue="#{tfour.idtype_four}" />
+							</p:selectOneMenu>
+							<p:commandButton icon="ui-icon-plus"
+								oncomplete="PF('dialogmodif1').show()">
+								<p:ajax listener="#{fournisseurBean.ajouterType_four}"
+									update="dlg1" />
+							</p:commandButton>
+
+						</h:panelGrid>
+						
+					</h:panelGrid>
+					<h:panelGrid columns="2">
+						<p:commandButton value="Valider" icon="ui-icon-check"
+							actionListener="#{fournisseurBean.ajouterfourApresValidation}"
+							update=":f2:growl"
+							oncomplete="handleLoginRequest(xhr, status, args)" />
+						<p:commandButton value="Annuler"
+							icon="ui-icon-arrowreturnthick-1-n" update=":f1"
+							onclick="PF('dialogmodif').hide()" immediate="true" />
+					</h:panelGrid>
+
+				</p:panel>
+			</p:dialog>
+
+
+			<p:dialog id="dlg2" widgetVar="dialogmodif2" modal="true"
+				closable="false" resizable="true"
+				header="#{fournisseurBean.action} Ville">
+				<p:panel id="dialogmodif2">
+					<h:panelGrid columns="2"  cellspacing="10">
+						<p:outputLabel value="Nom" />
+						<p:inputText value="#{fournisseurBean.designationVille}"
+							id="pro11" />
+					</h:panelGrid>
+						<h:panelGrid columns="2">
+							<p:commandButton value="Valider" icon="ui-icon-check"
+								actionListener="#{fournisseurBean.ajouterVilApresValidation}"
+								update=":f2:growl,panel" onclick="PF('dialogmodif').show()" />
+							<p:commandButton value="Annuler"
+								icon="ui-icon-arrowreturnthick-1-n"
+								oncomplete="PF('dialogmodif2').hide()" />
+						</h:panelGrid>
+					
+				</p:panel>
+			</p:dialog>
+
+			<p:dialog id="dlg1" widgetVar="dialogmodif1" modal="true"
+				closable="false" resizable="true"
+				header="#{fournisseurBean.action} Type_four">
+				<p:panel id="dialogmodif1">
+					<h:panelGrid columns="2" cellspacing="20px">
+						<p:outputLabel value="Nom" />
+						<p:inputText value="#{fournisseurBean.nomtype}" id="pro12" />
+					</h:panelGrid>
+					<h:panelGrid columns="2">
+							<p:commandButton value="Valider" icon="ui-icon-check"
+								actionListener="#{fournisseurBean.ajouterTypfourApresValidation}"
+								update=":f2:growl,panel" onclick="PF('dialogmodif').show()" />
+							<p:commandButton value="Annuler"
+								icon="ui-icon-arrowreturnthick-1-n"
+								oncomplete="PF('dialogmodif1').hide()" />
+					</h:panelGrid>
+					
+				</p:panel>
+			</p:dialog>
+
+
+			<script type="text/javascript">
+					function handleLoginRequest(xhr, status, args) {
+						if (args.validationFailed || !args.addValid) {
+							PF('dialogmodif').jq.effect("shake", {
+								times : 5
+							}, 100);
+						} else {
+							PF('dialogmodif').hide();
+							$('#loginLink').fadeOut();
+						}
+					}
+				</script>
+				
+				<hr></hr>
+		<div align="center">DSI_2015(Développement Solution Informatique)</div>
+				
+		</h:form>
+
+	</div>
+
+</h:body>
+</html>

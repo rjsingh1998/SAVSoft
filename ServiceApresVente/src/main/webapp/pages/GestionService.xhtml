@@ -1,0 +1,164 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:ui="http://java.sun.com/jsf/facelets">
+
+<h:head>
+	<title>Liste services</title>
+	<link rel="stylesheet" type="text/css" href="../css/styles.css"></link>
+</h:head>
+<h:body style="background-image: url(../images/k11.jpg); background-repeat: no-repeat; background-size: cover;">
+	<p:graphicImage width="100%" value="/imageTitre/titreServce.png"></p:graphicImage>
+		
+
+		<div align="center">
+			<h:form id="f1">
+            <p:growl id="growl" life="3000" />
+            
+            <div align="left" >
+			<h:panelGrid columns="3" cellspacing="5" >
+				<h:outputLink value="Acceuil2.xhtml">
+					<p:graphicImage value="/images/home3.png" ></p:graphicImage>
+		       </h:outputLink>
+				<h:outputLink value="Parametrage.xhtml">
+						<p:graphicImage value="/images/retourArr.png"></p:graphicImage>
+					</h:outputLink>
+				
+				<h:commandLink actionListener="#{serviceBean.viewListeService}" target="_blanc">
+					<p:graphicImage  value="/images/PDF.png"></p:graphicImage>
+				</h:commandLink>
+			</h:panelGrid>
+		</div>
+            <p:panel>
+				<br />
+				<div align="center">
+					<h:panelGrid columns="4">
+						<h:outputText value="Recherche: " />
+						<p:inputText value="#{serviceBean.valeurRecherche}" />
+
+						<p:commandButton icon="ui-icon-search" title="Recherche tache"
+							update=":f1" />
+						<p:commandButton icon="ui-icon-refresh" title="Actualiser"
+							actionListener="#{serviceBean.annulerRecherche}" update=":f1" />
+
+					</h:panelGrid>
+				</div>
+				<div style="width: 50%">
+
+					<div align="right">
+
+						<p:commandButton value="Nouveau" icon="ui-icon-plusthick"
+							style="font-size:small;font-weight:bold" update=":f1:f2:dlg"
+							oncomplete="PF('dialogmodif').show()"
+							actionListener="#{serviceBean.ajouterService()}"
+							rendered="#{connectionBean.nouvService}" />
+					</div>
+
+
+					<p:dataTable var="service" id="f1" value="#{serviceBean.services}"
+						emptyMessage="Pas de services"  border="1" paginator="true"
+				paginatorPosition="bottom"
+				paginatorTemplate=" {FirstPageLink} {PreviousPageLink} {PageLinks} 
+				              {NextPageLink} {LastPageLink}  "
+				rows="5"   >
+
+						<p:column width="20%">
+							<f:facet name="header">
+								<h:outputLabel value="Id" />
+							</f:facet>
+    #{service.idservice}
+</p:column>
+
+						<p:column>
+							<f:facet name="header">
+								<h:outputLabel value="Service" />
+							</f:facet>
+    #{service.designationSer}
+</p:column>
+
+
+
+
+						<p:column style="width:20%">
+							<p:commandButton
+								actionListener="#{serviceBean.modifierService(service)}"
+								update=":f1:f2:dlg"
+								oncomplete="PF('dialogmodif').show()" icon="ui-icon-pencil"
+								title="Modification" rendered="#{connectionBean.modifService}" />
+
+
+							<p:commandButton
+								actionListener="#{serviceBean.Supprimer(service.idservice)}"
+								icon="ui-icon-trash" title="Suppression Service" update=":f1:growl"
+								rendered="#{connectionBean.supService}">
+								<p:confirm header="Suppression Service"
+									message="Voulez-vous vraiment supprimer cette Service ?"
+									icon="ui-icon-alert" />
+							</p:commandButton>
+						</p:column>
+
+					</p:dataTable>
+				</div>
+
+				<p:confirmDialog global="true" showEffect="fade"
+					hideEffect="explode">
+					<p:commandButton value="Oui" service="button"
+						styleClass="ui-confirmdialog-yes" icon="ui-icon-check" />
+					<p:commandButton value="Non" service="button"
+						styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
+				</p:confirmDialog>
+
+				<h:form id="f2">
+					<p:dialog id="dlg" widgetVar="dialogmodif" modal="true" closable="false"
+						resizable="true" header="#{serviceBean.action} Service ">
+
+						<p:panel id="dialogmodif" >
+							<h:panelGrid columns="2" cellspacing="20px">
+								<p:outputLabel value="Service" />
+								<p:inputText value="#{serviceBean.designationSer}" id="sevce" />
+								<h:message for="sevce"/>
+
+							</h:panelGrid>
+
+
+							<h:panelGrid columns="2">
+								<p:commandButton value="Valider" icon="ui-icon-check"
+									actionListener="#{serviceBean.ajouterSevceApresValidation}" 
+									update=":f1:growl" 
+									oncomplete="handleLoginRequest(xhr, status, args)"/>
+								<p:commandButton value="Annuler"
+									icon="ui-icon-arrowreturnthick-1-n" 
+									onclick="PF('dialogmodif').hide();" />
+
+
+
+							</h:panelGrid>
+
+						</p:panel>
+
+
+					</p:dialog>
+				</h:form>
+				<script type="text/javascript">
+    function handleLoginRequest(xhr, status, args) {
+        if(args.validationFailed || !args.addValid) {
+            PF('dialogmodif').jq.effect("shake", {times:5}, 100);
+        }
+        else {
+            PF('dialogmodif').hide();
+            $('#loginLink').fadeOut();
+        }
+    }
+</script>
+          </p:panel>
+			</h:form>
+		</div>
+		<hr></hr>
+		<div align="center">DSI_2015(Développement Solution Informatique)</div>
+
+</h:body>
+</html>

@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-configuration PUBLIC "-//Hibernate/Hibernate Configuration DTD 3.0//EN"
+                                         "http://hibernate.sourceforge.net/hibernate-configuration-3.0.dtd">
+<hibernate-configuration>
+ <session-factory >
+  <property name="hibernate.connection.driver_class">com.mysql.jdbc.Driver</property>
+   <property name="hibernate.connection.password">root</property>
+  <property name="hibernate.connection.url">jdbc:mysql://localhost/sav</property>
+  <property name="hibernate.connection.username">root</property>
+  <property name="hibernate.dialect">org.hibernate.dialect.MySQLDialect</property>
+  <property name="hibernate.show_sql">false</property>
+  <property name="hibernate.transaction.factory_class">org.hibernate.transaction.JDBCTransactionFactory</property>
+  
+  <!--  		Drop and re-create the database schema on startup   -->
+  <property name="hbm2ddl.auto">update</property>
+  
+  
+  <property name="hibernate.current_session_context_class">thread</property>
+  
+  
+  <mapping  resource="com/sav/persistance/Client.hbm.xml"/>
+  <mapping  resource="com/sav/persistance/Appel.hbm.xml"/>
+  <mapping  resource="com/sav/persistance/Utilisateur.hbm.xml"/>
+  <mapping  resource="com/sav/persistance/Service.hbm.xml"/>
+  <mapping  resource="com/sav/persistance/Ville.hbm.xml"/>
+  <mapping  resource="com/sav/persistance/Fournisseur.hbm.xml"/>
+  <mapping  resource="com/sav/persistance/Machine.hbm.xml"/>
+  <mapping  resource="com/sav/persistance/Panne.hbm.xml"/>
+  <mapping  resource="com/sav/persistance/Tache.hbm.xml"/>
+  <mapping  resource="com/sav/persistance/Piece.hbm.xml"/>
+  <mapping  resource="com/sav/persistance/Accessoire.hbm.xml"/>
+  <mapping  resource="com/sav/persistance/Grade.hbm.xml"/>
+  <mapping  resource="com/sav/persistance/Type_four.hbm.xml"/>
+  <mapping  resource="com/sav/persistance/Type.hbm.xml"/>
+  <mapping  resource="com/sav/persistance/Marque.hbm.xml"/>
+  <mapping  resource="com/sav/persistance/Statut.hbm.xml"/>
+  <mapping  resource="com/sav/persistance/App_acc.hbm.xml"/>
+  <mapping  resource="com/sav/persistance/App_panne.hbm.xml"/>
+  <mapping  resource="com/sav/persistance/Etat.hbm.xml"/>
+  <mapping  resource="com/sav/persistance/App_stat.hbm.xml"/>
+  <mapping  resource="com/sav/persistance/Info_apl.hbm.xml"/>
+  <mapping  resource="com/sav/persistance/App_fil.hbm.xml"/>
+  <mapping  resource="com/sav/persistance/Fil_att.hbm.xml"/>
+  <mapping  resource="com/sav/persistance/Reparation.hbm.xml"/>
+  <mapping  resource="com/sav/persistance/Reg_tache.hbm.xml"/>
+  <mapping  resource="com/sav/persistance/Reg_piece.hbm.xml"/>
+  <mapping  resource="com/sav/persistance/Rep_Utl.hbm.xml"/>
+  <mapping  resource="com/sav/persistance/Detaille_Etat.hbm.xml"/>
+  <mapping  resource="com/sav/persistance/App_four.hbm.xml"/>
+  <mapping  resource="com/sav/persistance/MachHisto.hbm.xml"/>
+  <mapping  resource="com/sav/persistance/AplImp.hbm.xml"/>
+  <mapping  resource="com/sav/persistance/Diagnostique.hbm.xml"/>
+  <mapping  resource="com/sav/persistance/Diag_panne.hbm.xml"/>
+  
+ </session-factory>
+</hibernate-configuration>

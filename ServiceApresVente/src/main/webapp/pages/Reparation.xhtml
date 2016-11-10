@@ -1,0 +1,833 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:ui="http://java.sun.com/jsf/facelets">
+
+<h:head>
+	<title>Reparation</title>
+	<link rel="stylesheet" type="text/css" href="../css/styles.css"></link>
+</h:head>
+
+<h:body
+	style="background-image: url(../images/k11.jpg); background-repeat: no-repeat; background-size: cover;">
+	<p:graphicImage width="100%" value="/imageTitre/titreReparation.png"></p:graphicImage>
+	<br />
+
+	<h:form id="f1">
+
+		<p:growl id="growl" life="3000" />
+
+		<div align="left">
+			<h:panelGrid columns="2" cellspacing="5">
+				<h:outputLink value="Acceuil2.xhtml">
+					   <p:graphicImage value="/images/home3.png" ></p:graphicImage>
+		           </h:outputLink>
+				<h:commandLink action="Profile" actionListener="#{appelBean.initrep}">
+					<p:graphicImage value="/images/retourArr.png"></p:graphicImage>
+				</h:commandLink>
+			</h:panelGrid>
+		</div>
+		<div align="center">
+			<p:tabView id="tab">
+
+				<p:tab title="Fiche">
+					<div align="center">
+						<h:panelGrid columns="4">
+							<h:outputText value="N°Appel : " />
+							<p:inputText size="10" value="#{appelBean.idappel}" />
+							<h:outputText value="Date d'entrée: " />
+							<p:inputText value="#{appelBean.date_entre}" >
+							<f:convertDateTime pattern="dd/MM/yyyy HH:mm:ss"/>
+							</p:inputText>
+							
+						</h:panelGrid>
+					</div>
+					<br />
+					<p:tabView style="width:75%">
+
+						<p:tab title="Panne/Statut">
+							<div align="center">
+								<p:dataTable var="pann" id="p" value="#{appelBean.selectedpans}"
+									scrollable="true" scrollHeight="125"
+									emptyMessage="Auccune panne selectionnée" style="width:70%">
+									<p:column headerText="Pannes "
+										style="font-size:small;font-weight:bold">
+										<h:outputText style="font-size:small;font-weight:bold"
+											value="#{pann.designationPan}" />
+									</p:column>
+
+								</p:dataTable>
+								<p:fieldset legend="Statut" style="width:50%">
+									<p:selectManyCheckbox value="#{appelBean.selectedStats}">
+										<f:selectItems value="#{appelBean.stats}" var="stat"
+											itemLabel="#{stat.designationStat}"
+											itemValue="#{stat.designationStat}" />
+									</p:selectManyCheckbox>
+								</p:fieldset>
+							</div>
+						</p:tab>
+						<p:tab title="Machine">
+							<div align="center">
+								<h:panelGrid columns="2" cellspacing="10">
+									<h:outputText value="S/N : "
+										style="font-weight:bold;font-size:12pt" />
+									<h:outputText value="#{appelBean.mch.num_serie}" />
+									<h:outputText value="Type : "
+										style="font-weight:bold;font-size:12pt" />
+									<h:outputText value="#{appelBean.mch.type.designationType}" />
+									<h:outputText value="Marque : "
+										style="font-weight:bold;font-size:12pt" />
+									<h:outputText value="#{appelBean.mch.marque.designationMarq}" />
+									<h:outputText value="Model : "
+										style="font-weight:bold;font-size:12pt" />
+									<h:outputText value="#{appelBean.mch.model}" />
+								</h:panelGrid>
+							</div>
+						</p:tab>
+						
+						<p:tab title="Accessoire">
+							<p:selectManyCheckbox id="b" layout="grid" columns="3"
+								value="#{appelBean.selectedAccessoires}">
+								<f:selectItems value="#{appelBean.accs}" var="city"
+									itemLabel="#{city.designationAcc}"
+									itemValue="#{city.designationAcc}" />
+							</p:selectManyCheckbox>
+						</p:tab>
+						<p:tab title="Client">
+
+							<table width="60%" align="center">
+								<tr>
+									<td><h:panelGrid columns="2" cellspacing="5">
+											<h:outputText value="Type : "
+												style="font-weight:bold;font-size:12pt" />
+
+											<h:outputText value="#{appelBean.clt.type}" />
+
+											<h:outputText value="Client : "
+												style="font-weight:bold;font-size:12pt" />
+
+											<h:outputText value="#{appelBean.clt.nomclt}" />
+											
+
+
+											<h:outputText value="Contact : "
+												style="font-weight:bold;font-size:12pt" />
+
+											<h:outputText value="#{appelBean.clt.contact}" />
+											
+
+											<h:outputText value="Addresse: "
+												style="font-weight:bold;font-size:12pt" />
+											<h:outputText value="#{appelBean.clt.adrclt}" />
+											
+
+
+											<h:outputText value="Tel: "
+												style="font-weight:bold;font-size:12pt" />
+											<h:outputText value="#{appelBean.clt.telclt}" />
+										</h:panelGrid></td>
+
+
+									<td valign="top"><h:panelGrid columns="2" cellspacing="5">
+
+											<h:outputText value="Fax: "
+												style="font-weight:bold;font-size:12pt" />
+											<h:outputText value="#{appelBean.clt.faxclt}" />
+
+
+											<h:outputText value="GSM1: "
+												style="font-weight:bold;font-size:12pt" />
+											<h:outputText value="#{appelBean.clt.gsm1clt}" />
+											<h:outputText value="GSM2: "
+												style="font-weight:bold;font-size:12pt" />
+											<h:outputText value="#{appelBean.clt.gsm2clt}" />
+											
+
+
+
+											<h:outputText value="Mail: "
+												style="font-weight:bold;font-size:12pt" />
+											<h:outputText value="#{appelBean.clt.mailclt}" />
+										</h:panelGrid></td>
+								</tr>
+
+							</table>
+
+						</p:tab>
+						<p:tab title="Info Complémentaire">
+							<table width="100%" align="center">
+								<tr>
+
+									<td align="center"><h:panelGrid columns="2"
+											cellspacing="10" columnClasses="label, value">
+											<h:outputText
+												value="#{appelBean.infos.get(0).designationinfo_apl} "
+												rendered="#{appelBean.infos.get(0).activation}"
+												style="font-weight:bold;font-size:12pt" />
+											<h:outputText value="#{appelBean.info1}"
+												rendered="#{appelBean.infos.get(0).activation}" />
+
+											<h:outputText
+												value="#{appelBean.infos.get(1).designationinfo_apl} "
+												rendered="#{appelBean.infos.get(1).activation}"
+												style="font-weight:bold;font-size:12pt" />
+											<h:outputText value="#{appelBean.info2}"
+												rendered="#{appelBean.infos.get(1).activation}" />
+
+											<h:outputText
+												value="#{appelBean.infos.get(2).designationinfo_apl} "
+												rendered="#{appelBean.infos.get(2).activation}"
+												style="font-weight:bold;font-size:12pt" />
+											<h:outputText value="#{appelBean.info3}"
+												rendered="#{appelBean.infos.get(2).activation}" />
+
+											<h:outputText
+												value="#{appelBean.infos.get(3).designationinfo_apl} "
+												rendered="#{appelBean.infos.get(3).activation}"
+												style="font-weight:bold;font-size:12pt" />
+											<h:outputText value="#{appelBean.info4}"
+												rendered="#{appelBean.infos.get(3).activation}" />
+
+										</h:panelGrid></td>
+									<td align="center"><h:panelGrid columns="2"
+											columnClasses="label, value">
+											<h:outputText
+												value="#{appelBean.infos.get(4).designationinfo_apl} "
+												rendered="#{appelBean.infos.get(4).activation}"
+												style="font-weight:bold;font-size:12pt" />
+											<h:outputText value="#{appelBean.info5}"
+												rendered="#{appelBean.infos.get(4).activation}" />
+
+											<h:outputText
+												value="#{appelBean.infos.get(5).designationinfo_apl} "
+												rendered="#{appelBean.infos.get(5).activation}"
+												style="font-weight:bold;font-size:12pt" />
+											<h:outputText value="#{appelBean.info6}"
+												rendered="#{appelBean.infos.get(5).activation}" />
+
+											<h:outputText
+												value="#{appelBean.infos.get(6).designationinfo_apl} "
+												rendered="#{appelBean.infos.get(6).activation}"
+												style="font-weight:bold;font-size:12pt" />
+											<h:outputText value="#{appelBean.info7}"
+												rendered="#{appelBean.infos.get(6).activation}" />
+
+											<h:outputText
+												value="#{appelBean.infos.get(7).designationinfo_apl} "
+												rendered="#{appelBean.infos.get(7).activation}" />
+											<h:outputText value="#{appelBean.info8}"
+												rendered="#{appelBean.infos.get(7).activation}"
+												style="font-weight:bold;font-size:12pt" />
+
+										</h:panelGrid></td>
+									<td align="center"><h:panelGrid columns="2"
+											columnClasses="label, value">
+											<h:outputText
+												value="#{appelBean.infos.get(8).designationinfo_apl} "
+												rendered="#{appelBean.infos.get(8).activation}"
+												style="font-weight:bold;font-size:12pt" />
+											<h:outputText value="#{appelBean.info9}"
+												rendered="#{appelBean.infos.get(8).activation}" />
+
+											<h:outputText
+												value="#{appelBean.infos.get(9).designationinfo_apl} "
+												rendered="#{appelBean.infos.get(9).activation}"
+												style="font-weight:bold;font-size:12pt" />
+											<h:outputText value="#{appelBean.info10}"
+												rendered="#{appelBean.infos.get(9).activation}" />
+
+											<h:outputText
+												value="#{appelBean.infos.get(10).designationinfo_apl} "
+												rendered="#{appelBean.infos.get(10).activation}"
+												style="font-weight:bold;font-size:12pt" />
+											<h:outputText value="#{appelBean.info11}"
+												rendered="#{appelBean.infos.get(10).activation}" />
+
+											<h:outputText
+												value="#{appelBean.infos.get(11).designationinfo_apl} "
+												rendered="#{appelBean.infos.get(11).activation}"
+												style="font-weight:bold;font-size:12pt" />
+											<h:outputText value="#{appelBean.info12}"
+												rendered="#{appelBean.infos.get(11).activation}" />
+
+										</h:panelGrid></td>
+
+
+								</tr>
+							</table>
+						</p:tab>
+						<p:tab title="Observation">
+						<h:panelGrid columns="2">
+						<h:outputText value="Note : " style="font-weight:bold;font-size:12pt"/>			
+									<h:outputText 
+										value="#{appelBean.note}"  />
+										</h:panelGrid>
+						</p:tab>
+					</p:tabView>
+				</p:tab>
+				<p:tab title="Diagnostique" id="dg">
+				<div align="center">
+				  <p:panelGrid columns="2">
+				    <h:outputText value="Note : " />
+				    <p:inputTextarea style="height:90px;width:1190px"
+							value="#{appelBean.note_diag}" rows="5" maxlength="10"
+							autoResize="false" />
+				  </p:panelGrid>
+				</div>
+				<div align="center">
+										<table>
+											<tr>
+
+												<td align="left"><h:panelGrid columns="5">
+														<h:outputText value="Recherche: "
+															style="font-size:small;font-weight:bold" />
+														<p:inputText value="#{appelBean.valeurRecherchep}" />
+														<p:commandButton icon="ui-icon-search"
+															title="Recherche panne" update=":f1" />
+														<p:commandButton icon="ui-icon-refresh" title="Actualiser"
+															actionListener="#{appelBean.annulerRecherchep}"
+															update=":f1" />
+
+														<p:commandButton icon="ui-icon-plusthick" value="Nouveau"
+															actionListener="#{appelBean.ajouterPanne()}"
+															oncomplete="PF('dialogpanne').show()" rendered="#{connectionBean.nouvPanne}"
+															style="font-size:small;font-weight:bold" update=":f1:f2:dlgpn"/>
+													</h:panelGrid></td>
+												<td></td>
+											</tr>
+
+											<tr>
+												<td valign="top"><p:dataTable var="panne" id="tablepan"
+														value="#{appelBean.pannes}" paginator="true" border="1"
+														paginatorPosition="bottom"
+														paginatorTemplate=" {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} "
+														rows="5" selectionMode="single" 
+														selection="#{appelBean.selectedPan}" rowKey="#{panne.idpanne}">
+														<p:ajax event="rowDblselect"
+															listener="#{appelBean.onRowSelectDiagpan}" update=":f1:tab:p,tablepan" />
+														<p:column headerText="code"
+															style="font-size:small;font-weight:bold" width="11%">
+															<h:outputText value="#{panne.idpanne}"
+																style="font-size:small;font-weight:bold" />
+														</p:column>
+														<p:column headerText="Panne"
+															style="font-size:small;font-weight:bold">
+															<h:outputText value="#{panne.designationPan}"
+																style="font-size:small;font-weight:bold" />
+														</p:column>
+
+													</p:dataTable></td>
+
+												<td valign="top"><p:dataTable var="pann" id="p"
+														value="#{appelBean.selectedDiagpans}" scrollable="true"
+														scrollHeight="150" emptyMessage="Auccune panne selectionnée">
+														<p:column headerText="Pannes Selectionnées"
+															style="font-size:small;font-weight:bold">
+															<h:outputText value="#{pann.designationPan}"
+																style="font-size:small;font-weight:bold" />
+														</p:column>
+														<p:column width="9%">
+															<p:commandLink>
+																<p:ajax listener="#{appelBean.supPanne(pann)}"
+																	update=":f1:tab:p" />
+																<p:graphicImage url="/images/fermer.png" />
+															</p:commandLink>
+
+														</p:column>
+													</p:dataTable></td>
+											</tr>
+
+										</table>
+									</div>    
+				<div align="center">
+				  <p:panelGrid columns="2">
+				    <h:outputText value="Recumendation : " />
+				    <p:inputTextarea style="height:90px;width:1000px"
+							value="#{appelBean.recumendation}" rows="5" maxlength="10"
+							autoResize="false" />
+				  </p:panelGrid>
+				</div>
+				<div align="center">
+				  <br /> <br />
+				  <p:commandButton action="#{appelBean.enregisterDiag}" value="Enregister" 
+				                  oncomplete="PF('dialogeDiagVlid').show()"/>
+				</div>
+				</p:tab>
+				<p:tab title="Reparation" id="rep">
+					<table >
+						<tr>
+							<td width="23%" colspan="3"><h:panelGrid columns="2">
+									<h:outputText value="Note : " />
+									<p:inputTextarea style="height:90px;width:1190px"
+										value="#{appelBean.observation_rep}" rows="5" maxlength="10"
+										autoResize="false" />
+								</h:panelGrid>
+							</td>
+						</tr>
+						<tr>
+							<td align="right"><p:commandButton icon="ui-icon-plus"
+									oncomplete="PF('dialogliste').show()" update=":f1:f2:c"/></td>
+							<td align="right"><p:commandButton icon="ui-icon-plus"
+									oncomplete="PF('dialogpiece').show()" update=":f1:f2:p"/></td>
+						</tr>
+						<tr>
+							<td align="center" valign="top">
+							      <p:dataTable var="tache" id="tch" 
+									 emptyMessage="Auccune tache selectionnée" value="#{appelBean.regTachs}">
+									<p:column width="15%">
+										<f:facet name="header">
+											<h:outputLabel value="Id" />
+										</f:facet>
+										<h:outputText style="font-size:small;font-weight:bold"
+											value="#{tache.tache.idtache}" />
+
+									</p:column>
+									<p:column>
+										<f:facet name="header">
+											<h:outputLabel value="Tache" />
+										</f:facet>
+										<h:outputText style="font-size:small;font-weight:bold"
+											value="#{tache.tache.designationTach}" />
+
+									</p:column>
+
+									<p:column>
+										<f:facet name="header">
+											<h:outputLabel value="Prix" />
+										</f:facet>
+										<h:outputText style="font-size:small;font-weight:bold"
+											value="#{tache.tache.prixTach}" />
+
+									</p:column>
+									
+									<p:column>
+										<f:facet name="header">
+											<h:outputLabel value="Date début" />
+										</f:facet>
+										<h:outputText style="font-size:small;font-weight:bold"
+											value="#{tache.dateDebutTach}" >
+											<f:convertDateTime pattern="dd/MM/yyyy HH:mm:ss"/>
+										</h:outputText>
+
+									</p:column>
+
+									<p:column width="9%">
+										<p:commandLink>
+											<p:ajax listener="#{appelBean.supRegTach(tache)}" update=":f1:tab:rep" />
+											<p:graphicImage url="/images/fermer.png" />
+										</p:commandLink>
+
+									</p:column>
+								</p:dataTable>
+								<h:panelGrid >
+								<p:panel id="totaltachid">
+								
+								<h:outputText value="Total Tache : " />
+								<h:outputText value="#{appelBean.total_tache} " />
+								
+								</p:panel>
+								</h:panelGrid></td>
+							<td align="center" valign="top">
+							<p:dataTable var="piece" id="piec" 
+									 emptyMessage="Auccune piece selectionnée"
+									value="#{appelBean.pieces}" editable="true"  editMode="cell" >
+									<p:ajax event="cellEdit" listener="#{appelBean.onrowEdit}"/>
+									<p:column width="15%">
+										<f:facet name="header">
+											<h:outputLabel value="Id" />
+										</f:facet>
+										<h:outputText style="font-size:small;font-weight:bold"
+											value="#{piece.piece.idpiece}" />
+
+									</p:column>
+									<p:column>
+										<f:facet name="header">
+											<h:outputLabel value="Piece" />
+										</f:facet>
+										<h:outputText style="font-size:small;font-weight:bold"
+											value="#{piece.piece.designationPce}" />
+
+									</p:column>
+									
+									
+									<p:column headerText="Quantitée">
+									 <p:cellEditor>
+		               						<f:facet name="output"><h:outputText value="#{piece.qte}" /></f:facet>
+		            					   <f:facet name="input"><p:inputText  style="width:100%" value="#{appelBean.qte}" />
+		            					</f:facet>
+		       					    </p:cellEditor>
+									</p:column>
+									<p:column>
+										<f:facet name="header">
+											<h:outputLabel value="Prix" />
+										</f:facet>
+										<h:outputText style="font-size:small;font-weight:bold"
+											value="#{piece.piece.prixPce}" />
+									</p:column>
+									<p:column width="9%">
+										<p:commandLink>
+											<p:ajax listener="#{appelBean.supPiece(piece)}" update=":f1:tab:rep" />
+											<p:graphicImage url="/images/fermer.png" rendered="#{appelBean.supp}" />
+										</p:commandLink>
+
+									</p:column>
+								</p:dataTable>
+								<h:panelGrid id="pcetotalid" >
+								 <p:panel >
+								<h:outputText value="Total Piece : " />
+								<h:outputText value="#{appelBean.total_piece} " />
+								</p:panel>
+								</h:panelGrid></td>
+						</tr>
+						
+							<tr><td ></td></tr>	
+							<tr><td></td></tr>	
+							<tr><td></td></tr>	
+						<tr>
+							<td align="center" colspan="2">
+							<h:panelGrid>
+							<p:panel id="totalid">
+								<h:outputText value="Total Reparation : " />
+								<h:outputText value="#{appelBean.total_rep} " />
+							</p:panel>
+							</h:panelGrid>
+							</td>
+						</tr>
+					</table>
+					<h:panelGrid columns="2">
+						<p:commandButton value="Enregistrer" oncomplete="PF('dialogetat').show()"/>
+						
+					</h:panelGrid>
+				</p:tab>
+			
+			</p:tabView>
+
+			<h:form id="f2">
+
+				<p:dialog widgetVar="dialogliste" modal="true" 
+					resizable="true" width="60%" id="c" header="Liste Taches"
+					style="align:center">
+					<div align="center"></div>
+					<br />
+					<div align="center">
+						<h:panelGrid columns="5">
+							<h:outputText value="Recherche: " />
+							<p:inputText value="#{tacheBean.valeurRecherche}" />
+							<p:selectOneMenu id="recherche" filterMatchMode="startsWith"
+								value="#{tacheBean.attribut}" filter="true" effect="fade">
+								<f:selectItems value="#{tacheBean.listesRecherches}" var="jo"
+									itemLabel="#{jo.toString()}" itemValue="#{jo}" />
+
+							</p:selectOneMenu>
+							<p:commandButton icon="ui-icon-search" title="Recherche Tache"
+								oncomplete="PF('dialogliste').show()" update=":f1:f2:c" actionListener="#{appelBean.clearTachs}" />
+							<p:commandButton icon="ui-icon-refresh" title="Actualiser"
+								actionListener="#{tacheBean.annulerRecherche}" update=":f1:f2:c"
+								oncomplete="PF('dialogliste').show()" />
+						</h:panelGrid>
+					</div>
+					<h:panelGrid columns="2">
+						<p:dataTable var="tache" id="t" value="#{tacheBean.taches}"
+							selectionMode="multiple" selection="#{appelBean.tchs}"
+							rowKey="#{tache.idtache}" paginator="true"
+							paginatorPosition="bottom"
+							paginatorTemplate=" {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} "
+							rows="5" rowSelectMode="add" >
+							<p:ajax event="rowSelect"
+								listener="#{appelBean.onRowSelecttache}" />
+							<p:column headerText="Code"
+								style="font-size:small;font-weight:bold" width="1%">
+								<h:outputText value="#{tache.idtache}"
+									style="font-size:small;font-weight:bold" />
+							</p:column>
+							<p:column headerText="Tache"
+								style="font-size:small;font-weight:bold" width="3%">
+								<h:outputText value="#{tache.designationTach}"
+									style="font-size:small;font-weight:bold" />
+							</p:column>
+							<p:column headerText="Prix"
+								style="font-size:small;font-weight:bold" width="3%">
+								<h:outputText value="#{tache.prixTach}"
+									style="font-size:small;font-weight:bold" />
+							</p:column>
+
+						</p:dataTable>
+						<h:panelGrid columns="1">
+							<p:commandButton value="OK" update=":f1"
+								oncomplete="PF('dialogliste').hide()" actionListener="#{appelBean.select()}"/>
+							<p:commandButton value="Ajouter" icon="ui-icon-plusthick"
+								update=":f1:f2:dlg" oncomplete="PF('dialogmodif').show()"
+								actionListener="#{appelBean.ajouterTache()}" />
+							<p:commandButton value="Modifier" icon="ui-icon-pencil"
+								update=":f1:f2:dlg" actionListener="#{appelBean.modifierTache(appelBean.tchs.get(0))}" oncomplete="PF('dialogmodif').show()"/>
+						
+						</h:panelGrid>
+					</h:panelGrid>
+
+				</p:dialog>
+				<p:dialog id="dlg" widgetVar="dialogmodif" modal="true"
+					closable="false" resizable="true" header="#{appel.action} Tâche">
+
+					<p:panel id="dialogmodif">
+						<h:panelGrid columns="2" cellspacing="20px">
+							<p:outputLabel value="Tâche*: " />
+							<p:inputText value="#{appelBean.designationTach}" id="pro11" />
+
+							<p:outputLabel value="Prix: " />
+							<p:inputText value="#{appelBean.prixTach}" id="tach" />
+							<h:message for="tach" />
+
+						</h:panelGrid>
+
+						<h:panelGrid columns="2">
+							<p:commandButton value="Valider" icon="ui-icon-check"
+								actionListener="#{appelBean.ajouterTachApresValidation}"
+								update=":f1:growl"
+								oncomplete="handleLoginRequestTach(xhr, status, args)" />
+							<p:commandButton value="Annuler"
+								icon="ui-icon-arrowreturnthick-1-n" 
+								onclick="PF('dialogmodif').hide();"/>
+
+
+
+						</h:panelGrid>
+
+					</p:panel>
+				</p:dialog>
+				<p:dialog widgetVar="dialogpiece" modal="true" closable="true"
+					resizable="true" width="60%" id="p" header="Liste Pieces"
+					style="align:center">
+					<div align="center"></div>
+					<br />
+					<div align="center">
+						<h:panelGrid columns="5">
+							<h:outputText value="Recherche: " />
+							<p:inputText value="#{pieceBean.valeurRecherche}" />
+							<p:selectOneMenu id="rech" filterMatchMode="startsWith"
+								value="#{pieceBean.attribut}" filter="true" effect="fade">
+								<f:selectItems value="#{pieceBean.listesRecherches}" var="jo"
+									itemLabel="#{jo.toString()}" itemValue="#{jo}" />
+
+							</p:selectOneMenu>
+							<p:commandButton icon="ui-icon-search" title="Recherche Piece"
+								oncomplete="PF('dialogpiece').show()" update=":f1:f2:p" />
+							<p:commandButton icon="ui-icon-refresh" title="Actualiser"
+								actionListener="#{pieceBean.annulerRecherche}" update=":f1:f2:p"
+								oncomplete="PF('dialogpiece').show()" />
+						</h:panelGrid>
+					</div>
+
+
+
+
+					<h:panelGrid columns="2">
+						<p:dataTable var="piece" id="pi" value="#{pieceBean.pieces}"
+							selectionMode="multiple" selection="#{appelBean.piec}"
+							rowKey="#{piece.idpiece}" paginator="true"
+							paginatorPosition="bottom"
+							paginatorTemplate=" {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} "
+							rows="5" rowSelectMode="add" >
+							<p:ajax event="rowSelect"
+								listener="#{appelBean.onRowSelectpiece}" />
+							<p:column headerText="Code"
+								style="font-size:small;font-weight:bold" width="1%">
+								<h:outputText value="#{piece.idpiece}"
+									style="font-size:small;font-weight:bold" />
+							</p:column>
+							<p:column headerText="Piece"
+								style="font-size:small;font-weight:bold" width="3%">
+								<h:outputText value="#{piece.designationPce}"
+									style="font-size:small;font-weight:bold" />
+							</p:column>
+							<p:column headerText="Prix"
+								style="font-size:small;font-weight:bold" width="3%">
+								<h:outputText value="#{piece.prixPce}"
+									style="font-size:small;font-weight:bold" />
+							</p:column>
+
+						</p:dataTable>
+						<h:panelGrid columns="1">
+							<p:commandButton value="OK" update=":f1"
+								oncomplete="PF('dialogpiece').hide()" actionListener="#{appelBean.selectp()}"/>
+							<p:commandButton value="Ajouter" icon="ui-icon-plusthick"
+								update=":f1:f2:dlgp" oncomplete="PF('dialoajoutp').show()"
+								actionListener="#{appelBean.ajouterPiece()}" />
+							<p:commandButton value="Modifier" icon="ui-icon-pencil"
+								update=":f1:f2:dlgp" actionListener="#{appelBean.modifierPiece}" />
+						</h:panelGrid>
+					</h:panelGrid>
+
+				</p:dialog>
+
+				<p:dialog id="dlgp" widgetVar="dialoajoutp" modal="true"
+					closable="false" resizable="true"
+					header="#{appelBean.action} Pièce">
+
+					<p:panel id="dialoajoutp">
+						<h:panelGrid columns="2" cellspacing="20px">
+							<p:outputLabel value="Pièce*: " />
+							<p:inputText value="#{appelBean.designationPce}" id="pro16" />
+
+							<p:outputLabel value="Prix: " />
+							<p:inputText value="#{appelBean.prixPce}" id="pce" />
+							<h:message for="pce" />
+
+						</h:panelGrid>
+
+						<h:panelGrid columns="2">
+							<p:commandButton value="Valider" icon="ui-icon-check"
+								actionListener="#{appelBean.ajouterPceApresValidation}"
+								update=":f1:growl"
+								oncomplete="handleLoginRequestPiece(xhr, status, args)" />
+							<p:commandButton value="Annuler"
+								icon="ui-icon-arrowreturnthick-1-n" 
+								onclick="PF('dialogajoutp').hide();" />
+						</h:panelGrid>
+
+					</p:panel>
+
+
+				</p:dialog>
+				
+				<p:dialog id="dlgetat" widgetVar="dialogetat" modal="true"
+					closable="false" resizable="true"
+					header="Changer Etat">
+					<h:panelGrid columns="2">
+							<h:outputText value="Etat" />
+							<p:selectOneMenu id="filtrage" filterMatchMode="startsWith"
+								filter="true" effect="fade" value="#{appelBean.modif_etat}">
+								<f:selectItem itemLabel="--Selectionner--" />
+								<f:selectItems value="#{appelBean.etats}" var="jo"
+									itemLabel="#{jo.designationEtat}" itemValue="#{jo.idetat}" />
+									</p:selectOneMenu>
+									</h:panelGrid>
+									<br/>
+									<div align="center">
+										<p:commandButton value="Ok" actionListener="#{appelBean.enregistrer()}" oncomplete="PF('dialogetat').hide()"></p:commandButton>
+									</div>	
+					</p:dialog>
+				
+				<p:dialog id="dlgpn" widgetVar="dialogpanne" modal="true"
+				closable="false" header="#{appelBean.action} Panne" resizable="true"
+				width="50%">
+					<p:growl id="growl" life="3000"/>
+				<p:panel id="panel1">
+						<h:panelGrid columns="2" cellspacing="5%">
+							<p:outputLabel value="Panne" />
+							<p:inputText value="#{appelBean.designationPan}" id="pan" />
+							<p:outputLabel value="service" />
+							<h:panelGrid columns="2" cellspacing="10">
+								<p:selectOneMenu value="#{appelBean.idservice}" id="serv"
+									style="width:125px">
+									<f:selectItem itemLabel="----Selectioner----" itemValue=" " />
+									<f:selectItems value="#{appelBean.services}" var="ser"
+										itemLabel="#{ser.designationSer}" itemValue="#{ser.idservice}" />
+								</p:selectOneMenu>
+								<p:commandButton icon="ui-icon-plus"
+									oncomplete="PF('dialogser').show()" >
+									<p:ajax listener="#{appelBean.ajouterService()}" />
+								</p:commandButton>
+
+							</h:panelGrid>
+
+						</h:panelGrid>
+
+						<h:panelGrid columns="2">
+							<p:commandButton value="Valider" icon="ui-icon-check"
+								actionListener="#{appelBean.ajouterPanApresValidation}" update="f2:growl"
+								oncomplete="handleLoginRequestPan(xhr, status, args)" />
+							<p:commandButton value="Annuler"
+								icon="ui-icon-arrowreturnthick-1-n"
+								onclick="PF('dialogpanne').hide()"  actionListener="#{appelBean.initialisationPan}"/>
+						</h:panelGrid>
+
+					</p:panel>
+			</p:dialog>
+			
+			<p:dialog id="dlgser" widgetVar="dialogser" modal="true"
+				closable="false" resizable="true"
+				header="#{appelBean.action} Service ">
+
+				<p:panel id="dialogser">
+					<h:panelGrid columns="2" cellspacing="20px">
+						<p:outputLabel value="Service" />
+						<p:inputText value="#{appelBean.designationSer}" id="sevce"
+							required="false" requiredMessage="Le champ ne doit pas etre vide" />
+
+
+					</h:panelGrid>
+
+
+					<h:panelGrid columns="2">
+						<p:commandButton value="Valider" icon="ui-icon-check"
+							actionListener="#{appelBean.ajouterSevceApresValidation}"
+							 oncomplete="handleLoginRequest(xhr, status, args)"
+							onclick="PF('dialogpanne').show()" update=":f1:f2:growl,panel1">
+						</p:commandButton>
+
+						<p:commandButton value="Annuler"
+							icon="ui-icon-arrowreturnthick-1-n"
+							oncomplete="PF('dialogser').hide()"
+							onclick="PF('dialogpanne').show()">
+						</p:commandButton>
+					</h:panelGrid>
+				</p:panel>
+			</p:dialog>		
+			
+			<p:dialog widgetVar="dialogeDiagVlid" modal="true" 
+					resizable="true" width="60%" id="dg" header="Confirmation"
+					style="align:center">
+					<div align="center">
+					   <h:outputText value="Voulez vous valider le diagnostique d'une manière definitif?" />
+					</div>
+					<div align="center">
+					  <h:panelGrid columns="2">
+					     <p:commandButton value="Oui" action="#{appelBean.validerDiag}"></p:commandButton>
+					     <p:commandButton value="Nom"  oncomplete="PF('dialogeDiagVlid').hide()" ></p:commandButton>
+					  </h:panelGrid>
+					</div>
+			</p:dialog>
+			</h:form>
+			<script type="text/javascript">
+      function handleLoginRequestTach(xhr, status, args) {
+        if(args.validationFailed || !args.addValid) {
+            PF('dialogmodif').jq.effect("shake", {times:5}, 100);
+        }
+        else {
+            PF('dialogmodif').hide();
+            $('#loginLink').fadeOut();
+        }
+    }
+
+      function handleLoginRequestPiece(xhr, status, args) {
+          if(args.validationFailed || !args.addValid) {
+              PF('dialogajoutp').jq.effect("shake", {times:5}, 100);
+          }
+          else {
+              PF('dialogajoutp').hide();
+              $('#loginLink').fadeOut();
+          }
+      }
+</script>
+
+		</div><hr></hr>
+	<div align="center">DSI_2015(Développement Solution Informatique)</div>
+		
+		
+	</h:form>
+	
+
+
+	<style type="text/css">
+.azert {
+	background-color: transparent;
+}
+</style>
+</h:body>
+</html>
+
+

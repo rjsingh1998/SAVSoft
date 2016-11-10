@@ -1,0 +1,43 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated 25 aout. 2015 15:05:41 by Hibernate Tools 3.4.0.CR1 -->
+<hibernate-mapping>
+	<class name="com.sav.persistance.MachHisto" table="machhisto"
+		catalog="sav">
+
+		<id name="idMachHisto" type="java.lang.Integer">
+			<column name="idMachHisto" />
+			<generator class="increment" />
+		</id>
+        <property name="type" type="string">
+			<column name="type" length="45" />
+		</property>
+		
+		<property name="user" type="string">
+			<column name="user" length="45" />
+		</property>
+		
+		<property name="service" type="string">
+			<column name="service" length="45" />
+		</property>
+		
+		<property name="statut" type="string">
+			<column name="statut" length="45" />
+		</property>
+		
+		
+		
+		<property name="date" type="java.util.Date">
+			<column name="date" sql-type="DATETIME"/>
+		</property>
+		
+		<property name="idapl" type="java.lang.Integer">
+			<column name="idapl"  />
+		</property>
+		
+		<property name="qte" type="java.lang.Integer">
+			<column name="qte"  />
+		</property>
+	</class>
+	</hibernate-mapping>	

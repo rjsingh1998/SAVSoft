@@ -1,0 +1,40 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated 22 janv. 2015 15:05:41 by Hibernate Tools 3.4.0.CR1 -->
+<hibernate-mapping>
+	<class name="com.sav.persistance.Service" table="service"
+		catalog="sav">
+
+		<id name="idservice" type="java.lang.Integer">
+			<column name="idservice" />
+			<generator class="increment" />
+		</id>
+
+		<property name="designationSer" type="string">
+			<column name="designationSer" length="45" />
+		</property>
+		
+
+		
+		<set name="pannes" table="panne" inverse="true" lazy="true" fetch="select">
+			<key>
+				<column name="idservice" precision="2" scale="0" not-null="true" />
+			</key>
+			<one-to-many class="com.sav.persistance.Panne" />
+		</set>
+		<set name="fils_att" table="fil_att" inverse="true" lazy="true" fetch="select">
+			<key>
+				<column name="idservice" precision="2" scale="0" not-null="true" />
+			</key>
+			<one-to-many class="com.sav.persistance.Fil_att" />
+		</set>
+		<set name="utilisateurs" table="utilisateur" inverse="true" lazy="true" fetch="select">
+			<key>
+				<column name="idservice"   />
+			</key>
+			<one-to-many class="com.sav.persistance.Utilisateur" />
+		</set>
+		
+	</class>
+</hibernate-mapping>

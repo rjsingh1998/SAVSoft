@@ -1,0 +1,27 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated 22 janv. 2015 15:05:41 by Hibernate Tools 3.4.0.CR1 -->
+<hibernate-mapping>
+	<class name="com.sav.persistance.Accessoire" table="accessoire"
+		catalog="sav">
+
+		<id name="idaccessoire" type="java.lang.Integer">
+			<column name="idaccessoire" />
+			<generator class="increment" />
+		</id>
+
+		<property name="designationAcc" type="string">
+			<column name="designationAcc" length="45" />
+		</property>
+		
+
+		 <set name="app_accs" table="app_acc" inverse="true" lazy="true" fetch="select">
+			<key>
+				<column name="idaccessoire"  />
+			</key>
+			<one-to-many class="com.sav.persistance.App_acc" />
+		</set>
+		
+	</class>
+</hibernate-mapping>

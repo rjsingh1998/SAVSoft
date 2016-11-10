@@ -1,0 +1,387 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:ui="http://java.sun.com/jsf/facelets">
+
+<h:head>
+	<title>Liste machines</title>
+	<link rel="stylesheet" type="text/css" href="../css/styles.css"></link>
+</h:head>
+<h:body
+	style="background-image: url(../images/k11.jpg); background-repeat: no-repeat; background-size: cover;">
+	<p:graphicImage width="100%" value="/imageTitre/titreListeMachine.png"></p:graphicImage>
+	<br />
+
+
+	<div align="center">
+		<h:form id="f1">
+			<div align="left">
+				<h:panelGrid columns="2" cellspacing="5">
+					<h:outputLink value="Acceuil2.xhtml">
+						<p:graphicImage value="/images/home3.png"></p:graphicImage>
+					</h:outputLink>
+
+
+					<h:commandLink actionListener="#{machineBean.viewListeMachine}"
+						target="_blanc">
+						<p:graphicImage value="/images/PDF.png"></p:graphicImage>
+					</h:commandLink>
+				</h:panelGrid>
+			</div>
+
+
+
+			<p:panel>
+				<p:growl id="growl" life="3000" />
+				<br />
+
+				<div align="center">
+					<h:panelGrid columns="5">
+						<h:outputText value="Recherche: " />
+						<p:inputText value="#{machineBean.valeurRecherche}" />
+
+
+						<p:selectOneMenu id="recherche" filterMatchMode="startsWith"
+							value="#{machineBean.attribut}" filter="true" effect="fade">
+							<p:ajax event="change" listener="#{machineBean.onselectchange}"
+								update=":f1" />
+							<f:selectItems value="#{machineBean.listesRecherches}" var="jo"
+								itemLabel="#{jo.toString()}" itemValue="#{jo}" />
+
+						</p:selectOneMenu>
+
+
+						<p:commandButton icon="ui-icon-search" title="Recherche Machine"
+							update=":f1" />
+						<p:commandButton icon="ui-icon-refresh" title="Actualiser"
+							actionListener="#{machineBean.annulerRecherche}" update=":f1" />
+					</h:panelGrid>
+				</div>
+
+
+				<h:panelGroup id="listetype">
+					<p:selectOneMenu value="#{machineBean.valtype}"
+						disabled="#{machineBean.actiftype}" style="width:140px">
+						<p:ajax event="change" listener="#{machineBean.onTypeChange}"
+							update=":f1"></p:ajax>
+						<f:selectItem itemLabel="--Selectioner--" itemValue=" " />
+						<f:selectItems value="#{machineBean.types}" var="tpe"
+							itemLabel="#{tpe.designationType}"
+							itemValue="#{tpe.designationType}" />
+					</p:selectOneMenu>
+				</h:panelGroup>
+
+				<h:panelGroup id="listemarque">
+					<p:selectOneMenu value="#{machineBean.valmarque}"
+						disabled="#{machineBean.actifmarque}" style="width:140px">
+						<p:ajax event="change" listener="#{machineBean.onMarqueChange}"
+							update=":f1"></p:ajax>
+						<f:selectItem itemLabel="--Selectioner--" itemValue="" />
+						<f:selectItems value="#{machineBean.marques}" var="mqe"
+							itemLabel="#{mqe.designationMarq}"
+							itemValue="#{mqe.designationMarq}" />
+					</p:selectOneMenu>
+				</h:panelGroup>
+
+
+				<div style="width: 70%">
+					<div align="right">
+						<h:panelGrid columns="2">
+							<p:commandButton value="Nouveau" icon="ui-icon-plusthick"
+								style="font-size:small;font-weight:bold"
+								oncomplete="PF('dialogmodif').show()" update=":f2:f3:dlg"
+								rendered="#{connectionBean.nouvMachine}">
+								<p:ajax listener="#{machineBean.ajouterMachine()}"></p:ajax>
+							</p:commandButton>
+						</h:panelGrid>
+					</div>
+
+					<p:dataTable var="machine" id="f1" value="#{machineBean.machines}"
+						emptyMessage="Pas de machines" border="1" paginator="true"
+						paginatorPosition="bottom"
+						paginatorTemplate=" {FirstPageLink} {PreviousPageLink} {PageLinks} 
+				        {NextPageLink} {LastPageLink}  "
+						rows="5">
+
+						<p:column width="20%">
+							<f:facet name="header">
+								<h:outputLabel value="N° serie" />
+							</f:facet>
+							<h:outputText value="#{machine.num_serie}"
+								style="font-size:small;font-weight:bold" />
+
+						</p:column>
+
+						<p:column headerText="Type" style="width:20%">
+							<h:outputText value="#{machine.type.designationType}"
+								style="font-size:small;font-weight:bold" />
+						</p:column>
+
+						<p:column headerText="Marque" style="width:20%">
+							<h:outputText value="#{machine.marque.designationMarq}"
+								style="font-size:small;font-weight:bold" />
+						</p:column>
+
+						<p:column width="20%">
+							<f:facet name="header">
+								<h:outputLabel value="Model" />
+							</f:facet>
+							<h:outputText value="#{machine.model}"
+								style="font-size:small;font-weight:bold" />
+						</p:column>
+
+						<p:column style="width:18%">
+							<p:commandButton
+								actionListener="#{machineBean.modifierMachine(machine)}"
+								oncomplete="PF('dialogmodif').show()" update=":f2:f3:dlg"
+								icon="ui-icon-pencil" title="Modification"
+								rendered="#{connectionBean.modifMachine}" />
+
+
+							<p:commandButton
+								actionListener="#{machineBean.supprimer(machine.idmachine)}"
+								icon="ui-icon-trash" title="Suppression Machine"
+								update=":f1:growl" rendered="#{connectionBean.supMachine}">
+								<p:confirm header="Suppression Machine"
+									message="Voulez-vous vraiment supprimer cette Machine ?"
+									icon="ui-icon-alert" />
+							</p:commandButton>
+
+							<p:commandButton
+								actionListener="#{machineBean.historiqueMach(machine.idmachine)}"
+								oncomplete="PF('dialogHis').show()" update=":f2:dlghis"
+								icon="ui-icon-document" title="Historique" />
+						</p:column>
+					</p:dataTable>
+				</div>
+
+				<p:confirmDialog global="true" showEffect="fade"
+					hideEffect="explode">
+					<p:commandButton value="Oui" type="button"
+						styleClass="ui-confirmdialog-yes" icon="ui-icon-check" />
+					<p:commandButton value="Non" type="button"
+						styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
+				</p:confirmDialog>
+			</p:panel>
+		</h:form>
+
+
+		<h:form id="f2">
+			<p:growl id="growl" life="3000" />
+			<h:form id="f3">
+				<p:growl id="growl" life="3000" />
+				
+				<p:dialog id="dlg" widgetVar="dialogmodif" modal="true"
+					closable="false" resizable="true"
+					header="#{machineBean.action} Machine">
+					<p:panel style="width:100%" id="panel1">
+						
+					  <h:panelGrid columns="2" cellspacing="6" cellpadding="5">
+						
+							<p:outputLabel value="N°serie* " />
+							<p:inputText value="#{machineBean.num_serie}"/>
+							<p:outputLabel value="Type* " />
+						    <h:panelGrid columns="2" cellspacing="5">
+							  <p:selectOneMenu value="#{machineBean.idtype}"
+								style="width:155px">
+								<f:selectItem itemLabel="----Selectioner----" itemValue="" />
+								<f:selectItems value="#{machineBean.types}" var="tpe"
+									itemLabel="#{tpe.designationType}" itemValue="#{tpe.idtype}" />
+							  </p:selectOneMenu>
+							  <p:commandButton icon="ui-icon-plus"
+								oncomplete="PF('dialogmodif1').show()">
+								<p:ajax listener="#{machineBean.ajouterType}" update=":f2:f3:dlg1" />
+							  </p:commandButton>
+						   </h:panelGrid>
+						   <p:outputLabel value="Marque* " />
+						   <h:panelGrid columns="2" cellspacing="5">
+							 <p:selectOneMenu value="#{machineBean.idmarque}"
+									style="width:155px">
+									<f:selectItem itemLabel="----Selectioner----" itemValue="" />
+									<f:selectItems value="#{machineBean.marques}" var="mqe"
+										itemLabel="#{mqe.designationMarq}" itemValue="#{mqe.idmarque}" />
+								</p:selectOneMenu>
+								<p:commandButton icon="ui-icon-plus"
+									oncomplete="PF('dialogmodif2').show()">
+									<p:ajax listener="#{machineBean.ajouterMarque}"
+										update=":f2:f3:dlg2" />
+								</p:commandButton>
+						</h:panelGrid>
+							<p:outputLabel value="Model " />
+							<p:inputText value="#{machineBean.model}" />
+						</h:panelGrid>
+						
+						<h:panelGrid columns="2">
+							<p:commandButton value="Valider" icon="ui-icon-check"
+								actionListener="#{machineBean.ajoutermachApresValidation}"
+								update=":f2:f3:growl"
+								oncomplete="handleLoginRequest(xhr, status, args)" />
+							<p:commandButton value="Annuler"
+								icon="ui-icon-arrowreturnthick-1-n"
+								onclick="PF('dialogmodif').hide()" />
+
+						</h:panelGrid>
+
+
+					</p:panel>
+				</p:dialog>
+			
+            
+			    <p:dialog id="dlg2" widgetVar="dialogmodif2" modal="true"
+				closable="false" resizable="true"
+				header="#{machineBean.action} Marque">
+				<p:panel id="dialogmodif2">
+					<h:panelGrid columns="2" cellspacing="20px">
+						<p:outputLabel value="Marque* " />
+						<p:inputText value="#{machineBean.designationMarq}" id="pro11" />
+					</h:panelGrid>
+					<h:panelGrid columns="2">
+							<p:commandButton value="Valider" icon="ui-icon-check"
+								actionListener="#{machineBean.ajouterMrqApresValidation}"
+								update=":f2:growl,:f2:f3:panel1"
+								onclick="PF('dialogmodif').show()" />
+							<p:commandButton value="Annuler"
+								icon="ui-icon-arrowreturnthick-1-n"
+								onclick="PF('dialogmodif2').hide()" />
+						</h:panelGrid>
+				</p:panel>
+			</p:dialog>
+           
+            
+			<p:dialog id="dlg1" widgetVar="dialogmodif1" modal="true"
+				closable="false" resizable="true"
+				header="#{machineBean.action} Type">
+				<p:panel id="dialogmodif1">
+					<h:panelGrid columns="2" cellspacing="20px">
+						<p:outputLabel value="Type* " />
+						<p:inputText value="#{machineBean.designationType}" id="pro19" />
+					</h:panelGrid>
+                    <h:panelGrid columns="2">
+							<p:commandButton value="Valider" icon="ui-icon-check"
+								actionListener="#{machineBean.ajouterTypmachApresValidation}"
+								update=":f2:growl,:f2:f3:panel1"
+								onclick="PF('dialogmodif').show()" />
+							<p:commandButton value="Annuler"
+								icon="ui-icon-arrowreturnthick-1-n"
+								onclick="PF('dialogmodif1').hide()" />
+					</h:panelGrid>
+
+
+				</p:panel>
+
+
+			</p:dialog>
+           </h:form>
+			<p:dialog id="dlghis" widgetVar="dialogHis" modal="true"
+				resizable="true" header="Historique Machine">
+				<h:commandLink actionListener="#{machineBean.viewHistoMachine}"
+					target="_blanc">
+					<p:graphicImage value="/images/PDF.png"></p:graphicImage>
+				</h:commandLink>
+				<p:panel style="width:100%" id="panelhisto">
+					<h:panelGrid columns="8" cellpadding="3" cellspacing="5">
+						<p:outputLabel value="N°serie: " />
+						<p:inputText value="#{machineBean.num_serie}" />
+
+						<p:outputLabel value="Type: " />
+						<p:inputText value="#{machineBean.typeMach}" />
+
+						<p:outputLabel value="Marque: " />
+						<p:inputText value="#{machineBean.marqueMach}" />
+
+						<p:outputLabel value="Model: " />
+						<p:inputText value="#{machineBean.model}" />
+					</h:panelGrid>
+					<br />
+					<br />
+					<p:dataTable var="machHis" id="tabhis"
+						value="#{machineBean.machHistos}" emptyMessage="Pas de historique"
+						border="1" paginator="true" paginatorPosition="bottom"
+						paginatorTemplate=" {FirstPageLink} {PreviousPageLink} {PageLinks} 
+				        {NextPageLink} {LastPageLink}  "
+						rows="10" sortBy="#{machHis.idapl}" sortOrder="descending">
+
+						<p:column width="20%">
+							<f:facet name="header">
+								<h:outputLabel value="Date" />
+							</f:facet>
+							<h:outputText value="#{machHis.date}"
+								style="font-size:small;font-weight:bold" />
+
+						</p:column>
+						<p:column width="20%">
+							<f:facet name="header">
+								<h:outputLabel value="Type" />
+							</f:facet>
+							<h:outputText value="#{machHis.type}"
+								style="font-size:small;font-weight:bold" />
+						</p:column>
+
+						<p:column width="20%">
+							<f:facet name="header">
+								<h:outputLabel value="Quantité" />
+							</f:facet>
+							<h:outputText value="#{machHis.qte}"
+								style="font-size:small;font-weight:bold" />
+						</p:column>
+
+						<p:column width="20%">
+							<f:facet name="header">
+								<h:outputLabel value="Utiisateur" />
+							</f:facet>
+							<h:outputText value="#{machHis.user}"
+								style="font-size:small;font-weight:bold" />
+						</p:column>
+
+						<p:column width="20%">
+							<f:facet name="header">
+								<h:outputLabel value="Service" />
+							</f:facet>
+							<h:outputText value="#{machHis.service}"
+								style="font-size:small;font-weight:bold" />
+						</p:column>
+
+						<p:column width="20%">
+							<f:facet name="header">
+								<h:outputLabel value="Statuts" />
+							</f:facet>
+							<h:outputText value="#{machHis.statut}"
+								style="font-size:small;font-weight:bold" />
+						</p:column>
+
+						<p:summaryRow>
+							<p:column colspan="6" style="text-align:right">
+								<h:outputText value="  " />
+							</p:column>
+						</p:summaryRow>
+					</p:dataTable>
+				</p:panel>
+
+			</p:dialog>
+
+             
+			<script type="text/javascript">
+					function handleLoginRequest(xhr, status, args) {
+						if (args.validationFailed || !args.addValid) {
+							PF('dialogmodif').jq.effect("shake", {
+								times : 5
+							}, 100);
+						} else {
+							PF('dialogmodif').hide();
+							$('#loginLink').fadeOut();
+						}
+					}
+				</script>
+		</h:form>
+
+	</div>
+	<hr></hr>
+	<div align="center">DSI_2015(Développement Solution Informatique)</div>
+
+</h:body>
+
+</html>

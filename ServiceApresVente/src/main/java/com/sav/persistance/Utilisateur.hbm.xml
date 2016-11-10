@@ -1,0 +1,387 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated 22 janv. 2015 15:05:41 by Hibernate Tools 3.4.0.CR1 -->
+<hibernate-mapping>
+	<class name="com.sav.persistance.Utilisateur" table="utilisateur"
+		catalog="sav">
+
+		<id name="idutilisateur" type="java.lang.Integer">
+			<column name="idutilisateur" />
+			<generator class="increment" />
+		</id>
+
+		<property name="nomUtl" type="string">
+			<column name="nomUtl" length="45" />
+		</property>
+		<property name="prenomUtl" type="string">
+			<column name="prenomUtl" length="45" />
+		</property>
+		<property name="mailUtl" type="string">
+			<column name="mailUtl" length="45" />
+		</property>
+		<property name="adrUtl" type="string">
+			<column name="adrUtl" length="45" />
+		</property>
+
+		<property name="gsm1Utl" type="string">
+			<column name="gsm1Utl" length="45" />
+		</property>
+		
+		
+		<property name="gsm2Utl" type="string">
+			<column name="gsm2Utl" length="45" />
+		</property>
+		
+		<property name="telUtl" type="string">
+			<column name="telUtl" length="45" />
+		</property>
+		
+		<property name="cinUtl" type="string">
+			<column name="cinUtl" length="45" />
+		</property>
+		<property name="login" type="string">
+			<column name="login" length="45" />
+		</property>
+		<property name="motPass" type="string">
+			<column name="motPass" length="45" />
+		</property>
+		
+		 <property name="passif" type="boolean">
+            <column name="passif" length="1" not-null="true" default="false" />
+        </property>
+        
+        <property name="actif" type="boolean" >
+            <column name="actif" length="1" not-null="true" />
+        </property>
+		
+		<many-to-one name="grade" class="com.sav.persistance.Grade" fetch="select">
+			<column name="idGrade"  />
+		</many-to-one>
+		
+		<many-to-one name="ville" class="com.sav.persistance.Ville" fetch="select">
+			<column name="idville"  />
+		</many-to-one>
+		<many-to-one name="service" class="com.sav.persistance.Service" fetch="select">
+			<column name="idservice"  />
+		</many-to-one>
+		
+		
+		<property name="gestTypFour" type="boolean">
+            <column name="gestTypFour" length="1" not-null="true" default="false" />
+        </property>
+        
+        <property name="gestTypMach" type="boolean">
+            <column name="gesTtypMach" length="1" not-null="true" default="false" />
+        </property>
+        
+        <property name="gestMarq" type="boolean">
+            <column name="gestMarq" length="1" not-null="true" default="false" />
+        </property>
+        
+        <property name="gestGrade" type="boolean">
+            <column name="gestGrade" length="1" not-null="true" default="false" />
+        </property>
+        
+        <property name="gestVil" type="boolean">
+            <column name="gestVil" length="1" not-null="true" default="false" />
+        </property>
+        
+        <property name="gestSrvc" type="boolean">
+            <column name="gestSrvc" length="1" not-null="true" default="false" />
+        </property>
+        
+        <property name="gestStatut" type="boolean">
+            <column name="gestStatut" length="1" not-null="true" default="false" />
+        </property>
+        
+        
+		<property name="gestEtat" type="boolean">
+            <column name="gestEtat" length="1" not-null="true" default="false" />
+        </property>
+		
+		<property name="gestClt" type="string">
+			<column name="gestClt" length="1" />
+		</property>
+		
+		<property name="gestUtl" type="string">
+			<column name="gestUtl" length="1" />
+		</property>
+		
+		<property name="gestFour" type="string">
+			<column name="gestFour" length="1" />
+		</property>
+		
+		<property name="gestMach" type="string">
+			<column name="gestMach" length="1" />
+		</property>
+		
+		<property name="gestPan" type="string">
+			<column name="gestPan" length="1" />
+		</property>
+		
+		<property name="gestTach" type="string">
+			<column name="gestTach" length="1" />
+		</property>
+		
+		<property name="gestPce" type="string">
+			<column name="gestPce" length="1" />
+		</property>
+		
+		<property name="gestAcc" type="string">
+			<column name="gestAcc" length="1" />
+		</property>
+		
+		<property name="modifClt" type="string">
+			<column name="modifClt" length="1" />
+		</property>
+		
+		<property name="nouvClt" type="string">
+			<column name="nouvClt" length="1" />
+		</property>
+		
+		<property name="supClt" type="string">
+			<column name="supClt" length="1" />
+		</property>
+			
+			<property name="modifTypFour" type="string">
+			<column name="modifTypFour" length="1" />
+		</property>
+		
+		<property name="nouvTypFour" type="string">
+			<column name="nouvTypFour" length="1" />
+		</property>
+		
+		<property name="supTypFour" type="string">
+			<column name="supTypFour" length="1" />
+		</property>
+			
+			
+			<property name="modifTyp" type="string">
+			<column name="modifTyp" length="1" />
+		</property>
+		
+		<property name="nouvTyp" type="string">
+			<column name="nouvTyp" length="1" />
+		</property>
+		
+		<property name="supTyp" type="string">
+			<column name="supTyp" length="1" />
+		</property>
+			
+			
+			<property name="modifVil" type="string">
+			<column name="modifVil" length="1" />
+		</property>
+		
+		<property name="nouvVil" type="string">
+			<column name="nouvVil" length="1" />
+		</property>
+		
+		<property name="supVil" type="string">
+			<column name="supVil" length="1" />
+		</property>	
+		
+		
+			<property name="modifMqe" type="string">
+			<column name="modifMqe" length="1" />
+		</property>
+		
+		<property name="nouvMqe" type="string">
+			<column name="nouvMqe" length="1" />
+		</property>
+		
+		<property name="supMqe" type="string">
+			<column name="supMqe" length="1" />
+		</property>	
+		
+		
+			<property name="modifSer" type="string">
+			<column name="modifSer" length="1" />
+		</property>
+		
+		<property name="nouvSer" type="string">
+			<column name="nouvSer" length="1" />
+		</property>
+		
+		<property name="supSer" type="string">
+			<column name="supSer" length="1" />
+		</property>	
+		
+		
+		<property name="modifStat" type="string">
+			<column name="modifStat" length="1" />
+		</property>
+		
+		<property name="nouvStat" type="string">
+			<column name="nouvStat" length="1" />
+		</property>
+		
+		<property name="supStat" type="string">
+			<column name="supStat" length="1" />
+		</property>	
+		
+		
+		<property name="modifGde" type="string">
+			<column name="modifGde" length="1" />
+		</property>
+		
+		<property name="nouvGde" type="string">
+			<column name="nouvGde" length="1" />
+		</property>
+		
+		<property name="supGde" type="string">
+			<column name="supGde" length="1" />
+		</property>	
+		
+				<property name="modifFour" type="string">
+			<column name="modifFour" length="1" />
+		</property>
+		
+		<property name="nouvFour" type="string">
+			<column name="nouvFour" length="1" />
+		</property>
+		
+		<property name="supFour" type="string">
+			<column name="supFour" length="1" />
+		</property>
+		
+			<property name="modifMach" type="string">
+			<column name="modifMach" length="1" />
+		</property>
+		
+		<property name="nouvMach" type="string">
+			<column name="nouvMach" length="1" />
+		</property>
+		
+		<property name="supMach" type="string">
+			<column name="supMach" length="1" />
+		</property>
+		
+		<property name="modifPan" type="string">
+			<column name="modifPan" length="1" />
+		</property>
+		
+		<property name="nouvPan" type="string">
+			<column name="nouvPan" length="1" />
+		</property>
+		
+		<property name="supPan" type="string">
+			<column name="supPan" length="1" />
+		</property>
+		
+		<property name="modifTach" type="string">
+			<column name="modifTach" length="1" />
+		</property>
+		
+		<property name="nouvTach" type="string">
+			<column name="nouvTach" length="1" />
+		</property>
+		
+		<property name="supTach" type="string">
+			<column name="supTach" length="1" />
+		</property>
+		
+		<property name="modifPce" type="string">
+			<column name="modifPce" length="1" />
+		</property>
+		
+		<property name="nouvPce" type="string">
+			<column name="nouvPce" length="1" />
+		</property>
+		
+		<property name="supPce" type="string">
+			<column name="supPce" length="1" />
+		</property>
+		
+		<property name="modifAcc" type="string">
+			<column name="modifAcc" length="1" />
+		</property>
+		
+		<property name="nouvAcc" type="string">
+			<column name="nouvAcc" length="1" />
+		</property>
+		
+		<property name="supAcc" type="string">
+			<column name="supAcc" length="1" />
+		</property>
+		
+		
+		<property name="gestApl" type="boolean">
+            <column name="gestApl" length="1" not-null="true" default="false" />
+        </property>
+        
+        <property name="parametrage" type="boolean">
+            <column name="parametrage" length="1" not-null="true" default="false" />
+        </property>
+        
+        <property name="filAtt" type="boolean">
+            <column name="filAtt" length="1" not-null="true" default="false" />
+        </property>
+        
+        <property name="calender" type="boolean">
+            <column name="calender" length="1" not-null="true" default="false" />
+        </property>
+        
+        <property name="profil" type="boolean">
+            <column name="profil" length="1" not-null="true" default="false" />
+        </property>
+        
+        <property name="config" type="boolean">
+            <column name="config" length="1" not-null="true" default="false" />
+        </property>
+		
+		
+		<property name="ajoutApl" type="boolean">
+            <column name="ajoutApl" length="1"  default="false" />
+        </property>
+        
+        <property name="modifApl" type="boolean">
+            <column name="modifApl" length="1"  default="false" />
+        </property>
+        
+        <property name="detApl" type="boolean">
+            <column name="detApl" length="1"  default="false" />
+        </property>
+        
+        <property name="supApl" type="boolean">
+            <column name="supApl" length="1"  default="false" />
+        </property>
+        
+        <property name="changEtaApl" type="boolean">
+            <column name="changEtaApl" length="1"  default="false" />
+        </property>
+        
+		<property name="envAplChezFour" type="boolean">
+            <column name="envAplChezFour" length="1"  default="false" />
+        </property>
+        <property name="recoiAplDeFour" type="boolean">
+            <column name="recoiAplDeFour" length="1"  default="false" />
+        </property>
+        
+        <property name="detEatApl" type="boolean">
+            <column name="detEatApl" length="1"  default="false" />
+        </property>
+        
+		
+		<set name="rep_utls" table="rep_utl" inverse="true" lazy="true" fetch="select">
+			<key>
+				<column name="idutilisateur"  />
+			</key>
+			<one-to-many class="com.sav.persistance.Rep_Utl" />
+		</set>
+		
+			<set name="reg_pieces" table="reg_piece" inverse="true" lazy="true" fetch="select">
+			<key>
+				<column name="idutilisateur"  />
+			</key>
+			<one-to-many class="com.sav.persistance.Reg_piece" />
+		</set>	
+		<set name="reg_taches" table="reg_tache" inverse="true" lazy="true" fetch="select">
+			<key>
+				<column name="idutilisateur"  />
+			</key>
+			<one-to-many class="com.sav.persistance.Reg_tache" />
+		</set>	
+	</class>
+</hibernate-mapping>

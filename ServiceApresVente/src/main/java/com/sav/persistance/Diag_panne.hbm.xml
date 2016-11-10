@@ -1,0 +1,27 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated 22 janv. 2015 15:05:41 by Hibernate Tools 3.4.0.CR1 -->
+<hibernate-mapping>
+	<class name="com.sav.persistance.Diag_panne" table="diag_panne"
+		catalog="sav">
+
+		<id name="iddiag_panne" type="java.lang.Integer">
+			<column name="iddiag_panne" />
+			<generator class="increment" />
+		</id>
+
+
+		<many-to-one lazy="false" name="panne" class="com.sav.persistance.Panne"
+			fetch="join">
+			<column name="idpanne" />
+		</many-to-one>
+
+
+		<many-to-one lazy="false" name="diagnostique" class="com.sav.persistance.Diagnostique"
+			fetch="join">
+			<column name="iddiag"/>
+		</many-to-one>
+
+	</class>
+</hibernate-mapping>

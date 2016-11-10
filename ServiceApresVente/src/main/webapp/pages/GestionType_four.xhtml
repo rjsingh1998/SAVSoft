@@ -1,0 +1,165 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:ui="http://java.sun.com/jsf/facelets">
+
+<h:head>
+	<title>Liste type Four</title>
+	<link rel="stylesheet" type="text/css" href="../css/styles.css"></link>
+</h:head>
+<h:body style="background-image: url(../images/k11.jpg); background-repeat: no-repeat; background-size: cover;">
+	<p:graphicImage width="100%" value="/imageTitre/titreTypFour.png"></p:graphicImage>
+	<br />
+		
+
+		<div align="center">
+			<h:form id="f1">
+			
+			<div align="left" >
+			<h:panelGrid columns="3" cellspacing="5" >
+				<h:outputLink value="Acceuil2.xhtml">
+					<p:graphicImage value="/images/home3.png" ></p:graphicImage>
+		       </h:outputLink>
+				<h:outputLink value="Parametrage.xhtml">
+						<p:graphicImage value="/images/retourArr.png"></p:graphicImage>
+					</h:outputLink>
+				
+				<h:commandLink actionListener="#{type_fourBean.viewListetypFour}" target="_blanc">
+					<p:graphicImage  value="/images/PDF.png"></p:graphicImage>
+				</h:commandLink>
+			</h:panelGrid>
+		</div>
+			
+             <p:growl id="growl" life="3000" />
+				<br />
+				<p:panel>
+				<div align="center">
+					<h:panelGrid columns="4">
+						<h:outputText value="Recherche: " />
+						<p:inputText value="#{type_fourBean.valeurRecherche}" />
+
+						<p:commandButton icon="ui-icon-search" title="Recherche type_four"
+							update=":f1" />
+						<p:commandButton icon="ui-icon-refresh" title="Actualiser"
+							actionListener="#{type_fourBean.annulerRecherche}" update=":f1" />
+
+					</h:panelGrid>
+				</div>
+
+				<br />
+
+				<div style="width: 50%">
+					<div align="right">
+						<p:commandButton value="Nouveau" icon="ui-icon-plusthick"
+							style="font-size:small;font-weight:bold" 
+							update=":f1:f2:dlg"
+							oncomplete="PF('dialogmodif').show()"
+							actionListener="#{type_fourBean.ajouterType_four()}"
+							rendered="#{connectionBean.nouvType_four}" />
+
+					</div>
+					<p:dataTable var="type_four" id="f1"
+						value="#{type_fourBean.type_fours}"
+						emptyMessage="Pas de type_four"  border="1" paginator="true"
+				paginatorPosition="bottom"
+				paginatorTemplate=" {FirstPageLink} {PreviousPageLink} {PageLinks} 
+				              {NextPageLink} {LastPageLink}  "
+				rows="5"   >
+
+						<p:column width="20%">
+							<f:facet name="header">
+								<h:outputLabel value="Id" />
+							</f:facet>
+    #{type_four.idtype_four}
+</p:column>
+
+
+
+						<p:column>
+							<f:facet name="header">
+								<h:outputLabel value="Type fournisseur" />
+							</f:facet>
+    #{type_four.nomtype}
+</p:column>
+
+
+
+
+
+						<p:column style="width:20%">
+							<p:commandButton
+								actionListener="#{type_fourBean.modifierType_four(type_four)}"
+								update=":f1:f2:dlg"
+								oncomplete="PF('dialogmodif').show()" icon="ui-icon-pencil"
+								title="Modification" rendered="#{connectionBean.modifType_four}" />
+
+
+							<p:commandButton
+								actionListener="#{type_fourBean.Supprimer(type_four.idtype_four)}"
+								icon="ui-icon-trash" title="Suppression Type_four" update=":f1:growl"
+								rendered="#{connectionBean.supType_four}">
+								<p:confirm header="Suppression Type_four"
+									message="Voulez-vous vraiment supprimer cette Type_four ?"
+									icon="ui-icon-alert" />
+							</p:commandButton>
+						</p:column>
+					</p:dataTable>
+				</div>
+				<p:confirmDialog global="true" showEffect="fade"
+					hideEffect="explode">
+					<p:commandButton value="Oui" type_four="button"
+						styleClass="ui-confirmdialog-yes" icon="ui-icon-check" />
+					<p:commandButton value="Non" type_four="button"
+						styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
+				</p:confirmDialog>
+
+				<h:form id="f2">
+					<p:dialog id="dlg" widgetVar="dialogmodif" modal="true" closable="false"
+						resizable="true" header="#{type_fourBean.action} Type Fournisseur">
+
+						<p:panel id="dialogmodif" >
+							<h:panelGrid columns="3" cellspacing="20px">
+								<p:outputLabel value="Type " />
+								<p:inputText value="#{type_fourBean.nomtype}" id="TypFour" />
+								<h:message for="TypFour" style="FONT-SIZE: small; FONT-STYLE: italic; color: red;" />
+							</h:panelGrid>
+
+							<h:panelGrid columns="2">
+								<p:commandButton value="Valider" icon="ui-icon-check"
+									actionListener="#{type_fourBean.ajouterTypfourApresValidation}" update=":f1:growl"
+									oncomplete="handleLoginRequest(xhr, status, args)" />
+								<p:commandButton value="Annuler"
+									icon="ui-icon-arrowreturnthick-1-n" 
+									onclick="PF('dialogmodif').hide();" />
+
+
+
+							</h:panelGrid>
+
+						</p:panel>
+
+
+					</p:dialog>
+				</h:form>
+				<script type="text/javascript">
+    function handleLoginRequest(xhr, status, args) {
+        if(args.validationFailed || !args.addValid) {
+            PF('dialogmodif').jq.effect("shake", {times:5}, 100);
+        }
+        else {
+            PF('dialogmodif').hide();
+            $('#loginLink').fadeOut();
+        }
+    }
+</script>
+</p:panel>
+			</h:form>
+		</div>
+		<hr></hr>
+		<div align="center">DSI_2015(Développement Solution Informatique)</div>
+</h:body>
+</html>

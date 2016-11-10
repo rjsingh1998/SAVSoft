@@ -1,0 +1,25 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated 22 janv. 2015 15:05:41 by Hibernate Tools 3.4.0.CR1 -->
+<hibernate-mapping>
+	<class name="com.sav.persistance.Type_four" table="type_four"
+		catalog="sav">
+
+		<id name="idtype_four" type="java.lang.Integer">
+			<column name="idtype_four" />
+			<generator class="increment" />
+		</id>
+
+		<property name="nomtype" type="string">
+			<column name="nomtype" length="45" />
+		</property>
+		
+		
+		
+		
+		
+		
+		
+	</class>
+</hibernate-mapping>

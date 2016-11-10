@@ -1,0 +1,32 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated 22 janv. 2015 15:05:41 by Hibernate Tools 3.4.0.CR1 -->
+<hibernate-mapping>
+	<class name="com.sav.persistance.Tache" table="tache"
+		catalog="sav">
+
+		<id name="idtache" type="java.lang.Integer">
+			<column name="idtache" />
+			<generator class="increment" />
+		</id>
+
+		<property name="designationTach" type="string">
+			<column name="designationTach" length="45" />
+		</property>
+		
+		
+		<property name="prixTach" type="string">
+			<column name="prixTach" length="45" />
+		</property>
+		
+		
+		<set name="reg_taches" table="reg_tache" inverse="true" lazy="true" fetch="select">
+			<key>
+				<column name="idtache"  />
+			</key>
+			<one-to-many class="com.sav.persistance.Reg_tache" />
+		</set>
+		
+	</class>
+</hibernate-mapping>

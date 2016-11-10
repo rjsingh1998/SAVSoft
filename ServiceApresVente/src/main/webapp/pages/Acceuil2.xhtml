@@ -1,0 +1,141 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:ui="http://java.sun.com/jsf/facelets">
+
+<h:head>
+	<title>Accueil</title>
+	<link rel="stylesheet" type="text/css" href="../css/styles.css"></link>
+</h:head>
+<h:body
+	style="background-image: url(../images/z5.png) ">
+
+	<br />
+	<h:form id="f1">
+
+		<table width="100%">
+			<tr>
+				<td align="center"><h:outputText
+						value=" DSI INformatique Soft " styleClass="sty" /></td>
+				<td align="right"><h:commandLink
+						actionListener="#{connectionBean.doLogout()}">
+						<p:graphicImage value="/images/deconnection1.png" />
+					</h:commandLink></td>
+			</tr>
+		</table>
+
+		<br />
+		<br></br>
+		<div align="right">
+			<table border="0" width="100%">
+				<tr>
+				<td width="25%"></td>
+				<td width="43%"><h:outputLink id="apl"
+										value="GestionAppel.jsf"
+										disabled="#{connectionBean.gestionApl}">
+										<p:graphicImage value="/images/appel.png" />
+									</h:outputLink>
+									</td>
+				<td><h:outputLink id="param"
+										value="Parametrage.jsf"
+										disabled="#{connectionBean.parametarge}">
+										<p:graphicImage value="/images/paramaterage.png" />
+									</h:outputLink></td>
+				
+				
+				</tr>
+				</table>
+				<br></br>
+				<table border="0" width="100%">
+				<tr>
+				<td width="19%"></td>
+				<td width="55%"><h:commandLink id="fil" 
+										action="FilAtt.jsf" actionListener="#{filAttBean.init()}"
+										disabled="#{connectionBean.filAtt}">
+										<p:graphicImage value="/images/file.png" />
+
+									</h:commandLink></td>
+				<td>
+				<h:outputLink id="cld"
+										value="GestionCalendrier.jsf"
+										disabled="#{connectionBean.calender}">
+										<p:graphicImage value="/images/caledrie.png" width="90px" />
+									</h:outputLink></td>
+				
+				
+				</tr>
+			</table>
+			<table><tr><td></td></tr></table>
+			<br></br>
+			<br></br>
+			<table width="100%">
+			<tr>
+			<td width="20%"></td>
+			<td width="54%"><h:outputLink id="mach" value="GestionMachine.jsf"
+										disabled="#{connectionBean.gestionMach}">
+										<p:graphicImage value="/images/machine.png" width="80px" />
+									</h:outputLink>
+			</td>
+			<td><h:outputLink id="pfl" value="Profile.jsf"
+										disabled="#{connectionBean.profile}"> 
+										<p:graphicImage value="/images/profile.png" width="100px" />
+									</h:outputLink></td>
+			</tr>
+			</table>
+			<br></br>
+			<table><tr><td></td></tr></table>
+			<table width="100%" border="0">
+			<tr>
+			<td width="25%"> </td>
+			<td width="45%"><h:outputLink id="clt" value="GestionClient.jsf"
+										disabled="#{connectionBean.gestionClt}" styleClass="menu">
+										<p:graphicImage value="/images/client.png" width="85px" />
+									</h:outputLink></td>
+			<td> <h:commandLink id="utl"
+										action="#{utilisateurBean.redirectverGestUtl}"
+										disabled="#{connectionBean.gestionUtl}">
+										<p:graphicImage value="/images/utilisateur1.png" width="85px" />
+									</h:commandLink></td>
+			</tr>
+			</table>
+		</div>
+
+	</h:form>
+
+	<style type="text/css">
+.menu {
+	font-style: oblique;
+	font-weight: blod;
+	font-size: 14pt;
+	font-weight: 700;
+	color: #f1f4fe;
+	font-family: Lucida Calligraphy;
+	text-decoration: none;
+}
+</style>
+	<style type="text/css">
+.sty {
+	font-style: italic;
+	font-size: 35pt;
+	font-weight: 900;
+	color: #55E1F3;
+	font-family: Lucida Calligraphy;
+	text-shadow: 1px 1px 2px black, 0 0 #000000, 0 0 0.10em blue;
+}
+</style>
+	<style type="text/css">
+.stye {
+	font-style: italic;
+	font-size: 100pt;
+	font-weight: 900;
+	color: #7ECEDA;
+	font-family: Lucida Calligraphy;
+	text-shadow: 1px 1px 2px black, 0 0 #000000, 0 0 0.2em blue;
+}
+</style>
+
+</h:body>
+</html>

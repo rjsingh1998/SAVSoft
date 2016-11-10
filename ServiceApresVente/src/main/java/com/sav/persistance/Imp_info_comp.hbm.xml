@@ -1,0 +1,25 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+	<class name="com.sav.persistance.Imp_info_comp" table="imp_info_comp"
+		catalog="sav">
+
+		<id name="idimpInfoComp" type="java.lang.Integer">
+			<column name="idimpInfoComp" />
+			<generator class="increment" />
+		</id>
+        <property name="info" type="string">
+			<column name="info" length="45" />
+		</property>
+		
+		<property name="activation" type="boolean">
+			<column name="activation" />
+		</property>
+		
+		<property name="valeur" type="string">
+			<column name="valeur" length="45" />
+		</property>
+				
+	</class>
+</hibernate-mapping>

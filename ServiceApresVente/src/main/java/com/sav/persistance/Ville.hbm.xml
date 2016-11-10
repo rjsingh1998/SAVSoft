@@ -1,0 +1,40 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated 22 janv. 2015 15:05:41 by Hibernate Tools 3.4.0.CR1 -->
+<hibernate-mapping>
+	<class name="com.sav.persistance.Ville" table="ville" catalog="sav">
+
+		<id name="idville" type="java.lang.Integer">
+			<column name="idville" />
+			<generator class="increment" />
+		</id>
+
+		<property name="designationVille" type="string">
+			<column name="designationVille" length="45" />
+		</property>
+		
+		<set name="clients" table="client" inverse="true" lazy="true" fetch="select">
+			<key>
+				<column name="idville" precision="2" scale="0"  />
+			</key>
+			<one-to-many class="com.sav.persistance.Client" />
+		</set>
+		
+		
+		<set name="fournisseurs" table="fournisseur" inverse="true" lazy="true" fetch="select">
+			<key>
+				<column name="idville" precision="2" scale="0"  />
+			</key>
+			<one-to-many class="com.sav.persistance.Fournisseur" />
+		</set>
+		
+		<set name="utilisateurs" table="utilisateur" inverse="true" lazy="true" fetch="select">
+			<key>
+				<column name="idville"   />
+			</key>
+			<one-to-many class="com.sav.persistance.Utilisateur" />
+		</set>
+				
+	</class>
+</hibernate-mapping>

@@ -1,0 +1,33 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated 22 janv. 2015 15:05:41 by Hibernate Tools 3.4.0.CR1 -->
+<hibernate-mapping>
+	<class name="com.sav.persistance.Piece" table="piece"
+		catalog="sav">
+
+		<id name="idpiece" type="java.lang.Integer">
+			<column name="idpiece" />
+			<generator class="increment" />
+		</id>
+
+		<property name="designationPce" type="string">
+			<column name="designationPce" length="45" />
+		</property>
+		
+		
+		<property name="prixPce" type="string">
+			<column name="prixPce" length="45" />
+		</property>
+		
+		<set name="reg_pieces" table="reg_piece" inverse="true" lazy="true" fetch="select">
+			<key>
+				<column name="idpiece"  />
+			</key>
+			<one-to-many class="com.sav.persistance.Reg_piece" />
+		</set>
+		
+		
+		
+	</class>
+</hibernate-mapping>

@@ -1,0 +1,289 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:ui="http://java.sun.com/jsf/facelets">
+
+<h:head>
+	<title>Parametrages</title>
+	<link rel="stylesheet" type="text/css" href="../css/styles.css"></link>
+</h:head>
+<h:body style="background-image: url(../images/k11.jpg); background-repeat: no-repeat; background-size: cover;">
+	<div >
+	
+	<p:graphicImage width="100%"  value="/imageTitre/titreparametrage.png"></p:graphicImage>
+	
+	</div>
+<h:form>
+    <div align="left">
+       <h:outputLink value="Acceuil2.xhtml">
+					<p:graphicImage value="/images/home3.png" ></p:graphicImage>
+		</h:outputLink>
+    </div>
+	<div align="center">
+		<br />
+		<p:panel style="width: 70%">
+			<br />
+			<table width="80%"  >
+				<tr style="width:25%" >
+					<td align="center" width="25%">
+						<table>
+							<tr>
+								<td valign="top"><h:outputLink value="GestionPanne.xhtml"
+										disabled="#{connectionBean.gestionPan}">
+										<p:graphicImage value="/images/paramPan.png"></p:graphicImage>
+									</h:outputLink></td>
+							</tr>
+							<tr>
+								<td align="center"><h:outputLink value="GestionPanne.xhtml" disabled="#{connectionBean.gestionPan}"
+										style="font-size:20px;color:#0562B9; 
+                                         font-weight:bold;font-style:Times New Roman" >
+                                         <h:outputText value="Pannes" />
+                                         </h:outputLink>
+								</td>
+							</tr>
+						</table>
+					</td>
+					<td align="center" width="25%">
+						<table>
+							<tr>
+								<td valign="top"><h:outputLink value="GestionTache.xhtml"
+										disabled="#{connectionBean.gestionTach}">
+										<p:graphicImage value="/images/paramTach.png"></p:graphicImage>
+									</h:outputLink></td>
+							</tr>
+							<tr>
+								<td align="center"><h:outputLink value="GestionTache.xhtml" disabled="#{connectionBean.gestionTach}"
+								   style="font-size:20px;color:#0562B9;
+                                         font-weight:bold;font-style:Times New Roman">
+								<h:outputText value="Tâches" 
+										 />
+                                 </h:outputLink>
+								</td>
+							</tr>
+						</table>
+					</td>
+					<td align="center" width="25%">
+						<table>
+							<tr>
+								<td valign="top"><h:outputLink value="GestionPiece.xhtml"
+										disabled="#{connectionBean.gestionPiec}">
+										<p:graphicImage value="/images/paramPce.png"></p:graphicImage>
+									</h:outputLink></td>
+							</tr>
+							<tr>
+								<td align="center"><h:outputLink value="GestionPiece.xhtml"
+										disabled="#{connectionBean.gestionPiec}" style="font-size:20px;color:#0562B9;
+                                         font-weight:bold;font-style:Times New Roman">
+								  <h:outputText value="Pièces" />
+                                         </h:outputLink>
+								</td>
+							</tr>
+						</table>
+					</td>
+					<td align="center" width="25%">
+						<table>
+							<tr>
+								<td valign="top"><h:outputLink value="GestionAccessoire.xhtml"
+										disabled="#{connectionBean.gestionAcc}">
+										<p:graphicImage value="/images/paramAcc.png"></p:graphicImage>
+									</h:outputLink> </td>
+							</tr>
+							<tr>
+								<td align="center"><h:outputLink value="GestionAccessoire.xhtml"
+										disabled="#{connectionBean.gestionAcc}" style="font-size:20px;color:#0562B9;
+                                         font-weight:bold;font-style:Times New Roman">
+								<h:outputText value="Accesseoires"
+										 />
+                                         </h:outputLink>
+								</td>
+							</tr>
+						</table>
+					</td>
+				</tr>
+				<tr>
+					<td align="center" width="25%">
+						<table>
+							<tr>
+								<td valign="top"><h:outputLink value="GestionFournisseur.xhtml"
+										disabled="#{connectionBean.gestionFour}">
+										<p:graphicImage value="/images/paramFour.png"></p:graphicImage>
+									</h:outputLink></td>
+							</tr>
+							<tr>
+								<td align="center"><h:outputLink value="GestionFournisseur.xhtml"
+										disabled="#{connectionBean.gestionFour}" style="font-size:20px;color:#0562B9;
+                                         font-weight:bold;font-style:Times New Roman">
+								<h:outputText value="Fournisseurs" /></h:outputLink>
+								</td>
+							</tr>
+						</table>
+					</td>
+					<td align="center" width="25%">
+						<table>
+							<tr>
+								<td valign="top" align="center"><h:outputLink
+										value="GestionType_four.xhtml"
+										disabled="#{connectionBean.gestionTypFour}">
+										<p:graphicImage value="/images/paramTypFour.png"></p:graphicImage>
+									</h:outputLink></td>
+							</tr>
+							<tr>
+								<td align="center"><h:outputLink value="GestionType_four.xhtml"
+										disabled="#{connectionBean.gestionTypFour}" style="font-size:20px;color:#0562B9;
+                                         font-weight:bold;font-style:Times New Roman" >
+								<h:outputText value=" Types Fournisseur"/></h:outputLink>
+								</td>
+							</tr>
+						</table>
+					</td>
+					<td align="center" width="25%">
+						<table>
+							<tr>
+								<td valign="top" align="center"><h:outputLink
+										value="GestionMarque.xhtml"
+										disabled="#{connectionBean.gestionMarq}">
+										<p:graphicImage value="/images/paramMrq.png"></p:graphicImage>
+									</h:outputLink></td>
+							</tr>
+							<tr>
+								<td align="center"><h:outputLink
+										value="GestionMarque.xhtml"
+										disabled="#{connectionBean.gestionMarq}" style="font-size:20px;color:#0562B9;
+                                         font-weight:bold;font-style:Times New Roman">
+								<h:outputText value=" Marques"/></h:outputLink>
+								
+								</td>
+							</tr>
+						</table>
+					</td>
+					<td align="center" width="25%">
+						<table>
+							<tr>
+								<td valign="top" align="center"><h:outputLink value="GestionType.xhtml"
+										disabled="#{connectionBean.gestionTypMach}">
+										<p:graphicImage value="/images/paramTypMach.png"></p:graphicImage>
+									</h:outputLink></td>
+							</tr>
+							<tr>
+
+								<td align="center"><h:outputLink value="GestionType.xhtml"
+										disabled="#{connectionBean.gestionTypMach}" style="font-size:20px;color:#0562B9;
+                                         font-weight:bold;font-style:Times New Roman" >
+								<h:outputText value="Types"/></h:outputLink>
+								</td>
+							</tr>
+						</table>
+					</td>
+				</tr>
+				<tr>
+					<td align="center" width="25%">
+						<table>
+							<tr>
+								<td valign="top" align="center"><h:outputLink value="GestionService.xhtml"
+										disabled="#{connectionBean.gestionSrvice}">
+										<p:graphicImage value="/images/paramSrvce.png"></p:graphicImage>
+									</h:outputLink></td>
+							</tr>
+							<tr>
+								<td align="center"><h:outputLink value="GestionService.xhtml"
+										disabled="#{connectionBean.gestionSrvice}" style="font-size:20px;color:#0562B9;
+                                         font-weight:bold;font-style:Times New Roman" >
+								<h:outputText value=" Services"/></h:outputLink>
+								</td>
+							</tr>
+						</table>
+					</td>
+					<td align="center" width="25%">
+						<table>
+							<tr>
+								<td valign="top" align="center"><h:outputLink
+										value="GestionEtat.xhtml" disabled="#{connectionBean.gestionEtat}">
+										<p:graphicImage value="/images/paramEtat.png"></p:graphicImage>
+									</h:outputLink></td>
+							</tr>
+							<tr>
+								<td align="center"><h:outputLink
+										value="GestionEtat.xhtml" disabled="#{connectionBean.gestionEtat}"
+										style="font-size:20px;color:#0562B9;
+                                         font-weight:bold;font-style:Times New Roman">
+								<h:outputText value=" Etats" /></h:outputLink>
+								</td>
+							</tr>
+						</table>
+					</td>
+					<td align="center" width="25%">
+						<table>
+							<tr>
+								<td valign="top" align="center"><h:outputLink
+										value="GestionStatut.xhtml"
+										disabled="#{connectionBean.gestionStatut}">
+										<p:graphicImage value="/images/paramStat.png"></p:graphicImage>
+									</h:outputLink></td>
+							</tr>
+							<tr>
+								<td align="center"><h:outputLink
+										value="GestionStatut.xhtml" disabled="#{connectionBean.gestionStatut}"
+										style="font-size:20px;color:#0562B9;
+                                         font-weight:bold;font-style:Times New Roman">
+								    <h:outputText value=" Statuts"/></h:outputLink>
+								</td>
+							</tr>
+						</table>
+					</td>
+					<td align="center" width="25%">
+						<table>
+							<tr>
+								<td valign="top" align="center"><h:outputLink value="GestionGrade.xhtml"
+								                 disabled="#{connectionBean.gestionGrade}">
+										<p:graphicImage value="/images/paramGrde.png"></p:graphicImage>
+									</h:outputLink></td>
+							</tr>
+							<tr>
+								<td align="center"><h:outputLink value="GestionGrade.xhtml"
+								                 disabled="#{connectionBean.gestionGrade}" style="font-size:20px;color:#0562B9;
+                                         font-weight:bold;font-style:Times New Roman">
+								        <h:outputText value=" Grades"/></h:outputLink>
+								</td>
+							</tr>
+						</table>
+					</td>
+				</tr>
+				
+				<tr>
+				
+				<td align="center" width="25%">
+						<table>
+							<tr>
+								<td valign="top" align="center"><h:outputLink value="GestionVille.xhtml"
+										disabled="#{connectionBean.gestionVil}">
+										<p:graphicImage value="/images/paramVil.png"></p:graphicImage>
+									</h:outputLink></td>
+							</tr>
+							<tr>
+								<td align="center"><h:outputLink value="GestionVille.xhtml"
+										disabled="#{connectionBean.gestionVil}" style="font-size:20px;color:#0562B9;
+                                         font-weight:bold;font-style:Times New Roman">
+								<h:outputText value=" Villes"/></h:outputLink>
+								</td>
+							</tr>
+						</table>
+					</td>
+				<td></td>
+				<td></td>
+				<td></td>
+				</tr>
+
+			</table>
+
+		</p:panel>
+	</div>
+	<hr></hr>
+		<div align="center">DSI_2015(Développement Solution
+			Informatique)</div>
+</h:form>
+</h:body>
+</html>

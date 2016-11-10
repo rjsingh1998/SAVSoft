@@ -1,0 +1,884 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:ui="http://java.sun.com/jsf/facelets">
+
+
+<h:head>
+	<title>Ajout utilisateurs</title>
+	<link rel="stylesheet" type="text/css" href="../css/styles.css"></link>
+</h:head>
+<h:body
+	style="background-image: url(../images/k11.jpg); background-repeat: no-repeat; background-size: cover;">
+	<p:graphicImage width="100%" value="/imageTitre/titreAjoutUtl.png"
+		rendered="#{utilisateurBean.titreAjt}"></p:graphicImage>
+	<p:graphicImage width="100%" value="/imageTitre/titreModifUtl.png"
+		rendered="#{utilisateurBean.titreModif}"></p:graphicImage>
+	<br />
+	<f:view>
+		<h:form id="f1">
+			<p:growl id="growl" life="3000" />
+			<div align="left">
+				<h:panelGrid columns="2" cellspacing="5">
+					<h:outputLink value="Acceuil2.xhtml">
+						<p:graphicImage value="/images/home3.png"></p:graphicImage>
+					</h:outputLink>
+					<h:commandLink action="#{utilisateurBean.redirectUtl()}">
+						<p:graphicImage value="/images/retourArr.png"></p:graphicImage>
+					</h:commandLink>
+				</h:panelGrid>
+			</div>
+
+
+
+			<p:panel id="pnl">
+
+				<p:wizard flowListener="#{utilisateurBean.controle}"
+					backLabel="Précedant" nextLabel="Suivant" step="personal"
+					style="font-size:small;font-weight:bold" >
+					<p:tab id="personal" title="Informations Générales"  >
+						<p:panel>
+							<table>
+								<tr>
+									<td style="width: 400px"><h:panelGrid columns="2"
+											id="pnl1">
+											<p:outputLabel value="Nom* :"
+												style="font-size:small;font-weight:bold" />
+											<p:inputText value="#{utilisateurBean.nomUtl}" id="nomId" />
+											<p:outputLabel value="Prenom* : "
+												style="font-size:small;font-weight:bold" />
+											<p:inputText value="#{utilisateurBean.prenomUtl}"
+												id="prenomId" />
+											<p:outputLabel value="Cin :"
+												style="font-size:small;font-weight:bold" />
+											<p:inputText value="#{utilisateurBean.cinUtl}" id="cinId" />
+											<p:outputLabel value="Adresse :"
+												style="font-size:small;font-weight:bold" />
+											<p:inputText value="#{utilisateurBean.adrUtl}" id="adrsId" />
+											<p:outputLabel value="Ville :"
+												style="font-size:small;font-weight:bold" />
+											<h:panelGrid columns="2">
+												<p:selectOneMenu value="#{utilisateurBean.idville}"
+													panelStyle="width:180px" filter="true"
+													filterMatchMode="startsWith" effect="fade" id="vilId">
+													<f:selectItem itemLabel="----Selectioner----" itemValue="" />
+													<f:selectItems value="#{utilisateurBean.villes}" var="vil"
+														itemLabel="#{vil.designationVille}"
+														itemValue="#{vil.idville}" />
+												</p:selectOneMenu>
+												<p:commandButton icon="ui-icon-plus"
+													oncomplete="PF('dialogVil').show()">
+													<p:ajax listener="#{utilisateurBean.initialisationvil()}"
+														update=":f2:dlg1" />
+												</p:commandButton>
+											</h:panelGrid>
+
+
+										</h:panelGrid></td>
+									<td style="width: 400px"><h:panelGrid columns="2"
+											cellpadding="5" id="pnl2">
+											<p:outputLabel value="Email :"
+												style="font-size:small;font-weight:bold" />
+											<p:inputText value="#{utilisateurBean.mailUtl}" id="mailId" />
+											<p:outputLabel value="Gsm1 :"
+												style="font-size:small;font-weight:bold" />
+											<p:inputText value="#{utilisateurBean.gsm1Utl}" id="gsm1Id" />
+											<p:outputLabel value="Gsm2 :"
+												style="font-size:small;font-weight:bold" />
+											<p:inputText value="#{utilisateurBean.gsm2Utl}" id="gsm2Id" />
+											<p:outputLabel value="Tel :"
+												style="font-size:small;font-weight:bold" />
+											<p:inputText value="#{utilisateurBean.telUtl}" id="telId" />
+
+
+										</h:panelGrid></td>
+									<td><h:panelGrid columns="2" id="pnl33">
+											<p:outputLabel value="Service :"
+												style="font-size:small;font-weight:bold" />
+											<h:panelGrid columns="4">
+												<p:selectOneMenu value="#{utilisateurBean.idservice}"
+													panelStyle="width:180px" filter="true"
+													filterMatchMode="startsWith" effect="fade" id="svceId">
+													<f:selectItem itemLabel="----Selectioner----" itemValue="" />
+													<f:selectItems value="#{utilisateurBean.services}"
+														var="service" itemLabel="#{service.designationSer}"
+														itemValue="#{service.idservice}" />
+												</p:selectOneMenu>
+												<p:commandButton icon="ui-icon-plus"
+													oncomplete="PF('dialogSrvce').show()">
+													<p:ajax listener="#{utilisateurBean.initialisationSer()}"
+														update=":f2:dlg3" />
+												</p:commandButton>
+											</h:panelGrid>
+
+											<p:outputLabel value="Grade :"
+												style="font-size:small;font-weight:bold" />
+											<h:panelGrid columns="4">
+												<p:selectOneMenu value="#{utilisateurBean.idGrade}"
+													panelStyle="width:180px" filter="true"
+													filterMatchMode="startsWith" effect="fade" id="gradeId">
+													<f:selectItem itemLabel="----Selectioner----" itemValue="" />
+													<f:selectItems value="#{utilisateurBean.grades}" var="grd"
+														itemLabel="#{grd.libelleGrd}" itemValue="#{grd.idGrade}" />
+												</p:selectOneMenu>
+												<p:commandButton icon="ui-icon-plus"
+													oncomplete="PF('dialogGrad').show()">
+														<p:ajax listener="#{utilisateurBean.initialisationGrde()}"
+														update=":f2:dlg2" />
+												</p:commandButton>
+											</h:panelGrid>
+											<p:outputLabel value="Login* :"
+												style="font-size:small;font-weight:bold" />
+											<p:inputText value="#{utilisateurBean.login}" id="logId" />
+											<p:outputLabel value="Mot De Passe* :"
+												style="font-size:small;font-weight:bold"
+												rendered="#{utilisateurBean.outputMotpass}" />
+											<p:password value="#{utilisateurBean.motPass}"
+												rendered="#{utilisateurBean.outputMotpass}" id="passId" />
+										</h:panelGrid></td>
+								</tr>
+							</table>
+						</p:panel>
+					</p:tab>
+					<p:tab title="Privilèges" id="priv">
+						<p:panel >
+							<div align="center">
+								<p:tabView id="tabmenu"  >
+								     <p:ajax event="tabChange"
+									listener="#{utilisateurBean.update}" />
+									<p:tab title="Général" id="tabGeneral" >
+										<br />
+										<div align="left">
+											<h:panelGrid columns="2">
+												<p:commandButton value="Tout autorisé"
+												    styleClass="touAutBtn"
+													style="width: auto; height: 25px;font-size:60%;text-align: center "
+													icon="ui-icon-unlocked"
+													actionListener="#{utilisateurBean.touCocherGeneral()}"
+													update=":f1">
+												</p:commandButton>
+												<p:commandButton value="Aucune autorisation"
+													style="width: auto; height: 25px;font-size:60%;background-color:#F7230C;text-align: center"
+													icon="ui-icon-locked"
+													actionListener="#{utilisateurBean.toudeocherGeneral()}"
+													update=":f1">
+												</p:commandButton>
+											</h:panelGrid>
+										</div>
+										<div align="center">
+
+											<p:panel style="width:70%;height:20% ">
+												<br />
+												<h:panelGrid columns="8" style="margin-bottom:10px"
+													cellpadding="5">
+													<p:selectBooleanCheckbox  value="#{utilisateurBean.getAplPriv}" >
+														  <p:ajax update=":f1" listener="#{utilisateurBean.chek}" />
+													</p:selectBooleanCheckbox>
+													<h:outputText value="Gérer Appels" style="font-size:small" />
+													<p:selectBooleanCheckbox
+														value="#{utilisateurBean.paramPriv}" />
+													<h:outputText value="Parametrages" style="font-size:small" />
+													<p:selectBooleanCheckbox
+														value="#{utilisateurBean.filAttPriv}" />
+													<h:outputText value="Consulter fil d'attente"
+														style="font-size:small" />
+													<p:selectBooleanCheckbox
+														value="#{utilisateurBean.calendrierPriv}" />
+													<h:outputText value="Consulter calendrier"
+														style="font-size:small" />
+													<p:selectBooleanCheckbox
+														value="#{utilisateurBean.profilPriv}" />
+													<h:outputText value="Consulter profile"
+														style="font-size:small" />
+
+													<p:selectBooleanCheckbox value="#{utilisateurBean.fichCltPriv}" >
+													   <p:ajax update=":f1"/>
+													</p:selectBooleanCheckbox>
+													<h:outputText value="Gérer Clients" style="font-size:small" />
+													<p:selectBooleanCheckbox value="#{utilisateurBean.fichUtlPriv}" >
+													</p:selectBooleanCheckbox>
+													<h:outputText value="Gérer Utilisateur"
+														style="font-size:small" />
+													<p:selectBooleanCheckbox value="#{utilisateurBean.fichFourPriv}" >
+													  <p:ajax update=":f1" />
+													</p:selectBooleanCheckbox>
+													<h:outputText value="Gérer Fournisseurs"
+														style="font-size:small" />
+													<p:selectBooleanCheckbox value="#{utilisateurBean.fichMachPriv}" >
+													  <p:ajax update=":f1" />
+													</p:selectBooleanCheckbox>
+													<h:outputText value="Gérer Machines"
+														style="font-size:small" />
+													<p:selectBooleanCheckbox value="#{utilisateurBean.fichPanPriv}" >
+													  <p:ajax update=":f1" />
+													</p:selectBooleanCheckbox>
+													<h:outputText value="Gérer Pannes" style="font-size:small" />
+													<p:selectBooleanCheckbox value="#{utilisateurBean.fichTachPriv}" >
+													  <p:ajax update=":f1" />
+													</p:selectBooleanCheckbox>
+													<h:outputText value="Gérer Tâches" style="font-size:small" />
+													<p:selectBooleanCheckbox value="#{utilisateurBean.fichPiecePriv}" >
+													   <p:ajax update=":f1" />
+													</p:selectBooleanCheckbox>
+													<h:outputText value="Gérer Pièces" style="font-size:small" />
+													<p:selectBooleanCheckbox value="#{utilisateurBean.fichAccPriv}" >
+													   <p:ajax update=":f1" />
+													</p:selectBooleanCheckbox>
+													<h:outputText value="Gérer Accessoires"
+														style="font-size:small" />
+													<p:selectBooleanCheckbox value="#{utilisateurBean.gestTypFourPriv}" >
+													  <p:ajax update=":f1" />
+													</p:selectBooleanCheckbox>
+													<h:outputText value="Gérer Type Fournisseur"
+														style="font-size:small" />
+													<p:selectBooleanCheckbox value="#{utilisateurBean.gestTypMachPriv}" >
+													   <p:ajax update=":f1" />
+													</p:selectBooleanCheckbox>
+													<h:outputText value="Gérer Type Machine"
+														style="font-size:small" />
+													<p:selectBooleanCheckbox value="#{utilisateurBean.gestMarqPriv}" >
+													   <p:ajax update=":f1"  />
+													</p:selectBooleanCheckbox>
+													<h:outputText value="Gérer Marque" style="font-size:small" />
+													<p:selectBooleanCheckbox value="#{utilisateurBean.gestSrvcPriv}" >
+													  <p:ajax update=":f1" />
+													</p:selectBooleanCheckbox>
+													<h:outputText value="Gérer Service" style="font-size:small" />
+													<p:selectBooleanCheckbox value="#{utilisateurBean.gestvilPriv}" >
+													  <p:ajax update=":f1" />
+													</p:selectBooleanCheckbox>
+													<h:outputText value="Gérer Ville" style="font-size:small" />
+													<p:selectBooleanCheckbox value="#{utilisateurBean.gestGradePriv}" >
+													  <p:ajax update=":f1" />
+													</p:selectBooleanCheckbox>
+													<h:outputText value="Gérer Grade" style="font-size:small" />
+													<p:selectBooleanCheckbox value="#{utilisateurBean.gestStatutPriv}" >
+													  <p:ajax update=":f1" />
+													</p:selectBooleanCheckbox>
+													<h:outputText value="Gérer Statut" style="font-size:small" />
+													<p:selectBooleanCheckbox value="#{utilisateurBean.gestEatatPriv}" >
+													   <p:ajax update=":f1" />
+													</p:selectBooleanCheckbox>
+													<h:outputText value="Gérer Etat" style="font-size:small" />
+												</h:panelGrid>
+											</p:panel>
+
+										</div>
+
+									</p:tab>
+									<p:tab title="Appel">
+
+										<br />
+										<div align="left">
+											<h:panelGrid columns="2">
+												<p:commandButton value="Tout autorisé"
+													style="width: auto; height: 25px;font-size:60%;background-color:#1FA055;text-align: center "
+													icon="ui-icon-unlocked"
+													actionListener="#{utilisateurBean.touCocherApel()}"
+													update=":f1">
+												</p:commandButton>
+												<p:commandButton value="Aucune autorisation"
+													style="width: auto; height: 25px;font-size:60%;background-color:#F7230C;text-align: center"
+													icon="ui-icon-locked"
+													actionListener="#{utilisateurBean.toudeocherApel()}"
+													update=":f1">
+												</p:commandButton>
+											</h:panelGrid>
+										</div>
+										<div align="center">
+
+											<p:panel style="width:60%;height:20% ">
+												<br />
+												<div align="left">
+												<h:panelGrid columns="2" cellspacing="5">
+												   <p:selectBooleanCheckbox value="#{utilisateurBean.getAplPriv}" >
+												     <p:ajax update=":f1" listener="#{utilisateurBean.chek}" />
+												   </p:selectBooleanCheckbox>
+													<h:outputText value="Gérer Appels" style="font-size:small" />
+												</h:panelGrid>
+												</div>
+												<h:panelGrid columns="4" style="margin-bottom:10px"
+													cellpadding="5">
+													<p:selectBooleanCheckbox
+														value="#{utilisateurBean.ajoutAplPriv}" />
+													<h:outputText value="Ajouter Appel" style="font-size:small" />
+													<p:selectBooleanCheckbox
+														value="#{utilisateurBean.modifAplPriv}" />
+													<h:outputText value="Modifier appel"
+														style="font-size:small" />
+													<p:selectBooleanCheckbox
+														value="#{utilisateurBean.supAplPriv}" />
+													<h:outputText value="supprimer appel"
+														style="font-size:small" />
+													<p:selectBooleanCheckbox
+														value="#{utilisateurBean.detailAplPriv}" />
+													<h:outputText value="Détail appel" style="font-size:small" />
+													<p:selectBooleanCheckbox
+														value="#{utilisateurBean.envoiAplFourPriv}" />
+													<h:outputText value="Envoyer appel chez fournissseur"
+														style="font-size:small" />
+
+													<p:selectBooleanCheckbox
+														value="#{utilisateurBean.recoiAplFourPriv}" />
+													<h:outputText value="Recevoire appel de fournisseur"
+														style="font-size:small" />
+													<p:selectBooleanCheckbox
+														value="#{utilisateurBean.changEtatAplPriv}" />
+													<h:outputText value="Changer état" style="font-size:small" />
+													<p:selectBooleanCheckbox
+														value="#{utilisateurBean.detailEtatAplPriv}" />
+													<h:outputText value="Détail état appel"
+														style="font-size:small" />
+
+
+												</h:panelGrid>
+											</p:panel>
+
+										</div>
+
+									</p:tab>
+									<p:tab title="Paramètres">
+										<p:tabView id="tabmenu" >
+										    <p:ajax event="tabChange" listener="#{utilisateurBean.update}" />   
+											<p:tab title="Fournisseur">
+												<p:panel
+													style="width:350px;height:200px">
+													<div align="left">
+														<h:panelGrid columns="2" style="margin-bottom:10px"
+															cellpadding="5">
+															<p:selectBooleanCheckbox value="#{utilisateurBean.fichFourPriv}" >
+															  <p:ajax update=":f1" />
+															</p:selectBooleanCheckbox>
+															<h:outputText value="Gérer Fournisseurs" style="font-size:small"/>
+														</h:panelGrid>
+													</div>
+													<div align="center">
+														<h:panelGrid columns="2" style="margin-bottom:10px"
+															cellpadding="5">
+															<p:selectBooleanCheckbox
+																value="#{utilisateurBean.ajoutFourPriv}" />
+															<h:outputText value="Ajouter Fournisseur" style="font-size:small" />
+															<p:selectBooleanCheckbox
+																value="#{utilisateurBean.modifFourPriv}" />
+															<h:outputText value="Modifier Fournisseur" style="font-size:small" />
+															<p:selectBooleanCheckbox
+																value="#{utilisateurBean.supFourPriv}" />
+															<h:outputText value="Supprimer Fournisseur" style="font-size:small"/>
+														</h:panelGrid>
+													</div>
+												</p:panel>
+											</p:tab>
+											<p:tab title="Client">
+												<p:panel
+													style="width:350px;height:200px">
+													<div align="left">
+														<h:panelGrid columns="2" style="margin-bottom:10px"
+															cellpadding="5">
+															<p:selectBooleanCheckbox value="#{utilisateurBean.fichCltPriv}" >
+															   <p:ajax update=":f1"></p:ajax>
+															</p:selectBooleanCheckbox>
+															<h:outputText value="Gérer Clients" style="font-size:small" />
+														</h:panelGrid>
+													</div>
+													<div align="center">
+														<h:panelGrid columns="2" style="margin-bottom:10px"
+															cellpadding="5">
+															<p:selectBooleanCheckbox
+																value="#{utilisateurBean.ajoutCltPriv}" />
+															<h:outputText value="Ajouter Client" style="font-size:small"/>
+															<p:selectBooleanCheckbox
+																value="#{utilisateurBean.modifCltPriv}" />
+															<h:outputText value="Modifier Client" style="font-size:small" />
+															<p:selectBooleanCheckbox
+																value="#{utilisateurBean.supCltPriv}" />
+															<h:outputText value="Supprimer Client" style="font-size:small" />
+														</h:panelGrid>
+													</div>
+												</p:panel>
+
+											</p:tab>
+
+											<p:tab title="Machine">
+												<p:panel
+													style="width:350px;height:200px">
+													<div align="left">
+														<h:panelGrid columns="2" style="margin-bottom:10px"
+															cellpadding="5">
+															<p:selectBooleanCheckbox value="#{utilisateurBean.fichMachPriv}" >
+															   <p:ajax update=":f1" />
+															</p:selectBooleanCheckbox>
+															<h:outputText value="Gérer Machines" style="font-size:small" />
+														</h:panelGrid>
+													</div>
+													<div align="center">
+														<h:panelGrid columns="2" style="margin-bottom:10px"
+															cellpadding="5">
+															<p:selectBooleanCheckbox
+																value="#{utilisateurBean.ajoutMachPriv}" />
+															<h:outputText value="Ajouter Machine" style="font-size:small" />
+															<p:selectBooleanCheckbox
+																value="#{utilisateurBean.modifMachPriv}" />
+															<h:outputText value="Modifier Machine" style="font-size:small" />
+															<p:selectBooleanCheckbox
+																value="#{utilisateurBean.supMachPriv}" />
+															<h:outputText value="Supprimer Machine" style="font-size:small" />
+														</h:panelGrid>
+													</div>
+												</p:panel>
+											</p:tab>
+											<p:tab title="Panne">
+												<p:panel
+													style="width:350px;height:200px">
+													<div align="left">
+														<h:panelGrid columns="2" style="margin-bottom:10px"
+															cellpadding="5">
+															<p:selectBooleanCheckbox value="#{utilisateurBean.fichPanPriv}" >
+															  <p:ajax update=":f1" />
+															</p:selectBooleanCheckbox>
+															<h:outputText value="Gérer Pannes" style="font-size:small" />
+														</h:panelGrid>
+													</div>
+													<div align="center">
+														<h:panelGrid columns="2" style="margin-bottom:10px"
+															cellpadding="5">
+															<p:selectBooleanCheckbox
+																value="#{utilisateurBean.ajoutPanPriv}" />
+															<h:outputText value="Ajouter Panne" style="font-size:small" />
+															<p:selectBooleanCheckbox
+																value="#{utilisateurBean.modifPanPriv}" />
+															<h:outputText value="Modifier Panne" style="font-size:small"/>
+															<p:selectBooleanCheckbox
+																value="#{utilisateurBean.supPanPriv}" />
+															<h:outputText value="Supprimer Panne" style="font-size:small" />
+														</h:panelGrid>
+													</div>
+												</p:panel>
+											</p:tab>
+											<p:tab title="Accessoire">
+												<p:panel
+													style="width:350px;height:200px">
+													<div align="left">
+														<h:panelGrid columns="2" style="margin-bottom:10px"
+															cellpadding="5">
+															<p:selectBooleanCheckbox value="#{utilisateurBean.fichAccPriv}" >
+															    <p:ajax update=":f1" />
+															</p:selectBooleanCheckbox>
+															<h:outputText value="Gérer Accessoires" style="font-size:small" />
+														</h:panelGrid>
+													</div>
+													<div align="center">
+														<h:panelGrid columns="2" style="margin-bottom:10px"
+															cellpadding="5">
+															<p:selectBooleanCheckbox
+																value="#{utilisateurBean.ajoutAccPriv}" />
+															<h:outputText value="Ajouter Accessoire" style="font-size:small" />
+															<p:selectBooleanCheckbox
+																value="#{utilisateurBean.modifAccPriv}" />
+															<h:outputText value="Modifier Accessoire" style="font-size:small" />
+															<p:selectBooleanCheckbox
+																value="#{utilisateurBean.supAccPriv}" />
+															<h:outputText value="Supprimer Accessoire" style="font-size:small" />
+														</h:panelGrid>
+													</div>
+												</p:panel>
+											</p:tab>
+											<p:tab title="Pièce">
+												<p:panel
+													style="width:350px;height:200px">
+													<div align="left">
+														<h:panelGrid columns="2" style="margin-bottom:10px"
+															cellpadding="5">
+															<p:selectBooleanCheckbox value="#{utilisateurBean.fichPiecePriv}" >
+															  <p:ajax update=":f1" />
+															</p:selectBooleanCheckbox>
+															<h:outputText value="Gérer Pièces" style="font-size:small" />
+														</h:panelGrid>
+													</div>
+													<div align="center">
+														<h:panelGrid columns="2" style="margin-bottom:10px"
+															cellpadding="5">
+															<p:selectBooleanCheckbox
+																value="#{utilisateurBean.ajoutPcePriv}" />
+															<h:outputText value="Ajouter Pièce" style="font-size:small" />
+															<p:selectBooleanCheckbox
+																value="#{utilisateurBean.modifPcePriv}"  />
+															<h:outputText value="Modifier Pièce" style="font-size:small" />
+															<p:selectBooleanCheckbox
+																value="#{utilisateurBean.supPcePriv}" />
+															<h:outputText value="Supprimer Pièce" style="font-size:small" />
+														</h:panelGrid>
+													</div>
+												</p:panel>
+											</p:tab>
+											<p:tab title="Tache">
+												<p:panel
+													style="width:350px;height:200px">
+													<div align="left">
+														<h:panelGrid columns="2" style="margin-bottom:10px"
+															cellpadding="5">
+															<p:selectBooleanCheckbox value="#{utilisateurBean.fichTachPriv}" >
+															  <p:ajax update=":f1" />
+															</p:selectBooleanCheckbox>
+															<h:outputText value="Gérer Tâches" style="font-size:small" />
+														</h:panelGrid>
+													</div>
+													<div align="center">
+														<h:panelGrid columns="2" style="margin-bottom:10px"
+															cellpadding="5">
+															<p:selectBooleanCheckbox
+																value="#{utilisateurBean.ajoutTachPriv}" />
+															<h:outputText value="Ajouter Tâche" style="font-size:small" />
+															<p:selectBooleanCheckbox
+																value="#{utilisateurBean.modifTachPriv}" />
+															<h:outputText value="Modifier Tâche" style="font-size:small" />
+															<p:selectBooleanCheckbox
+																value="#{utilisateurBean.supTachPriv}" />
+															<h:outputText value="Supprimer Tâche" style="font-size:small" />
+														</h:panelGrid>
+													</div>
+												</p:panel>
+											</p:tab>
+											<p:tab title="Type Fournisseur">
+												<p:panel
+													style="width:350px;height:200px">
+													<div align="left">
+														<h:panelGrid columns="2" style="margin-bottom:10px"
+															cellpadding="5">
+															<p:selectBooleanCheckbox value="#{utilisateurBean.gestTypFourPriv}" >
+															  <p:ajax update=":f1" />
+															</p:selectBooleanCheckbox>
+															<h:outputText value="Gérer Type Fournisseurs" style="font-size:small"/>
+														</h:panelGrid>
+													</div>
+													<div align="center">
+														<h:panelGrid columns="2" style="margin-bottom:10px"
+															cellpadding="5">
+															<p:selectBooleanCheckbox
+																value="#{utilisateurBean.ajoutTypFourPriv}" />
+															<h:outputText value="Ajouter Type Fournisseur" style="font-size:small"/>
+															<p:selectBooleanCheckbox
+																value="#{utilisateurBean.modifTypFourPriv}" />
+															<h:outputText value="Modifier Type Fournisseur" style="font-size:small" />
+															<p:selectBooleanCheckbox
+																value="#{utilisateurBean.supTypFourPriv}" />
+															<h:outputText value="Supprimer Type Fournisseur" style="font-size:small" />
+														</h:panelGrid>
+													</div>
+												</p:panel>
+											</p:tab>
+
+
+											<p:tab title="Machine">
+												<p:panel
+													style="width:350px;height:200px">
+													<div align="left">
+														<h:panelGrid columns="2" style="margin-bottom:10px"
+															cellpadding="5">
+															<p:selectBooleanCheckbox value="#{utilisateurBean.gestTypMachPriv}" >
+															  <p:ajax update=":f1" />
+															</p:selectBooleanCheckbox>
+															<h:outputText value="Gérer Type Machines"  style="font-size:small"/>
+														</h:panelGrid>
+													</div>
+													<div align="center">
+														<h:panelGrid columns="2" style="margin-bottom:10px"
+															cellpadding="5">
+															<p:selectBooleanCheckbox
+																value="#{utilisateurBean.ajoutTypMachPriv}" />
+															<h:outputText value="Ajouter Type Machine" style="font-size:small" />
+															<p:selectBooleanCheckbox
+																value="#{utilisateurBean.modifTypMachPriv}" />
+															<h:outputText value="Modifier Type Machine"  style="font-size:small"/>
+															<p:selectBooleanCheckbox
+																value="#{utilisateurBean.supTypMachPriv}" />
+															<h:outputText value="Supprimer Type Machine" style="font-size:small"/>
+														</h:panelGrid>
+													</div>
+												</p:panel>
+											</p:tab>
+											<p:tab title="Marque">
+												<p:panel
+													style="width:350px;height:200px">
+													<div align="left">
+														<h:panelGrid columns="2" style="margin-bottom:10px"
+															cellpadding="5">
+															<p:selectBooleanCheckbox value="#{utilisateurBean.gestMarqPriv}" >
+															    <p:ajax update=":f1"  />
+															</p:selectBooleanCheckbox>
+															<h:outputText value="Gérer Marques" style="font-size:small" />
+														</h:panelGrid>
+													</div>
+													<div align="center">
+														<h:panelGrid columns="2" style="margin-bottom:10px"
+															cellpadding="5">
+															<p:selectBooleanCheckbox
+																value="#{utilisateurBean.ajoutMarqPriv}" />
+															<h:outputText value="Ajouter Marque" style="font-size:small" />
+															<p:selectBooleanCheckbox
+																value="#{utilisateurBean.modifMarqPriv}" />
+															<h:outputText value="Modifier Marque" style="font-size:small" />
+															<p:selectBooleanCheckbox
+																value="#{utilisateurBean.supMarqPriv}" />
+															<h:outputText value="Supprimer Marque" style="font-size:small" />
+														</h:panelGrid>
+													</div>
+												</p:panel>
+											</p:tab>
+											<p:tab title="Grade">
+												<p:panel
+													style="width:350px;height:200px">
+													<div align="left">
+														<h:panelGrid columns="2" style="margin-bottom:10px"
+															cellpadding="5">
+															<p:selectBooleanCheckbox value="#{utilisateurBean.gestGradePriv}" >
+															  <p:ajax update=":f1" />
+															</p:selectBooleanCheckbox>
+															<h:outputText value="Gérer Grades" style="font-size:small" />
+														</h:panelGrid>
+													</div>
+													<div align="center">
+														<h:panelGrid columns="2" style="margin-bottom:10px"
+															cellpadding="5">
+															<p:selectBooleanCheckbox
+																value="#{utilisateurBean.ajoutGrdePriv}" />
+															<h:outputText value="Ajouter Grade" style="font-size:small"/>
+															<p:selectBooleanCheckbox
+																value="#{utilisateurBean.modifGrdePriv}" />
+															<h:outputText value="Modifier Grade" style="font-size:small"/>
+															<p:selectBooleanCheckbox
+																value="#{utilisateurBean.supGrdePriv}" />
+															<h:outputText value="Supprimer Grade" style="font-size:small" />
+														</h:panelGrid>
+													</div>
+												</p:panel>
+											</p:tab>
+											<p:tab title="Statut">
+												<p:panel
+													style="width:350px;height:200px">
+													<div align="left">
+														<h:panelGrid columns="2" style="margin-bottom:10px"
+															cellpadding="5">
+															<p:selectBooleanCheckbox value="#{utilisateurBean.gestStatutPriv}">
+															   <p:ajax update=":f1" />
+															</p:selectBooleanCheckbox>
+															<h:outputText value="Gérer Statuts" style="font-size:small" />
+														</h:panelGrid>
+													</div>
+													<div align="center">
+														<h:panelGrid columns="2" style="margin-bottom:10px"
+															cellpadding="5">
+															<p:selectBooleanCheckbox
+																value="#{utilisateurBean.ajoutStatuPriv}" />
+															<h:outputText value="Ajouter Statut"  style="font-size:small"/>
+															<p:selectBooleanCheckbox
+																value="#{utilisateurBean.modifStatuPriv}" />
+															<h:outputText value="Modifier Statut" style="font-size:small"/>
+															<p:selectBooleanCheckbox
+																value="#{utilisateurBean.supStatuPriv}" />
+															<h:outputText value="Supprimer Statut" style="font-size:small" />
+														</h:panelGrid>
+													</div>
+												</p:panel>
+											</p:tab>
+											<p:tab title="Sercice">
+												<p:panel
+													style="width:350px;height:200px">
+													<div align="left">
+														<h:panelGrid columns="2" style="margin-bottom:10px"
+															cellpadding="5">
+															<p:selectBooleanCheckbox value="#{utilisateurBean.gestSrvcPriv}" >
+															   <p:ajax update=":f1" />
+															</p:selectBooleanCheckbox>
+															<h:outputText value="Gérer Services" style="font-size:small"/>
+														</h:panelGrid>
+													</div>
+													<div align="center">
+														<h:panelGrid columns="2" style="margin-bottom:10px"
+															cellpadding="5">
+															<p:selectBooleanCheckbox
+																value="#{utilisateurBean.ajoutSrvcPriv}" />
+															<h:outputText value="Ajouter Service" style="font-size:small"/>
+															<p:selectBooleanCheckbox
+																value="#{utilisateurBean.modifSrvcPriv}" />
+															<h:outputText value="Modifier Service" style="font-size:small" />
+															<p:selectBooleanCheckbox
+																value="#{utilisateurBean.supSrvcPriv}" />
+															<h:outputText value="Supprimer Service" style="font-size:small"/>
+														</h:panelGrid>
+													</div>
+												</p:panel>
+											</p:tab>
+											<p:tab title="Ville">
+												<p:panel
+													style="width:350px;height:200px">
+													<div align="left">
+														<h:panelGrid columns="2" style="margin-bottom:10px"
+															cellpadding="5">
+															<p:selectBooleanCheckbox value="#{utilisateurBean.gestvilPriv}" >
+															  <p:ajax update=":f1" />
+															</p:selectBooleanCheckbox>
+															<h:outputText value="Gérer Villes" style="font-size:small" />
+														</h:panelGrid>
+													</div>
+													<div align="center">
+														<h:panelGrid columns="2" style="margin-bottom:10px"
+															cellpadding="5">
+															<p:selectBooleanCheckbox
+																value="#{utilisateurBean.ajoutVilPriv}" />
+															<h:outputText value="Ajouter ville" style="font-size:small" />
+															<p:selectBooleanCheckbox
+																value="#{utilisateurBean.modifVilPriv}" />
+															<h:outputText value="Modifier ville" style="font-size:small"/>
+															<p:selectBooleanCheckbox
+																value="#{utilisateurBean.supVilPriv}" />
+															<h:outputText value="Supprimer ville" style="font-size:small"/>
+														</h:panelGrid>
+													</div>
+												</p:panel>
+											</p:tab>
+										</p:tabView>
+									</p:tab>
+								</p:tabView>
+							</div>
+							<br />
+							<div align="center">
+								<p:commandButton value="Valider" icon="ui-icon-check"
+									actionListener="#{utilisateurBean.validation()}"
+									action="#{utilisateurBean.redirectUtl()}"
+									style="font-size:small;font-weight:bold" update=":f1" />
+							</div>
+						</p:panel>
+					</p:tab>
+					
+				</p:wizard>
+
+
+			</p:panel>
+			<hr></hr>
+			<div align="center">DSI_2015(Développement Solution
+				Informatique)</div>
+		</h:form>
+		<h:form id="f2">
+			<p:growl id="growl" life="3000" />
+			
+			<p:dialog id="dlg1" widgetVar="dialogVil" modal="true"
+				closable="false" resizable="true" header="Ajouter Ville ">
+
+				<p:panel id="dialogmodif1">
+					<h:panelGrid columns="2" cellspacing="20">
+						<p:outputLabel value="Ville: " />
+						<p:inputText value="#{utilisateurBean.designationVille}" />
+					</h:panelGrid>
+					<div align="center">
+						<h:panelGrid columns="2">
+							<p:commandButton value="Valider" icon="ui-icon-check"
+								actionListener="#{utilisateurBean.ajouterVilApresValidation()}"
+								update=":f1:growl,:f1:pnl"
+								oncomplete="handleLoginRequest(xhr, status, args)" />
+							<p:commandButton value="Annuler"
+								icon="ui-icon-arrowreturnthick-1-n"
+								onclick="PF('dialogVil').hide();" />
+						</h:panelGrid>
+					</div>
+				</p:panel>
+			</p:dialog>
+
+			<p:dialog id="dlg2" widgetVar="dialogGrad" modal="true"
+				closable="false" header="Ajouter Grade" resizable="true">
+				<p:panel id="dialogmodif">
+					<h:panelGrid columns="2" cellspacing="20">
+						<p:outputLabel value="Grade: " />
+						<p:inputText value="#{utilisateurBean.nomGrade}" id="grade" />
+					</h:panelGrid>
+					<div align="center">
+					<h:panelGrid columns="2">
+						<p:commandButton value="Valider" icon="ui-icon-check"
+							actionListener="#{utilisateurBean.ajouterGradeAprèsValidation}"
+							update=":f1:growl,:f1:pnl"
+							oncomplete="handleLoginRequest(xhr, status, args)" />
+						<p:commandButton value="Annuler"
+							icon="ui-icon-arrowreturnthick-1-n"
+							onclick="PF('dialogGrad').hide();" />
+					</h:panelGrid>
+                  </div>
+				</p:panel>
+			</p:dialog>
+
+			<p:dialog id="dlg3" widgetVar="dialogSrvce" modal="true"
+				closable="false" header="Ajouter Service" resizable="true">
+				<p:panel id="dialogmodifSvc">
+					<h:panelGrid columns="2" cellspacing="20">
+						<p:outputLabel value="Service :" />
+						<p:inputText value="#{utilisateurBean.designationSer}" id="ser" />
+					</h:panelGrid>
+					<div align="center">
+						<h:panelGrid columns="2">
+							<p:commandButton value="Valider" icon="ui-icon-check"
+								actionListener="#{utilisateurBean.ajouterSevceApresValidation}"
+								update=":f1:growl,:f1:pnl"
+								oncomplete="handleLoginRequest(xhr, status, args)" />
+							<p:commandButton value="Annuler"
+								icon="ui-icon-arrowreturnthick-1-n"
+								onclick="PF('dialogSrvce').hide();" />
+						</h:panelGrid>
+					</div>
+				</p:panel>
+			</p:dialog>
+
+
+			<script type="text/javascript">
+					function handleLoginRequest(xhr, status, args) {
+						if (args.validationFailed || !args.addValid) {
+							PF('dialogGrad').jq.effect("shake", {
+								times : 5
+							}, 100);
+						} else {
+							PF('dialogGrad').hide();
+							$('#loginLink').fadeOut();
+						}
+					}
+				</script>
+
+			<script type="text/javascript">
+					function handleLoginRequest(xhr, status, args) {
+						if (args.validationFailed || !args.addValid) {
+							PF('dialogVil').jq.effect("shake", {
+								times : 5
+							}, 100);
+						} else {
+							PF('dialogVil').hide();
+							$('#loginLink').fadeOut();
+						}
+					}
+				</script>
+			<script type="text/javascript">
+					function handleLoginRequest(xhr, status, args) {
+						if (args.validationFailed || !args.addValid) {
+							PF('dialogSrvce').jq.effect("shake", {
+								times : 5
+							}, 100);
+						} else {
+							PF('dialogSrvce').hide();
+							$('#loginLink').fadeOut();
+						}
+					}
+				</script>
+<style type="text/css">
+.touAutBtn {
+	 background:#50DF60
+}
+
+
+
+</style>
+
+
+		</h:form>
+
+	</f:view>
+</h:body>
+</html>

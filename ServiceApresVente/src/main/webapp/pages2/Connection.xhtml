@@ -1,0 +1,59 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:ui="http://java.sun.com/jsf/facelets">
+
+<h:head>
+	<title>connection</title>
+	<link rel="stylesheet" type="text/css" href="../css/styles.css" />
+
+</h:head>
+<h:body style=" background-image: url(../images/k7.jpg); background-repeat: no-repeat; background-size: cover;">
+
+	<div align="center">
+		<div align="center" style="width: 60%">
+			<h:form id="form">
+			<br /><br /><br /><br /> <br /><br /><br /><br />
+				<p:fieldset id="f" legend="Authentification" style="font-weight:bold;font-size:20pt;color: #22C1F0" >
+
+					<table  width="90%" >
+						<tr>
+						
+							<td width="30%">
+							<h:graphicImage value="../images/iconconnection1.png" width="150px" height="160px" />
+							</td>
+							
+							<td width="60%" >
+							<div align="center">
+							<p:fieldset id="f2" >
+							<h:panelGrid columns="2" >
+									<h:outputText value="Login:*" style="font-weight:bold;font-size:12pt" />
+									<h:inputText id="loginid" value="#{connectionBean.login}" />
+									<h:outputText value=" " style="font-size:8pt"/><h:message for="loginid" style="font-weight:bold;color:red;font-size:8pt" />
+									<h:outputText id="mpid" value="mot de passe:*" style="font-weight:bold;font-size:12pt" />
+									<h:inputSecret value="#{connectionBean.motpass}" />
+									<h:outputText value=" " style="font-size:8pt"/><h:message for="mpid" style="font-weight:bold;color:red;font-size:8pt" />
+									</h:panelGrid>
+									<h:panelGrid columns="2">
+									<h:commandButton value="Connecter" style="font-size:12pt"
+										action="#{connectionBean.connecter()}" />
+									<h:commandButton value="Annuler" action="#{connectionBean.annuler()}" style="font-size:12pt"/>
+									<br />
+									
+								</h:panelGrid>
+								</p:fieldset>
+								</div>
+								</td>
+						</tr>
+						<tr><td colspan="2"><h:message for="f" style="font-weight:bold;color:red;font-size:10pt" /></td></tr>
+					</table>
+				</p:fieldset>
+				
+			</h:form>
+		</div>
+	</div>
+</h:body>
+</html>

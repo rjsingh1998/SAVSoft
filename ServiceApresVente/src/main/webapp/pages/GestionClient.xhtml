@@ -1,0 +1,455 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:ui="http://java.sun.com/jsf/facelets">
+
+<h:head>
+	<title>Liste clients</title>
+	<link rel="stylesheet" type="text/css" href="../css/styles.css"></link>
+</h:head>
+<h:body
+	style="background-image: url(../images/k11.jpg); background-repeat: no-repeat; background-size: cover;">
+	<p:graphicImage width="100%" value="/imageTitre/titreClt.png"></p:graphicImage>
+
+	<div align="center">
+		<h:form id="f1">
+			<p:growl id="growl" life="3000" />
+
+			<div align="left">
+				<h:panelGrid columns="2" cellspacing="5">
+					<h:outputLink value="Acceuil2.xhtml">
+						<p:graphicImage value="/images/home3.png"></p:graphicImage>
+					</h:outputLink>
+					<h:commandLink actionListener="#{clientBean.viewListeClient}"
+						target="_blanc">
+						<p:graphicImage value="/images/PDF.png"></p:graphicImage>
+					</h:commandLink>
+				</h:panelGrid>
+			</div>
+			<p:panel>
+				<br />
+				<div align="center">
+					<h:panelGrid columns="5">
+						<h:outputText value="Recherche: " />
+
+						<p:inputText value="#{clientBean.valeurRecherche}" />
+						<p:selectOneMenu id="recherche" filterMatchMode="startsWith"
+							value="#{clientBean.attribut}" filter="true" effect="fade">
+							<f:selectItems value="#{clientBean.listesRecherches}" var="jo"
+								itemLabel="#{jo.toString()}" itemValue="#{jo}" />
+						</p:selectOneMenu>
+						<p:commandButton icon="ui-icon-search" title="Recherche Client"
+							update=":f1" />
+						<p:commandButton icon="ui-icon-refresh" title="Actualiser"
+							actionListener="#{clientBean.annulerRecherche}" update=":f1" />
+					</h:panelGrid>
+				</div>
+
+
+				<div style="width: 100%">
+					<div align="right">
+						<h:panelGrid columns="2">
+
+							<p:commandButton value="Nouveau" icon="ui-icon-plusthick"
+								style="font-size:small;font-weight:bold" update=":f2:dlg"
+								actionListener="#{clientBean.ajouterClient}"
+								oncomplete="PF('dialogmodif').show()"
+								rendered="#{connectionBean.nouvClient}" />
+						</h:panelGrid>
+					</div>
+
+					<p:dataTable var="client" id="tableClt"
+						value="#{clientBean.clients}" border="1" paginator="true"
+						paginatorPosition="bottom"
+						paginatorTemplate=" {FirstPageLink} {PreviousPageLink} {PageLinks} 
+				              {NextPageLink} {LastPageLink}  "
+						rows="5">
+
+						<p:column headerText="Client" width="20%">
+
+							<h:outputText value="#{client.nomclt}"
+								style="font-size:small;font-weight:bold" />
+
+
+						</p:column>
+
+						<p:column headerText="Contact" width="20%">
+
+							<h:outputText value="#{client.contact}"
+								style="font-size:small;font-weight:bold" />
+
+
+						</p:column>
+
+						<p:column headerText="type" width="20%">
+
+							<h:outputText value="#{client.type}"
+								style="font-size:small;font-weight:bold" />
+
+
+						</p:column>
+
+
+
+
+						<p:column headerText="Adresse" width="25%">
+							<h:outputLabel
+								value="#{client.adrclt} - #{client.ville.designationVille}"
+								style="font-size:small;font-weight:bold" />
+
+						</p:column>
+
+
+
+
+						<p:column headerText="Email" width="30%">
+							<h:outputLabel value="#{client.mailclt}"
+								style="font-size:small;font-weight:bold" />
+						</p:column>
+
+
+
+						<p:column headerText="GSM" width="30%">
+							<h:outputLabel value="#{client.gsm1clt} - #{client.gsm2clt}"
+								style="font-size:small;font-weight:bold" />
+						</p:column>
+
+
+
+						<p:column headerText="Tel" width="17%">
+							<h:outputLabel value="#{client.telclt}"
+								style="font-size:small;font-weight:bold" />
+						</p:column>
+
+
+						<p:column headerText="Fax" width="17%">
+							<h:outputLabel value=" #{client.faxclt}"
+								style="font-size:small;font-weight:bold" />
+						</p:column>
+
+
+						<p:column style="width:25%">
+							<p:commandButton
+								actionListener="#{clientBean.modifierClient(client)}"
+								update=":f2:dlg" oncomplete="PF('dialogmodif').show()"
+								icon="ui-icon-pencil" title="Modification"
+								rendered="#{connectionBean.modifClient}" />
+
+
+
+							<p:commandButton
+								actionListener="#{clientBean.supprimer(client.idclient)}"
+								icon="ui-icon-trash" title="Suppression Client"
+								update=":f1:growl" rendered="#{connectionBean.supClient}">
+								<p:confirm header="Suppression Client"
+									message="Voulez-vous vraiment supprimer ce Client ?"
+									icon="ui-icon-alert" />
+							</p:commandButton>
+
+							<p:commandButton
+								actionListener="#{clientBean.historiqueClt(client.idclient)}"
+								oncomplete="PF('dialogHis').show()" update=":f2:dlghis"
+								icon="ui-icon-document" title="Historique" />
+						</p:column>
+					</p:dataTable>
+				</div>
+
+				<p:confirmDialog global="true" hideEffect="fade">
+					<p:commandButton value="Oui" type="button"
+						styleClass="ui-confirmdialog-yes" icon="ui-icon-check" />
+					<p:commandButton value="Non" type="button"
+						styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
+				</p:confirmDialog>
+
+
+			</p:panel>
+
+		</h:form>
+
+		<h:form id="f2">
+			<p:growl id="growl" life="3000" />
+			
+			<p:dialog id="dlg" widgetVar="dialogmodif" modal="true"
+				closable="false" resizable="true"
+				header="#{clientBean.action} Client">
+				<p:panel style="width:100%" id="panel">
+					<h:panelGrid columns="2" cellspacing="6" cellpadding="10">
+						<p:outputLabel value="Type*" />
+						<p:selectOneRadio id="type" value="#{clientBean.type}"  >
+							<f:selectItem itemLabel="Proffesionel" itemValue="proffesionel" />
+							<f:selectItem itemLabel="Particulier" itemValue="particulier" />
+						</p:selectOneRadio>
+					</h:panelGrid>
+					<h:panelGrid columns="2" cellspacing="6" cellpadding="5">
+						<p:outputLabel value="Client*" />
+						<p:inputText value="#{clientBean.nomclt}" size="25"/>
+						<p:outputLabel value="Contact" />
+						<p:inputText value="#{clientBean.contact}" size="25"  />
+						<p:outputLabel value="Email" />
+						<p:inputText value="#{clientBean.mailclt}" size="25">
+						</p:inputText>
+						<p:outputLabel value="Adresse" />
+						<p:inputText value="#{clientBean.adrclt}" size="25"/>
+						<p:outputLabel value="Gsm" />
+						<h:panelGrid columns="2">
+							<p:inputText value="#{clientBean.gsm1clt}" id="pro4" size="12" />
+							<p:inputText value="#{clientBean.gsm2clt}" id="pro5" size="11" />
+						</h:panelGrid>
+						<p:outputLabel value="Tel" />
+						<p:inputText value="#{clientBean.telclt}" id="pro6" size="25" />
+						<p:outputLabel value="Fax" />
+						<p:inputText value="#{clientBean.faxclt}" id="pro7" size="25" />
+						<p:outputLabel value="Ville" />
+						<h:panelGrid columns="2" >
+							<p:selectOneMenu value="#{clientBean.idville}"
+								style="width:190px">
+								<f:selectItem itemLabel="----Selectioner----" itemValue=" " />
+								<f:selectItems value="#{clientBean.villes}" var="vil"
+									itemLabel="#{vil.designationVille}" itemValue="#{vil.idville}" />
+							</p:selectOneMenu>
+							<p:commandButton icon="ui-icon-plus"
+								oncomplete="PF('dialogmodif1').show()" update="dlg1">
+								<p:ajax listener="#{clientBean.ajouterVille}" />
+							</p:commandButton>
+						</h:panelGrid>
+					</h:panelGrid>
+
+					<h:panelGrid columns="2">
+						<p:commandButton value="Valider" icon="ui-icon-check"
+							actionListener="#{clientBean.ajouterCltApresValidation()}"
+							update=":f2:growl"
+							oncomplete="handleLoginRequest(xhr, status, args)" />
+						<p:commandButton value="Annuler"
+							icon="ui-icon-arrowreturnthick-1-n"
+							onclick="PF('dialogmodif').hide()" />
+					</h:panelGrid>
+				</p:panel>
+			</p:dialog>
+
+			<p:dialog id="dlg1" widgetVar="dialogmodif1" modal="true"
+				closable="false" resizable="true"
+				header="#{clientBean.action} Ville ">
+
+				<p:panel id="dialogmodif1">
+					<h:panelGrid columns="2" cellspacing="20px">
+						<p:outputLabel value="Ville" />
+						<p:inputText value="#{clientBean.designationVille}" />
+					</h:panelGrid>
+					<h:panelGrid columns="2">
+						<p:commandButton value="Valider" icon="ui-icon-check"
+							actionListener="#{clientBean. ajouterVilApresValidation()}"
+							update=":f2:growl,panel" onclick="PF('dialogmodif').show()" />
+						<p:commandButton value="Annuler"
+							icon="ui-icon-arrowreturnthick-1-n"
+							onclick="PF('dialogmodif1').hide();" />
+					</h:panelGrid>
+
+				</p:panel>
+			</p:dialog>
+
+			<p:dialog id="dlghis" widgetVar="dialogHis" modal="true"
+				resizable="true" header="Historique Client">
+				<h:commandLink actionListener="#{clientBean.viewHistoClt}"
+					target="_blanc">
+					<p:graphicImage value="/images/PDF.png"></p:graphicImage>
+				</h:commandLink>
+				<p:panel style="width:100%" id="panelhisto">
+					<h:panelGrid columns="6" cellpadding="3" cellspacing="5">
+						<p:outputLabel value="Type: " />
+						<p:inputText value="#{clientBean.type}" readonly="true" />
+
+						<p:outputLabel value="Nom: " />
+						<p:inputText value="#{clientBean.nomclt}" readonly="true" />
+
+						<p:outputLabel value="Email: " />
+						<p:inputText value="#{clientBean.mailclt}" readonly="true" />
+
+					</h:panelGrid>
+					<br />
+					<br />
+					<p:dataTable var="apl" id="tabhis"
+						value="#{clientBean.histAplClts}" emptyMessage="Pas d historique"
+						border="1" paginator="true" paginatorPosition="bottom"
+						paginatorTemplate=" {FirstPageLink} {PreviousPageLink} {PageLinks} 
+				        {NextPageLink} {LastPageLink}  "
+						rows="10">
+
+						<p:column width="20%">
+							<f:facet name="header">
+								<h:outputLabel value="Id appel" />
+							</f:facet>
+							<h:outputText value="#{apl.idappel}"
+								style="font-size:small;font-weight:bold" />
+
+						</p:column>
+						<p:column width="20%">
+							<f:facet name="header">
+								<h:outputLabel value="N°serie machine" />
+							</f:facet>
+							<h:outputText value="#{apl.machine.num_serie}"
+								style="font-size:small;font-weight:bold" />
+						</p:column>
+
+						<p:column width="20%">
+							<f:facet name="header">
+								<h:outputLabel value="Type machine" />
+							</f:facet>
+							<h:outputText value="#{apl.machine.type.designationType}"
+								style="font-size:small;font-weight:bold" />
+						</p:column>
+
+						<p:column width="20%">
+							<f:facet name="header">
+								<h:outputLabel value="Date entrée" />
+							</f:facet>
+							<h:outputText value="#{apl.date_entre}"
+								style="font-size:small;font-weight:bold" />
+						</p:column>
+
+						<p:column width="20%">
+							<f:facet name="header">
+								<h:outputLabel value="Dtae sortie" />
+							</f:facet>
+							<h:outputText value="#{apl.date_sortie}"
+								style="font-size:small;font-weight:bold" />
+						</p:column>
+
+						<p:column width="20%">
+							<f:facet name="header">
+								<h:outputLabel value="Etat" />
+							</f:facet>
+							<h:outputText value="#{apl.etat.designationEtat}"
+								style="font-size:small;font-weight:bold" />
+						</p:column>
+
+						<p:column style="width:10%">
+							<p:commandButton actionListener="#{clientBean.detailapl(apl)}"
+								oncomplete="PF('dialogApl').show()" update=":f2:dlgApl"
+								icon="ui-icon-zoomin" title="Détail appel" />
+						</p:column>
+					</p:dataTable>
+				</p:panel>
+
+			</p:dialog>
+
+			<p:dialog id="dlgApl" widgetVar="dialogApl" modal="true"
+				resizable="true" header="Détail Appel">
+
+				<h:panelGrid columns="8">
+					<h:outputText value="N°Appel : " />
+					<p:inputText size="10" value="#{clientBean.idApl}" readonly="true" />
+					<h:outputText value="Date d'entrée: " />
+					<p:inputText value="#{clientBean.date_entre}" readonly="true" />
+					<h:outputText value="Date Sortie: " />
+					<p:inputText value="#{clientBean.date_sortie}" readonly="true" />
+					<h:outputText value="Etat: " />
+					<p:inputText value="#{clientBean.etat}" readonly="true" />
+				</h:panelGrid>
+				<br />
+				<p:tabView>
+					<p:tab title="Machine">
+						<div align="center">
+							<h:panelGrid columns="2">
+								<h:outputText value="S/N : " />
+								<p:inputText size="10" value="#{clientBean.mch.num_serie}"
+									readonly="true" />
+								<h:outputText value="Type : " />
+								<p:inputText size="10"
+									value="#{clientBean.mch.type.designationType}" readonly="true" />
+								<h:outputText value="Marque : " />
+								<p:inputText size="10"
+									value="#{clientBean.mch.marque.designationMarq}"
+									readonly="true" />
+								<h:outputText value="Model : " />
+								<p:inputText size="10" value="#{clientBean.mch.model}"
+									readonly="true" />
+							</h:panelGrid>
+						</div>
+					</p:tab>
+					<p:tab title="Panne/Statut">
+						<div align="center">
+							<p:dataTable var="pann" id="p" value="#{clientBean.pannes}"
+								scrollable="true" scrollHeight="125"
+								emptyMessage="Auccune panne selectionnée" style="width:70%">
+								<p:column headerText="Pannes "
+									style="font-size:small;font-weight:bold">
+									<h:outputText style="font-size:small;font-weight:bold"
+										value="#{pann.designationPan}" />
+								</p:column>
+
+							</p:dataTable>
+							<p:fieldset legend="Statut" style="width:50%">
+								<p:selectManyCheckbox value="#{clientBean.status}">
+									<f:selectItems value="#{appelBean.stats}" var="stat"
+										itemLabel="#{stat.designationStat}"
+										itemValue="#{stat.designationStat}" />
+								</p:selectManyCheckbox>
+							</p:fieldset>
+						</div>
+					</p:tab>
+					<p:tab title="Accessoire">
+						<p:selectManyCheckbox id="b" layout="grid" columns="3"
+							value="#{clientBean.accessoires}">
+							<f:selectItems value="#{appelBean.accs}" var="acc"
+								itemLabel="#{acc.designationAcc}"
+								itemValue="#{acc.designationAcc}" />
+						</p:selectManyCheckbox>
+					</p:tab>
+					<p:tab title="Tâches">
+						<div align="center">
+							<p:dataTable var="tach" id="t" value="#{clientBean.taches}"
+								scrollable="true" scrollHeight="125"
+								emptyMessage="Auccune tache selectionnée" style="width:70%">
+								<p:column headerText="Tâches "
+									style="font-size:small;font-weight:bold">
+									<h:outputText style="font-size:small;font-weight:bold"
+										value="#{tach.tache.designationTach}" />
+								</p:column>
+							</p:dataTable>
+						</div>
+
+					</p:tab>
+					<p:tab title="Pièces">
+						<div align="center">
+							<p:dataTable var="pce" id="pc" value="#{clientBean.pieces}"
+								scrollable="true" scrollHeight="125"
+								emptyMessage="Auccune pièce selectionnée" style="width:70%">
+								<p:column headerText="Tâches "
+									style="font-size:small;font-weight:bold">
+									<h:outputText style="font-size:small;font-weight:bold"
+										value="#{pce.piece.designationPce}" />
+								</p:column>
+							</p:dataTable>
+						</div>
+
+					</p:tab>
+				</p:tabView>
+			</p:dialog>
+
+			<script type="text/javascript">
+					function handleLoginRequest(xhr, status, args) {
+						if (args.validationFailed || !args.addValid) {
+							PF('dialogmodif').jq.effect("shake", {
+								times : 5
+							}, 100);
+						} else {
+							PF('dialogmodif').hide();
+							$('#loginLink').fadeOut();
+						}
+					}
+				</script>
+
+			<hr></hr>
+			<div align="center">DSI_2015(Développement Solution
+				Informatique)</div>
+
+		</h:form>
+
+
+	</div>
+</h:body>
+</html>

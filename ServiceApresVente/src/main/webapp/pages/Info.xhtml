@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:ui="http://java.sun.com/jsf/facelets">
+
+<ui:composition template="../templates/template.xhtml">
+	<ui:define name="body">
+
+		<div align="center">
+			<h1>Gérer Info Complementaire</h1>
+		</div>
+		<h:form id="f1">
+			<table width="100%" align="center">
+				<tr>
+
+					<td align="center"><h:panelGrid columns="2"
+							columnClasses="label, value">
+
+							<p:inputText value="#{appelBean.libelé1}" size="18" />
+							<p:selectBooleanCheckbox value="#{appelBean.activation1}" />
+
+							<p:inputText value="#{appelBean.libelé2}" size="18" />
+							<p:selectBooleanCheckbox value="#{appelBean.activation2}" />
+
+							<p:inputTextarea value="#{appelBean.libelé3}" />
+							<p:selectBooleanCheckbox value="#{appelBean.activation3}" />
+
+							<p:inputTextarea value="#{appelBean.libelé4}" />
+							<p:selectBooleanCheckbox value="#{appelBean.activation4}" />
+						</h:panelGrid></td>
+					<td align="center"><h:panelGrid columns="2"
+							columnClasses="label, value">
+
+							<p:inputText value="#{appelBean.libelé5}" size="18" />
+							<p:selectBooleanCheckbox value="#{appelBean.activation5}" />
+
+							<p:inputText value="#{appelBean.libelé6}" size="18" />
+							<p:selectBooleanCheckbox value="#{appelBean.activation6}" />
+
+							<p:inputTextarea value="#{appelBean.libelé7}" />
+							<p:selectBooleanCheckbox value="#{appelBean.activation7}" />
+
+							<p:inputTextarea value="#{appelBean.libelé8}" />
+							<p:selectBooleanCheckbox value="#{appelBean.activation8}" />
+						</h:panelGrid></td>
+					<td align="center"><h:panelGrid columns="2"
+							columnClasses="label, value">
+
+							<p:inputText value="#{appelBean.libelé9}" size="18" />
+							<p:selectBooleanCheckbox value="#{appelBean.activation9}" />
+
+							<p:inputText value="#{appelBean.libelé10}" size="18" />
+							<p:selectBooleanCheckbox value="#{appelBean.activation10}" />
+
+							<p:inputTextarea value="#{appelBean.libelé11}" />
+							<p:selectBooleanCheckbox value="#{appelBean.activation11}" />
+
+							<p:inputTextarea value="#{appelBean.libelé12}" />
+							<p:selectBooleanCheckbox value="#{appelBean.activation12}" />
+						</h:panelGrid></td>
+
+
+				</tr>
+			</table>
+			<br />
+			<div align="right">
+				<h:panelGrid columns="2">
+					<p:commandButton value="Valider"
+						actionListener="#{appelBean.validation_Info()}" update=":f1" />
+					<p:commandButton value="Annuler"
+						actionListener="#{appelBean.init_info()}" update=":f1" />
+				</h:panelGrid>
+			</div>
+
+
+
+		</h:form>
+
+
+	</ui:define>
+</ui:composition>
+</html>

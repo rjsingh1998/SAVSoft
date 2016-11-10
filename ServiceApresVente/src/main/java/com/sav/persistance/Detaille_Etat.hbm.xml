@@ -1,0 +1,31 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated 22 janv. 2015 15:05:41 by Hibernate Tools 3.4.0.CR1 -->
+<hibernate-mapping>
+	<class name="com.sav.persistance.Detaille_Etat" table="detaille_etat"
+		catalog="sav">
+
+		<id name="iddetaille_etat" type="java.lang.Integer">
+			<column name="iddetaille_etat" />
+			<generator class="increment" />
+		</id>
+		
+		<many-to-one name="appel" class="com.sav.persistance.Appel" lazy="false" fetch="join">
+			<column name="idappel"  />
+		</many-to-one>
+		
+		<many-to-one name="etat" class="com.sav.persistance.Etat" lazy="false" fetch="join">
+			<column name="idetat"  />
+		</many-to-one>
+		
+		<many-to-one name="service" class="com.sav.persistance.Service" lazy="false" fetch="join">
+			<column name="idservice"  />
+		</many-to-one>
+		 
+		 <property name="typeApl" type="string">
+			<column name="typeApl" length="45" />
+		</property>
+		 
+	</class>
+</hibernate-mapping>

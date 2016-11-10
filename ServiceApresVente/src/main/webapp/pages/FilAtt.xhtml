@@ -1,0 +1,299 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:ui="http://java.sun.com/jsf/facelets">
+
+
+<h:head>
+	<title>Fil</title>
+	<link rel="stylesheet" type="text/css" href="../css/styles.css"></link>
+</h:head>
+<h:body style="background-image: url(../images/k11.jpg); background-repeat: no-repeat; background-size: cover;">
+	<p:graphicImage width="100%" value="/imageTitre/titrefilAtt.png" ></p:graphicImage>
+	
+	<br />
+	
+	<h:form id="f1">
+	    
+	    <div align="left" >
+			<h:panelGrid columns="2" cellspacing="5" >
+				<h:outputLink value="Acceuil2.xhtml">
+					<p:graphicImage value="/images/home3.png" ></p:graphicImage>
+		        </h:outputLink>
+				
+			</h:panelGrid>
+		</div>
+		<p:panel>
+	    
+	<p:tabView >
+	    
+	    
+        <p:tab title="Fil d'attente #{filAttBean.title.get(0)}" rendered="#{filAttBean.tab.get(0)}">
+               
+              <p:dataTable var="apllFil" id="idtabl1"
+					    value="#{filAttBean.table.get(0)}"
+						emptyMessage="Pas d'appel en attente dans ce service" border="1" paginator="true"
+						paginatorPosition="bottom"
+						paginatorTemplate=" {FirstPageLink} {PreviousPageLink} {PageLinks} 
+				              {NextPageLink} {LastPageLink}"
+						rows="10">
+
+					<p:column headerText="Id appel"
+						style="font-size:small;font-weight:bold">
+						<h:outputText value="#{apllFil.appel.idappel}"
+							style="font-size:small;font-weight:bold" />
+					</p:column>
+					
+					<p:column headerText="Priorité" style="font-size:small;font-weight:bold" >
+						<h:outputText value="#{apllFil.priorite}"
+							style="font-size:small;font-weight:bold" />
+					</p:column>
+					<p:column headerText="Type"
+						style="font-size:small;font-weight:bold">
+					  <h:outputText value="#{filAttBean.getingType(apllFil)}"
+							style="font-size:small;font-weight:bold" />
+					</p:column>
+					
+					<p:column headerText="Dtae affectation" style="font-size:small;font-weight:bold">
+						<h:outputText value="#{apllFil.date_affect}"
+							style="font-size:small;font-weight:bold" />
+					</p:column>
+					
+            </p:dataTable>
+              
+        </p:tab>
+        
+         <p:tab title="Fil d'attente #{filAttBean.title.get(1)}" rendered="#{filAttBean.tab.get(1)}">
+               
+              <p:dataTable var="apllFil" id="idtabl"
+						value="#{filAttBean.table.get(1)}"
+						emptyMessage="Pas d'appel en attente dans ce service" border="1" paginator="true"
+						paginatorPosition="bottom"
+						paginatorTemplate=" {FirstPageLink} {PreviousPageLink} {PageLinks} 
+				              {NextPageLink} {LastPageLink}"
+						rows="10">
+
+						<p:column headerText="Id appel"
+						style="font-size:small;font-weight:bold">
+						
+						<h:outputText value="#{apllFil.appel.idappel}"
+							style="font-size:small;font-weight:bold" />
+					</p:column>
+					
+					<p:column headerText="Priorité" style="font-size:small;font-weight:bold" >
+						<h:outputText value="#{apllFil.priorite}"
+							style="font-size:small;font-weight:bold" />
+					</p:column>
+					
+					<p:column headerText="Dtae affectation" style="font-size:small;font-weight:bold">
+						<h:outputText value="#{apllFil.date_affect}"
+							style="font-size:small;font-weight:bold" />
+					</p:column>
+					
+            </p:dataTable>
+              
+        </p:tab>
+        
+       <p:tab title="Fil d'attente #{filAttBean.title.get(2)}" rendered="#{filAttBean.tab.get(2)}">
+               
+              <p:dataTable var="apllFil" id="idtabl2"
+						value="#{filAttBean.table.get(2)}"
+						emptyMessage="Pas d'appel en attente dans ce service" border="1" paginator="true"
+						paginatorPosition="bottom"
+						paginatorTemplate=" {FirstPageLink} {PreviousPageLink} {PageLinks} 
+				              {NextPageLink} {LastPageLink}"
+						rows="10">
+
+						<p:column headerText="Id appel"
+						style="font-size:small;font-weight:bold">
+						
+						<h:outputText value="#{apllFil.appel.idappel}"
+							style="font-size:small;font-weight:bold" />
+					</p:column>
+					
+					<p:column headerText="Priorité" style="font-size:small;font-weight:bold" >
+						<h:outputText value="#{apllFil.priorite}"
+							style="font-size:small;font-weight:bold" />
+					</p:column>
+					
+					<p:column headerText="Dtae affectation" style="font-size:small;font-weight:bold">
+						<h:outputText value="#{apllFil.date_affect}"
+							style="font-size:small;font-weight:bold" />
+					</p:column>
+					
+            </p:dataTable>
+              
+        </p:tab>
+        
+        <p:tab title="Fil d'attente #{filAttBean.title.get(3)}" rendered="#{filAttBean.tab.get(3)}">
+               
+              <p:dataTable var="apllFil" id="idtabl3"
+						value="#{filAttBean.table.get(3)}"
+						emptyMessage="Pas d'appel en attente dans ce service" border="1" paginator="true"
+						paginatorPosition="bottom"
+						paginatorTemplate=" {FirstPageLink} {PreviousPageLink} {PageLinks} 
+				              {NextPageLink} {LastPageLink}"
+						rows="10">
+
+						<p:column headerText="Id appel"
+						style="font-size:small;font-weight:bold">
+						
+						<h:outputText value="#{apllFil.appel.idappel}"
+							style="font-size:small;font-weight:bold" />
+					</p:column>
+					
+					<p:column headerText="Priorité" style="font-size:small;font-weight:bold" >
+						<h:outputText value="#{apllFil.priorite}"
+							style="font-size:small;font-weight:bold" />
+					</p:column>
+					
+					<p:column headerText="Dtae affectation" style="font-size:small;font-weight:bold">
+						<h:outputText value="#{apllFil.date_affect}"
+							style="font-size:small;font-weight:bold" />
+					</p:column>
+					
+            </p:dataTable>
+              
+        </p:tab>
+        
+        <p:tab title="Fil d'attente #{filAttBean.title.get(4)}" rendered="#{filAttBean.tab.get(4)}">
+               
+              <p:dataTable var="apllFil" 
+						value="#{filAttBean.table.get(4)}"
+						emptyMessage="Pas d'appel en attente dans ce service" border="1" paginator="true"
+						paginatorPosition="bottom"
+						paginatorTemplate=" {FirstPageLink} {PreviousPageLink} {PageLinks} 
+				              {NextPageLink} {LastPageLink}"
+						rows="10">
+
+						<p:column headerText="Id appel"
+						style="font-size:small;font-weight:bold">
+						
+						<h:outputText value="#{apllFil.appel.idappel}"
+							style="font-size:small;font-weight:bold" />
+					</p:column>
+					
+					<p:column headerText="Priorité" style="font-size:small;font-weight:bold" >
+						<h:outputText value="#{apllFil.priorite}"
+							style="font-size:small;font-weight:bold" />
+					</p:column>
+					
+					<p:column headerText="Dtae affectation" style="font-size:small;font-weight:bold">
+						<h:outputText value="#{apllFil.date_affect}"
+							style="font-size:small;font-weight:bold" />
+					</p:column>
+					
+            </p:dataTable>
+              
+        </p:tab>
+        
+        <p:tab title="Fil d'attente #{filAttBean.title.get(5)}" rendered="#{filAttBean.tab.get(5)}">
+               
+              <p:dataTable var="apllFil" 
+						value="#{filAttBean.table.get(5)}"
+						emptyMessage="Pas d'appel en attente dans ce service" border="1" paginator="true"
+						paginatorPosition="bottom"
+						paginatorTemplate=" {FirstPageLink} {PreviousPageLink} {PageLinks} 
+				              {NextPageLink} {LastPageLink}"
+						rows="10">
+
+						<p:column headerText="Id appel"
+						style="font-size:small;font-weight:bold">
+						
+						<h:outputText value="#{apllFil.appel.idappel}"
+							style="font-size:small;font-weight:bold" />
+					</p:column>
+					
+					<p:column headerText="Priorité" style="font-size:small;font-weight:bold" >
+						<h:outputText value="#{apllFil.priorite}"
+							style="font-size:small;font-weight:bold" />
+					</p:column>
+					
+					<p:column headerText="Dtae affectation" style="font-size:small;font-weight:bold">
+						<h:outputText value="#{apllFil.date_affect}"
+							style="font-size:small;font-weight:bold" />
+					</p:column>
+					
+            </p:dataTable>
+              
+        </p:tab>
+        
+        <p:tab title="Fil d'attente #{filAttBean.title.get(6)}" rendered="#{filAttBean.tab.get(6)}">
+               
+              <p:dataTable var="apllFil" 
+						value="#{filAttBean.table.get(6)}"
+						emptyMessage="Pas d'appel en attente dans ce service" border="1" paginator="true"
+						paginatorPosition="bottom"
+						paginatorTemplate=" {FirstPageLink} {PreviousPageLink} {PageLinks} 
+				              {NextPageLink} {LastPageLink}"
+						rows="10">
+
+						<p:column headerText="Id appel"
+						style="font-size:small;font-weight:bold">
+						
+						<h:outputText value="#{apllFil.appel.idappel}"
+							style="font-size:small;font-weight:bold" />
+					</p:column>
+					
+					<p:column headerText="Priorité" style="font-size:small;font-weight:bold" >
+						<h:outputText value="#{apllFil.priorite}"
+							style="font-size:small;font-weight:bold" />
+					</p:column>
+					
+					<p:column headerText="Dtae affectation" style="font-size:small;font-weight:bold">
+						<h:outputText value="#{apllFil.date_affect}"
+							style="font-size:small;font-weight:bold" />
+					</p:column>
+					
+            </p:dataTable>
+              
+        </p:tab>
+        
+        <p:tab title="Fil d'attente #{filAttBean.title.get(7)}" rendered="#{filAttBean.tab.get(7)}">
+               
+              <p:dataTable var="apllFil" 
+						value="#{filAttBean.table.get(7)}"
+						emptyMessage="Pas d'appel en attente dans ce service" border="1" paginator="true"
+						paginatorPosition="bottom"
+						paginatorTemplate=" {FirstPageLink} {PreviousPageLink} {PageLinks} 
+				              {NextPageLink} {LastPageLink}"
+						rows="10">
+
+						<p:column headerText="Id appel"
+						style="font-size:small;font-weight:bold">
+						
+						<h:outputText value="#{apllFil.appel.idappel}"
+							style="font-size:small;font-weight:bold" />
+					</p:column>
+					
+					<p:column headerText="Priorité" style="font-size:small;font-weight:bold" >
+						<h:outputText value="#{apllFil.priorite}"
+							style="font-size:small;font-weight:bold" />
+					</p:column>
+					
+					<p:column headerText="Dtae affectation" style="font-size:small;font-weight:bold">
+						<h:outputText value="#{apllFil.date_affect}"
+							style="font-size:small;font-weight:bold" />
+					</p:column>
+					
+            </p:dataTable>
+              
+        </p:tab>
+        
+        
+         
+    </p:tabView>
+	</p:panel>
+	
+	<hr></hr>
+		<div align="center">DSI_2015(Développement Solution
+			Informatique)</div>
+	
+	</h:form>
+	</h:body>
+	</html>
+	

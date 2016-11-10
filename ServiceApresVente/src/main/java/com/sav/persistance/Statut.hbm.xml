@@ -1,0 +1,30 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated 22 janv. 2015 15:05:41 by Hibernate Tools 3.4.0.CR1 -->
+<hibernate-mapping>
+	<class name="com.sav.persistance.Statut" table="statut"
+		catalog="sav">
+
+		<id name="idstatut" type="java.lang.Integer">
+			<column name="idstatut" />
+			<generator class="increment" />
+		</id>
+
+		
+
+		<property name="designationStat" type="string">
+			<column name="designationStat" length="45" />
+		</property>
+		
+		 <set name="app_statuts" table="app_stat" inverse="true" lazy="true" fetch="select">
+			<key>
+				<column name="idstatut"  />
+			</key>
+			<one-to-many class="com.sav.persistance.App_stat" />
+		</set>
+
+		
+		
+	</class>
+</hibernate-mapping>

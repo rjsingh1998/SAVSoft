@@ -1,0 +1,59 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated 22 janv. 2015 15:05:41 by Hibernate Tools 3.4.0.CR1 -->
+<hibernate-mapping>
+	<class name="com.sav.persistance.Client" table="client"
+		catalog="sav">
+
+		<id name="idclient" type="java.lang.Integer">
+			<column name="idclient" />
+			<generator class="increment" />
+		</id>
+        <property name="type" type="string">
+			<column name="type" length="45" />
+		</property>
+		<property name="nomclt" type="string">
+			<column name="nomclt" length="45" />
+		</property>
+		<property name="contact" type="string">
+			<column name="contact" length="45" />
+		</property>
+		<property name="mailclt" type="string">
+			<column name="mailclt" length="45" />
+		</property>
+		<property name="adrclt" type="string">
+			<column name="adrclt" length="45" />
+		</property>
+
+		<property name="gsm1clt" type="string">
+			<column name="gsm1clt" length="45" />
+		</property>
+		
+		
+		<property name="gsm2clt" type="string">
+			<column name="gsm2clt" length="45" />
+		</property>
+		
+		<property name="telclt" type="string">
+			<column name="telclt" length="45" />
+		</property>
+		
+		<property name="faxclt" type="string">
+			<column name="faxclt" length="45" />
+		</property>
+		
+	
+	<set name="appels" table="appel" inverse="true" lazy="false" fetch="select">
+			<key>
+				<column name="idclient" precision="2" scale="0" />
+			</key>
+			<one-to-many class="com.sav.persistance.Appel" />
+		</set>
+	
+	  <many-to-one lazy="false" name="ville" class="com.sav.persistance.Ville"   fetch="select">
+			<column name="idville"  />
+		</many-to-one>
+		
+	</class>
+</hibernate-mapping>

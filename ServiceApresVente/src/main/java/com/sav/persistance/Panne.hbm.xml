@@ -1,0 +1,38 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated 22 janv. 2015 15:05:41 by Hibernate Tools 3.4.0.CR1 -->
+<hibernate-mapping>
+	<class name="com.sav.persistance.Panne" table="panne"
+		catalog="sav">
+
+		<id name="idpanne" type="java.lang.Integer">
+			<column name="idpanne" />
+			<generator class="increment" />
+		</id>
+
+		<property name="designationPan" type="string">
+			<column name="designationPan" length="45" />
+		</property>
+
+		 <set name="app_pannes" table="app_panne" inverse="true" lazy="true" fetch="select">
+			<key>
+				<column name="idpanne"  />
+			</key>
+			<one-to-many class="com.sav.persistance.App_panne" />
+		</set>
+		
+		<set name="diag_pannes" table="diag_panne" inverse="true" lazy="true" fetch="select">
+			<key>
+				<column name="iddiag"  />
+			</key>
+			<one-to-many class="com.sav.persistance.Diag_panne" />
+		</set>
+		
+		<many-to-one name="service" class="com.sav.persistance.Service" lazy="false" fetch="join">
+			<column name="idservice"  />
+		</many-to-one>
+		
+		
+	</class>
+</hibernate-mapping>

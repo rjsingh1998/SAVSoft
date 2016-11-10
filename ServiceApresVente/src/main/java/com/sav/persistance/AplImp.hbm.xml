@@ -1,0 +1,57 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated 29 aout. 2015 15:05:41 by Hibernate Tools 3.4.0.CR1 -->
+<hibernate-mapping>
+	<class name="com.sav.persistance.AplImp" table="aplimp"
+		catalog="sav">
+
+		<id name="idAplImp" type="java.lang.Integer">
+			<column name="idAplImp" />
+			<generator class="increment" />
+		</id>
+		
+		<property name="numApl" type="java.lang.Integer">
+			<column name="numApl"  />
+		</property>
+		
+        <property name="clt" type="string">
+			<column name="clt" length="45" />
+		</property>
+		
+		<property name="numSerie" type="string">
+			<column name="numSerie" length="45" />
+		</property>
+		
+		<property name="date_entre" type="java.util.Date">
+			<column name="date_entre" sql-type="DATETIME"/>
+		</property>
+		
+		<property name="etat" type="string">
+			<column name="etat" length="45" />
+		</property>
+		
+		<property name="gsm" type="string">
+			<column name="gsm" length="45" />
+		</property>
+		
+		<property name="filtreAttribu" type="string">
+			<column name="filtreAttribu" length="45" />
+		</property>
+		
+		<property name="dateDeb" type="java.util.Date">
+			<column name="dateDeb" sql-type="DATETIME"/>
+		</property>
+		
+		<property name="dateFin" type="java.util.Date">
+			<column name="dateFin" sql-type="DATETIME"/>
+		</property>		
+		
+		
+		<property name="fitreEtat" type="java.lang.Integer">
+			<column name="fitreEtat"  />
+		</property>
+		
+	</class>
+</hibernate-mapping>
+		

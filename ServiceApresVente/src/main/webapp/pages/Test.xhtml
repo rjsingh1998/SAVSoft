@@ -1,0 +1,199 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:ui="http://java.sun.com/jsf/facelets">
+
+<ui:composition template="../templates/template.xhtml">
+	<ui:define name="body">
+	
+		<h:form id="f1">
+		
+			<p:tabView >
+			<p:tab title="Fiche" >
+			<h:panelGrid columns="4">
+			<h:outputText value="N°Appel : " />
+			<p:inputText size="10" value="#{appelBean.idappel}"/>
+			<h:outputText value="Date d'entée: " />
+			<p:inputText  value="#{appelBean.date_entre}"/>
+			</h:panelGrid>
+			<br/>
+				<p:tabView style="width:70%">
+				
+				<p:tab title="Client">
+			
+					<table width="60%" align="center">
+									<tr>
+										<td width="13%"><h:outputText value="Type : " /></td>
+
+										<td width="70%"><p:inputText size="33" readonly="true" value="#{appelBean.clt.type}"/></td>
+									</tr>
+									<tr>
+										<td width="13%"><h:outputText value="Client : " /></td>
+
+										<td width="70%"><p:inputText size="33" readonly="true" value="#{appelBean.clt.nomclt}"/></td>
+
+									</tr>
+									<tr>
+										<td width="13%"><h:outputText value="Contact : " /></td>
+
+										<td width="70%"><p:inputText size="33" readonly="true" value="#{appelBean.clt.contact}"/></td>
+									</tr>
+
+									<tr>
+										<td width="12.5%"><h:outputText value="Addresse: " /></td>
+										<td width="70%"><p:inputText size="33" readonly="true" value="#{appelBean.clt.adrclt}"/></td>
+
+									</tr>
+								</table>
+								<table width="60%" align="center" >
+									<tr>
+										<td width="24%"><h:outputText value="Tel: " /></td>
+										<td width="20%"><p:inputText size="10" readonly="true" value="#{appelBean.clt.telclt}"/></td>
+										<td width="7%"><h:outputText value="Fax: " /></td>
+										<td width="60%"><p:inputText size="10" readonly="true" value="#{appelBean.clt.faxclt}"/></td>
+									</tr>
+
+									<tr>
+										<td width="12%"><h:outputText value="GSM1: " /></td>
+										<td ><p:inputText size="10" readonly="true" value="#{appelBean.clt.gsm1clt}"/></td>
+										<td width="7%"><h:outputText value="GSM2: " /></td>
+										<td width="60%"><p:inputText size="10" readonly="true" value="#{appelBean.clt.gsm2clt}"/></td>
+									</tr>
+								</table>
+								<table width="60%" align="center" >
+									<tr>
+										<td width="18.5%"><h:outputText value="Mail: " /></td>
+										<td width="80%" colspan="3"><p:inputText size="33"
+												readonly="true" value="#{appelBean.clt.mailclt}"/></td>
+									</tr>
+
+								</table>
+							
+				</p:tab>
+				<p:tab title="Machine">
+					<div align="center">
+					<h:panelGrid columns="2">
+					<h:outputText value="S/N : " />
+					<p:inputText size="10" value="#{appelBean.mch.num_serie}"/>
+					<h:outputText value="Type : " />
+					<p:inputText size="10" value="#{appelBean.mch.type.designationType}"/>
+					<h:outputText value="Marque : " />
+					<p:inputText size="10" value="#{appelBean.mch.marque.designationMarq}"/>
+					<h:outputText value="Model : " />
+					<p:inputText size="10" value="#{appelBean.mch.model}"/>
+					</h:panelGrid>
+					</div>
+				</p:tab>
+				<p:tab title="Panne/Statut">
+				<div align="center">
+				<p:dataTable var="pann" id="p" value="#{appelBean.selectedpans}"
+									scrollable="true" scrollHeight="125"
+									emptyMessage="Auccune panne selectionnée" style="width:70%">
+									<p:column headerText="Pannes "
+										style="font-size:small;font-weight:bold" >
+										<h:outputText style="font-size:small;font-weight:bold" value="#{pann.designationPan}"/>
+									</p:column>
+									
+								</p:dataTable>
+								<p:fieldset legend="Statut" style="width:50%">
+								<p:selectManyCheckbox value="#{appelBean.selectedStats}">
+									<f:selectItems value="#{appelBean.stats}" var="stat"
+										itemLabel="#{stat.designationStat}"
+										itemValue="#{stat.designationStat}" />
+								</p:selectManyCheckbox>
+								</p:fieldset>
+				</div>
+				</p:tab>
+				<p:tab title="Accessoire">
+					<p:selectManyCheckbox id="b" layout="grid" columns="3">
+										<f:selectItems value="#{appelBean.accs}" var="city"
+											itemLabel="#{city.designationAcc}"
+											itemValue="#{city.designationAcc}" />
+									</p:selectManyCheckbox>
+				</p:tab>	
+				<p:tab title="Info Complémentaire">
+					<table width="100%" align="center" >
+						<tr>
+							
+								<td align="center"><h:panelGrid columns="2" columnClasses="label, value">
+										<h:outputText value="#{appelBean.infos.get(0).designationinfo_apl} " 
+										rendered="#{appelBean.infos.get(0).activation}"/>
+										<p:inputText value="#{appelBean.info1}" size="18" 
+										rendered="#{appelBean.infos.get(0).activation}"/>
+
+										<h:outputText value="#{appelBean.infos.get(1).designationinfo_apl} " 
+										rendered="#{appelBean.infos.get(1).activation}"/>
+										<p:inputText value="#{appelBean.info2}" size="18" 
+										rendered="#{appelBean.infos.get(1).activation}"/>
+
+										<h:outputText value="#{appelBean.infos.get(2).designationinfo_apl} " 
+										rendered="#{appelBean.infos.get(2).activation}"/>
+										<p:inputTextarea value="#{appelBean.info3}"
+										rendered="#{appelBean.infos.get(2).activation}" />
+
+										<h:outputText value="#{appelBean.infos.get(3).designationinfo_apl} " 
+										rendered="#{appelBean.infos.get(3).activation}"/>
+										<p:inputTextarea value="#{appelBean.info4}"
+										 rendered="#{appelBean.infos.get(3).activation}"/>
+
+									</h:panelGrid></td>
+								<td align="center"><h:panelGrid columns="2" columnClasses="label, value">
+										<h:outputText value="#{appelBean.infos.get(4).designationinfo_apl} "
+										rendered="#{appelBean.infos.get(4).activation}"/>
+										<p:inputText size="18"  value="#{appelBean.info5}"
+										rendered="#{appelBean.infos.get(4).activation}" />
+
+										<h:outputText value="#{appelBean.infos.get(5).designationinfo_apl} "
+										rendered="#{appelBean.infos.get(5).activation}"/>
+										<p:inputText size="18"  value="#{appelBean.info6}"
+										rendered="#{appelBean.infos.get(5).activation}"/>
+
+										<h:outputText value="#{appelBean.infos.get(6).designationinfo_apl} " 
+										rendered="#{appelBean.infos.get(6).activation}"/>
+										<p:inputTextarea size="18" value="#{appelBean.info7}"
+										rendered="#{appelBean.infos.get(6).activation}" />
+
+										<h:outputText value="#{appelBean.infos.get(7).designationinfo_apl} "
+										rendered="#{appelBean.infos.get(7).activation}" />
+										<p:inputTextarea size="18" value="#{appelBean.info8}" 
+										rendered="#{appelBean.infos.get(7).activation}"/>
+
+									</h:panelGrid></td>
+								<td align="center"><h:panelGrid columns="2" columnClasses="label, value">
+										<h:outputText value="#{appelBean.infos.get(8).designationinfo_apl} " 
+										rendered="#{appelBean.infos.get(8).activation}"/>
+										<p:inputText size="18" value="#{appelBean.info9}" 
+										rendered="#{appelBean.infos.get(8).activation}"/>
+
+										<h:outputText value="#{appelBean.infos.get(9).designationinfo_apl} "
+										rendered="#{appelBean.infos.get(9).activation}"/>
+										<p:inputText size="18" value="#{appelBean.info10}" 
+										rendered="#{appelBean.infos.get(9).activation}"/>
+
+										<h:outputText value="#{appelBean.infos.get(10).designationinfo_apl} "
+										rendered="#{appelBean.infos.get(10).activation}" />
+										<p:inputTextarea size="18"  value="#{appelBean.info11}"
+										rendered="#{appelBean.infos.get(10).activation}"/>
+
+										<h:outputText value="#{appelBean.infos.get(11).designationinfo_apl} " 
+										rendered="#{appelBean.infos.get(11).activation}"/>
+										<p:inputTextarea size="18" value="#{appelBean.info12}"
+										rendered="#{appelBean.infos.get(11).activation}" />
+
+									</h:panelGrid></td>
+
+							
+						</tr>
+					</table>
+				</p:tab>		
+					</p:tabView>
+			</p:tab>
+			</p:tabView>
+					</h:form>		
+	</ui:define>
+</ui:composition>
+
+</html>

@@ -1,0 +1,163 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:ui="http://java.sun.com/jsf/facelets">
+
+<ui:composition template="../templates/template.xhtml">
+	<ui:define name="body">
+<br/><br/>
+		<table  style="width: 60%">
+			<tr >
+				<td >
+					<table >
+						<tr>
+							<td height="50px" valign="top" >
+							  <p:commandLink action="GestionClient" disabled="#{connectionBean.gestionClt}">
+									<p:graphicImage value="/images/fich1.png"></p:graphicImage>
+								</p:commandLink>
+							</td>
+						</tr>
+						<tr>
+							<td align="center"><h:outputText value="Clients"
+									style="font-size:20px;color:#0562B9;
+                                         font-weight:bold;font-style:Times New Roman" />
+							</td>
+						</tr>
+				  </table>
+				</td>
+				<td height="50px" valign="top">
+					<table>
+						<tr>
+							<td valign="top">
+							  <p:commandLink action="GestionUtilisateur" disabled="#{connectionBean.gestionUtl}">
+									<p:graphicImage value="/images/fich2.png"></p:graphicImage>
+								</p:commandLink>
+							</td>
+						</tr>
+						<tr>
+							<td align="center"><h:outputText value="Utilisateurs"
+									style="font-size:20px;color:#0562B9;
+                                         font-weight:bold;font-style:Times New Roman" />
+							</td>
+						</tr>
+				  </table>
+				</td>
+				
+				<td height="50px" valign="top">
+					<table>
+						<tr>
+							<td valign="top">
+							  <p:commandLink action="GestionFournisseur" disabled="#{connectionBean.gestionFour}">
+									<p:graphicImage value="/images/fich3.png"></p:graphicImage>
+								</p:commandLink>
+							</td>
+						</tr>
+						<tr>
+							<td align="center"><h:outputText value="Fournisseurs"
+									style="font-size:20px;color:#0562B9;
+                                         font-weight:bold;font-style:Times New Roman" />
+							</td>
+						</tr>
+				  </table>
+				</td>
+				<td height="50px" valign="top">
+					<table>
+						<tr>
+							<td valign="top">
+							  <p:commandLink action="GestionMachine" disabled="#{connectionBean.gestionMach}">
+									<p:graphicImage value="/images/fich4.png"></p:graphicImage>
+								</p:commandLink>
+							</td>
+						</tr>
+						<tr>
+							<td align="center"><h:outputText value="Machines"
+									style="font-size:20px;color:#0562B9;
+                                         font-weight:bold;font-style:Times New Roman" />
+							</td>
+						</tr>
+				  </table>
+				</td>
+				
+			</tr>
+		</table>
+		<br/><br/>
+		<table  style="width: 60%">	
+			<tr>
+				<td height="50px" valign="top">
+					<table>
+						<tr>
+							<td valign="top">
+							  <p:commandLink action="GestionPanne" disabled="#{connectionBean.gestionPan}">
+									<p:graphicImage value="/images/fich5.png"></p:graphicImage>
+								</p:commandLink>
+							</td>
+						</tr>
+						<tr>
+							<td align="center"><h:outputText value="Pannes"
+									style="font-size:20px;color:#0562B9;
+                                         font-weight:bold;font-style:Times New Roman" />
+							</td>
+						</tr>
+				  </table>
+				</td>
+				<td height="50px" valign="top">
+					<table>
+						<tr>
+							<td valign="top">
+							  <p:commandLink action="GestionTache" disabled="#{connectionBean.gestionTach}">
+									<p:graphicImage value="/images/fich6.png"></p:graphicImage>
+								</p:commandLink>
+							</td>
+						</tr>
+						<tr>
+							<td align="center"><h:outputText value="Tâches"
+									style="font-size:20px;color:#0562B9;
+                                         font-weight:bold;font-style:Times New Roman" />
+							</td>
+						</tr>
+				  </table>
+				</td>
+				<td height="50px" valign="top">
+					<table>
+						<tr>
+							<td valign="top">
+							  <p:commandLink action="GestionPiece" disabled="#{connectionBean.gestionPiec}">
+									<p:graphicImage value="/images/fich7.png"></p:graphicImage>
+								</p:commandLink>
+							</td>
+						</tr>
+						<tr>
+							<td align="center"><h:outputText value="Pièces"
+									style="font-size:20px;color:#0562B9;
+                                         font-weight:bold;font-style:Times New Roman" />
+							</td>
+						</tr>
+				  </table>
+				</td>
+				<td height="50px" valign="top">
+					<table>
+						<tr>
+							<td valign="top">
+							  <p:commandLink action="GestionAccessoire" disabled="#{connectionBean.gestionAcc}">
+									<p:graphicImage value="/images/fich8.png"></p:graphicImage>
+								</p:commandLink>
+							</td>
+						</tr>
+						<tr>
+							<td align="center"><h:outputText value="Accesseoires"
+									style="font-size:20px;color:#0562B9;
+                                         font-weight:bold;font-style:Times New Roman" />
+							</td>
+						</tr>
+				  </table>
+				</td>
+			</tr>
+		</table>
+<br/><br/>
+	</ui:define>
+</ui:composition>
+</html>

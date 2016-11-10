@@ -1,0 +1,886 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:ui="http://java.sun.com/jsf/facelets">
+
+<h:head>
+	<title>Liste appels</title>
+	<link rel="stylesheet" type="text/css" href="../css/styles.css"></link>
+</h:head>
+
+<h:body style="background-image: url(../images/k11.jpg); background-repeat: no-repeat; background-size: cover;">
+	<p:graphicImage width="100%" value="/imageTitre/titreListeApl.png"></p:graphicImage>
+	<br />
+
+		<div align="center">
+			
+			<h:form id="f1">
+			
+			<div align="left" >
+			<h:panelGrid columns="2" cellspacing="5" >
+				<h:outputLink value="Acceuil2.xhtml">
+					<p:graphicImage value="/images/home3.png" ></p:graphicImage>
+		       </h:outputLink>
+				
+				
+				<h:commandLink  actionListener="#{appelBean.viewListApl}" target="_blanc">
+					<p:graphicImage  value="/images/PDF.png"></p:graphicImage>
+				</h:commandLink>
+			</h:panelGrid>
+		</div>
+			
+			<p:panel>
+			<table>
+			<tr>
+			<td width="10%" align="left"><h:outputText value="Recherche:  " /> </td>
+			<td>
+				<p:panel >
+				 <h:panelGrid columns="3">
+						<h:panelGrid columns="2">
+							<h:outputText value="Etat" />
+							<p:selectOneMenu id="filtrage" filterMatchMode="startsWith"
+								value="#{appelBean.selectedetat}" filter="true" effect="fade">
+								<f:selectItem itemLabel="--Selectionner--" />
+								<f:selectItems value="#{appelBean.etats}" var="jo"
+									itemLabel="#{jo.designationEtat}" itemValue="#{jo.idetat}" />
+								
+							</p:selectOneMenu>
+						</h:panelGrid>
+					<h:panelGrid columns="5" >
+						<h:outputText value="Date Entrée: " />
+						
+							<h:outputText value="Du " />
+							 <p:calendar id="du" value="#{appelBean.date_debut}" size="10" pattern="dd/MM/yyyy" navigator="true" locale="fr">
+							 	 <p:ajax event="dateSelect" listener="#{appelBean.dateSelectDB}"  />
+							 	
+            				</p:calendar>
+        
+						
+					
+							<h:outputText value="A " />
+							 <p:calendar id="a" value="#{appelBean.date_fin}" size="10" pattern="dd/MM/yyyy" navigator="true" >
+							 	 <p:ajax event="dateSelect" listener="#{appelBean.dateSelectDF}"  />
+							 </p:calendar>
+						
+					</h:panelGrid>
+					
+						<h:panelGrid columns="3">
+								<h:outputText value="Autre: " />
+							<p:inputText value="#{appelBean.valeurRecherche}" />
+							<p:selectOneMenu id="recherche" filterMatchMode="startsWith"
+								value="#{appelBean.attribut}" filter="true" effect="fade">
+								<f:selectItems value="#{appelBean.listesRecherches}" var="jo"
+									itemLabel="#{jo.toString()}" itemValue="#{jo}" />
+								
+							</p:selectOneMenu>
+
+
+							
+						</h:panelGrid>
+					</h:panelGrid>
+					<br/>
+					<div align="center">
+					<p:commandButton icon="ui-icon-search" title="Recherche Appel"
+								update=":f1" />
+							<p:commandButton icon="ui-icon-refresh" title="Actualiser"
+								actionListener="#{appelBean.annulerRecherche}" update=":f1" />
+								</div>
+				</p:panel>
+			  </td>
+			  </tr>
+			 </table>
+			 </p:panel>	
+				<br />
+
+            <p:panel>
+                <div>
+				 <div align="right">
+					<p:commandButton value="Nouveau" icon="ui-icon-plusthick"
+						style="font-size:small;font-weight:bold"
+						actionListener="#{appelBean.ajouterAppel()}" 
+						rendered="#{connectionBean.ajouterApl}" />
+				 </div>
+               </div>
+				<p:dataTable var="appel" id="tableApl" value="#{appelBean.appels}"
+					border="1" paginator="true" paginatorPosition="bottom"
+					paginatorTemplate=" {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} "
+					rows="5" rowsPerPageTemplate="10">
+
+					<p:column headerText="N° Appel"
+						style="font-size:small;font-weight:bold"
+						styleClass="#{appel.etat.designationEtat}" width="5%">
+						<h:outputText value="#{appel.idappel}"
+							style="font-size:small;font-weight:bold" />
+					</p:column>
+
+					<p:column headerText="Client"
+						style="font-size:small;font-weight:bold"
+						styleClass="#{appel.etat.designationEtat}">
+						<h:outputText value="#{appel.client.nomclt}"
+							style="font-size:small;font-weight:bold" />
+					</p:column>
+					
+					<p:column headerText="GSM" style="font-size:small;font-weight:bold"
+						styleClass="#{appel.etat.designationEtat}">
+						<h:outputText value="#{appel.client.gsm1clt}"
+							style="font-size:small;font-weight:bold" />
+					</p:column>
+					<p:column headerText="S/N" style="font-size:small;font-weight:bold"
+						styleClass="#{appel.etat.designationEtat}">
+						<h:outputText value="#{appel.machine.num_serie}"
+							style="font-size:small;font-weight:bold" />
+					</p:column>
+
+					<p:column headerText="date_entre"
+						style="font-size:small;font-weight:bold"
+						styleClass="#{appel.etat.designationEtat}">
+						<h:outputText value="#{appel.date_entre}"
+							style="font-size:small;font-weight:bold" >
+							<f:convertDateTime pattern="dd/MM/yyyy HH:mm:ss" />
+							</h:outputText>
+					</p:column>
+
+
+					<p:column headerText="etat"
+						style="font-size:small;font-weight:bold"
+						styleClass="#{appel.etat.designationEtat}">
+						<h:outputText value="#{appel.etat.designationEtat}"
+							style="font-size:small;font-weight:bold" />
+					</p:column>
+
+					<p:column style="width:23%"
+						styleClass="#{appel.etat.designationEtat}">
+						<p:commandButton
+							actionListener="#{appelBean.modifierAppel(appel)}"
+							action="ModifAppel" icon="ui-icon-pencil" title="Modification" 
+							rendered="#{connectionBean.modifierApl}"/>
+						<p:commandButton
+							actionListener="#{appelBean.Supprimer(appel.idappel)}"
+							icon="ui-icon-trash" title="Suppression Appel"
+							 rendered="#{connectionBean.suppressionApl}" update=":f1:tableApl">
+							<p:confirm header="Suppression Appel"
+								message="Voulez-vous vraiment supprimer cette Appel ?"
+								icon="ui-icon-alert" />
+							<p:commandButton icon="ui-icon-search"
+								actionListener="#{appelBean.detail(appel)}" update=":f1"
+								oncomplete="PF('detail').show()" title="Detailes Appel"
+								rendered="#{connectionBean.detailApl}"/>
+						</p:commandButton>
+						<p:commandButton icon="ui-icon-arrowrefresh-1-e"  oncomplete="PF('etat').show()" 
+						actionListener="#{appelBean.init_nouv_etat(appel)}"
+						rendered="#{connectionBean.changerEtaApl}" update=":f1:f2:dlgetat" title="Changer Etat"/>
+						
+						<p:commandButton icon="ui-icon-extlink" title="Envoyer Chez Fournisseur"
+						oncomplete="PF('four').show()" actionListener="#{appelBean.initSelected_four(appel)}" 
+						update=":f1:f2:dlgfour"
+						 rendered="#{appelBean.setrenderedenvoi(appel)} and #{connectionBean.envoiAplChezFour}"/>
+						
+						<p:commandButton icon="ui-icon-arrowreturn-1-s" actionListener="#{appelBean.recup_four(appel)}" 
+						oncomplete="PF('retour_apl').show()" title="Recevoire de fournisseur"
+						rendered="#{appelBean.setrenderedrecev(appel)} and #{connectionBean.recoiAplDeFour}" />
+					
+					<p:commandButton icon="ui-icon-zoomin"
+								actionListener="#{appelBean.detailEtat(appel.idappel)}" update=":f1"
+								oncomplete="PF('detailEtat').show()" title="Detailes Etat"
+								rendered="#{connectionBean.detailEatApl}"/>
+								
+					<p:commandButton icon="ui-icon-print" ajax="false"
+								actionListener="#{appelBean.getIdRepAvecIdapl(appel.idappel)}" 
+								update=":f1"
+								title="Bon de reparation"/>
+								
+					</p:column>
+                    	
+				</p:dataTable>
+              </p:panel> 
+
+				<p:confirmDialog global="true" showEffect="fade"
+					hideEffect="explode">
+					<p:commandButton value="Oui" type="button"
+						styleClass="ui-confirmdialog-yes" icon="ui-icon-check" />
+					<p:commandButton value="Non" type="button"
+						styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
+				</p:confirmDialog>
+
+
+				<h:form id="f2">
+					<p:growl id="growl" life="3000"/>
+			
+			<p:dialog widgetVar="detail" modal="true" closable="true"
+						resizable="true" header="Details d'appel" style="width:70%">
+                     <h:panelGrid columns="4">
+						<h:outputText value="N°Appel : " />
+						<p:inputText size="10" value="#{appelBean.idappel}" readonly="true"/>
+						<h:outputText value="Date d'entrée: " />
+						<p:inputText value="#{appelBean.date_entre}" readonly="true"/>
+					</h:panelGrid>
+					<br />
+					<p:tabView >
+
+						<p:tab title="Client">
+
+							<table width="60%" align="center">
+								<tr>
+									<td width="13%"><h:outputText value="Type : " /></td>
+
+									<td width="70%"><p:inputText size="33" readonly="true"
+											value="#{appelBean.clt.type}" /></td>
+								</tr>
+								<tr>
+									<td width="13%"><h:outputText value="Client : " /></td>
+
+									<td width="70%"><p:inputText size="33" readonly="true"
+											value="#{appelBean.clt.nomclt}" /></td>
+
+								</tr>
+								<tr>
+									<td width="13%"><h:outputText value="Contact : " /></td>
+
+									<td width="70%"><p:inputText size="33" readonly="true"
+											value="#{appelBean.clt.contact}" /></td>
+								</tr>
+
+								<tr>
+									<td width="12.5%"><h:outputText value="Addresse: " /></td>
+									<td width="70%"><p:inputText size="33" readonly="true"
+											value="#{appelBean.clt.adrclt}" /></td>
+
+								</tr>
+							</table>
+							<table width="60%" align="center" >
+								<tr>
+									<td width="20%"><h:outputText value="Tel: " /></td>
+									<td width="20%"><p:inputText size="10" readonly="true"
+											value="#{appelBean.clt.telclt}" /></td>
+									<td width="7%"><h:outputText value="Fax: " /></td>
+									<td width="60%"><p:inputText size="10" readonly="true"
+											value="#{appelBean.clt.faxclt}" /></td>
+								</tr>
+
+								<tr>
+									<td width="12%"><h:outputText value="GSM1: " /></td>
+									<td><p:inputText size="10" readonly="true"
+											value="#{appelBean.clt.gsm1clt}" /></td>
+									<td width="7%"><h:outputText value="GSM2: " /></td>
+									<td width="60%"><p:inputText size="10" readonly="true"
+											value="#{appelBean.clt.gsm2clt}" /></td>
+								</tr>
+							</table>
+							<table width="60%" align="center">
+								<tr>
+									<td width="18.5%"><h:outputText value="Email: " /></td>
+									<td width="80%" colspan="3"><p:inputText size="33"
+											readonly="true" value="#{appelBean.clt.mailclt}" /></td>
+								</tr>
+
+							</table>
+
+						</p:tab>
+						<p:tab title="Machine">
+							<div align="center">
+								<h:panelGrid columns="2">
+									<h:outputText value="S/N : " />
+									<p:inputText size="10" value="#{appelBean.mch.num_serie}" readonly="true"/>
+									<h:outputText value="Type : " />
+									<p:inputText size="10"
+										value="#{appelBean.mch.type.designationType}" readonly="true"/>
+									<h:outputText value="Marque : " />
+									<p:inputText size="10"
+										value="#{appelBean.mch.marque.designationMarq}" readonly="true"/>
+									<h:outputText value="Model : " />
+									<p:inputText size="10" value="#{appelBean.mch.model}" readonly="true"/>
+								</h:panelGrid>
+							</div>
+						</p:tab>
+						<p:tab title="Panne/Statut">
+							<div align="center">
+								<p:dataTable var="pann" id="p" value="#{appelBean.selectedpans}"
+									scrollable="true" scrollHeight="125"
+									emptyMessage="Auccune panne selectionnée" style="width:70%">
+									<p:column headerText="Pannes "
+										style="font-size:small;font-weight:bold">
+										<h:outputText style="font-size:small;font-weight:bold"
+											value="#{pann.designationPan}" />
+									</p:column>
+
+								</p:dataTable>
+								<p:fieldset legend="Statut" style="width:50%">
+									<p:selectManyCheckbox value="#{appelBean.selectedStats}">
+										<f:selectItems value="#{appelBean.stats}" var="stat"
+											itemLabel="#{stat.designationStat}"
+											itemValue="#{stat.designationStat}" />
+									</p:selectManyCheckbox>
+								</p:fieldset>
+							</div>
+						</p:tab>
+						<p:tab title="Accessoire">
+							<p:selectManyCheckbox id="b" layout="grid" columns="3" value="#{appelBean.selectedAccessoires}">
+								<f:selectItems value="#{appelBean.accs}" var="city"
+									itemLabel="#{city.designationAcc}"
+									itemValue="#{city.designationAcc}" />
+							</p:selectManyCheckbox>
+						</p:tab>
+						<p:tab title="Info Complémentaire">
+							<table width="100%" align="center">
+								<tr>
+
+									<td align="center"><h:panelGrid columns="2"
+											columnClasses="label, value">
+											<h:outputText
+												value="#{appelBean.infos.get(0).designationinfo_apl} "
+												rendered="#{appelBean.infos.get(0).activation}" />
+											<p:inputText value="#{appelBean.info1}" size="18"
+												rendered="#{appelBean.infos.get(0).activation}" />
+
+											<h:outputText
+												value="#{appelBean.infos.get(1).designationinfo_apl} "
+												rendered="#{appelBean.infos.get(1).activation}" />
+											<p:inputText value="#{appelBean.info2}" size="18"
+												rendered="#{appelBean.infos.get(1).activation}" />
+
+											<h:outputText
+												value="#{appelBean.infos.get(2).designationinfo_apl} "
+												rendered="#{appelBean.infos.get(2).activation}" />
+											<p:inputTextarea value="#{appelBean.info3}"
+												rendered="#{appelBean.infos.get(2).activation}" />
+
+											<h:outputText
+												value="#{appelBean.infos.get(3).designationinfo_apl} "
+												rendered="#{appelBean.infos.get(3).activation}" />
+											<p:inputTextarea value="#{appelBean.info4}"
+												rendered="#{appelBean.infos.get(3).activation}" />
+
+										</h:panelGrid></td>
+									<td align="center"><h:panelGrid columns="2"
+											columnClasses="label, value">
+											<h:outputText
+												value="#{appelBean.infos.get(4).designationinfo_apl} "
+												rendered="#{appelBean.infos.get(4).activation}" />
+											<p:inputText size="18" value="#{appelBean.info5}"
+												rendered="#{appelBean.infos.get(4).activation}" />
+
+											<h:outputText
+												value="#{appelBean.infos.get(5).designationinfo_apl} "
+												rendered="#{appelBean.infos.get(5).activation}" />
+											<p:inputText size="18" value="#{appelBean.info6}"
+												rendered="#{appelBean.infos.get(5).activation}" />
+
+											<h:outputText
+												value="#{appelBean.infos.get(6).designationinfo_apl} "
+												rendered="#{appelBean.infos.get(6).activation}" />
+											<p:inputTextarea size="18" value="#{appelBean.info7}"
+												rendered="#{appelBean.infos.get(6).activation}" />
+
+											<h:outputText
+												value="#{appelBean.infos.get(7).designationinfo_apl} "
+												rendered="#{appelBean.infos.get(7).activation}" />
+											<p:inputTextarea size="18" value="#{appelBean.info8}"
+												rendered="#{appelBean.infos.get(7).activation}" />
+
+										</h:panelGrid></td>
+									<td align="center"><h:panelGrid columns="2"
+											columnClasses="label, value">
+											<h:outputText
+												value="#{appelBean.infos.get(8).designationinfo_apl} "
+												rendered="#{appelBean.infos.get(8).activation}" />
+											<p:inputText size="18" value="#{appelBean.info9}"
+												rendered="#{appelBean.infos.get(8).activation}" />
+
+											<h:outputText
+												value="#{appelBean.infos.get(9).designationinfo_apl} "
+												rendered="#{appelBean.infos.get(9).activation}" />
+											<p:inputText size="18" value="#{appelBean.info10}"
+												rendered="#{appelBean.infos.get(9).activation}" />
+
+											<h:outputText
+												value="#{appelBean.infos.get(10).designationinfo_apl} "
+												rendered="#{appelBean.infos.get(10).activation}" />
+											<p:inputTextarea size="18" value="#{appelBean.info11}"
+												rendered="#{appelBean.infos.get(10).activation}" />
+
+											<h:outputText
+												value="#{appelBean.infos.get(11).designationinfo_apl} "
+												rendered="#{appelBean.infos.get(11).activation}" />
+											<p:inputTextarea size="18" value="#{appelBean.info12}"
+												rendered="#{appelBean.infos.get(11).activation}" />
+
+										</h:panelGrid></td>
+
+
+								</tr>
+							</table>
+						</p:tab>
+						<p:tab title="Observation">
+						<h:panelGrid columns="2">
+						<h:outputText value="Note : " />			
+									<p:inputTextarea style="height:150px;width:700px"
+										value="#{appelBean.note}" rows="5" maxlength="10"
+										autoResize="false" />
+										</h:panelGrid>
+						</p:tab>
+					</p:tabView>
+					</p:dialog>
+			 
+			<p:dialog widgetVar="etat" modal="true" closable="true"
+						 header="Changer etat" id="dlgetat">
+						<h:panelGrid columns="2">
+						<h:outputText value="Etat" />
+							<p:selectOneMenu id="filtrage" filterMatchMode="startsWith"
+								filter="true" effect="fade" value="#{appelBean.nouv_etat}" >
+								<f:selectItem itemLabel="--Selectionner--" />
+								<f:selectItems value="#{appelBean.etats}" var="jo"
+									itemLabel="#{jo.designationEtat}" itemValue="#{jo.idetat}" />
+									</p:selectOneMenu>
+						</h:panelGrid>
+						<br/>
+						<div align="center">
+									<p:commandButton value="Ok" actionListener="#{appelBean.changer_etat()}" oncomplete="PF('etat').hide()" update=":f1" />
+						
+						</div>
+						</p:dialog>
+					
+			<p:dialog widgetVar="four" modal="true" closable="true"
+						 header="Envoyer Chez fournisseur" id="dlgfour" width="50%">
+						 <p:panel styleClass="azert" id="panel2">
+						 	<table width="90%" align="center" >
+							
+							<tr>
+								<td width="20%"><h:outputText value="Fournisseur : " /></td>
+
+								<td width="40%"><p:inputText size="35" readonly="true" value="#{appelBean.selected_four.nomfour}"/></td>
+								<td width="10%"><p:commandButton value="Nouveau" rendered="#{connectionBean.nouvFournisseur}"
+										icon="ui-icon-plusthick" 
+										style="font-size:small;font-weight:bold" 
+										actionListener="#{appelBean.ajouterFournisseur}"/></td>
+							</tr>
+							<tr>
+								<td ><h:outputText value="Adresse : " /></td>
+
+								<td ><p:inputText size="35"
+										 readonly="true" value="#{appelBean.selected_four.adrfour}"/></td>
+										
+								<td width="10%"><p:commandButton  value="Liste" 
+								        style="font-size:small;font-weight:bold;width:97%"
+								         icon="ui-icon-document" oncomplete="PF('dialogliste').show()"
+										 /></td>
+							</tr>
+						</table>
+						
+						<table width="90%" align="center">
+							<tr>
+								<td width="20%"><h:outputText value="Tel: " /></td>
+								<td width="24%"><p:inputText size="10"
+									 readonly="true" value="#{appelBean.selected_four.telfour}"/></td>
+								<td width="11%"><h:outputText value="Fax: " /></td>
+								<td width="60%"><p:inputText size="11"
+										 readonly="true" value="#{appelBean.selected_four.faxfour}"/></td>
+							</tr>
+
+							<tr>
+								<td ><h:outputText value="GSM1: " /></td>
+								<td ><p:inputText size="10"
+										 readonly="true" value="#{appelBean.selected_four.gsm1four}"/></td>
+								<td ><h:outputText value="GSM2: " /></td>
+								<td width="60%"><p:inputText size="11"
+										 readonly="true" value="#{appelBean.selected_four.gsm2four}"/></td>
+							</tr>
+						</table>
+						<table width="90%" align="center" >
+							<tr>
+								<td width="20%"><h:outputText value="Mail: " /></td>
+								<td width="80%" colspan="3"><p:inputText size="35"
+										 readonly="true" value="#{appelBean.selected_four.mailfour}"/></td>
+							</tr>
+
+						</table>
+						</p:panel>
+						<table width="90%" >
+						<tr>
+						<td width="22%">
+							<h:outputText value="Observation : " />
+						</td>
+						<td>
+							<p:inputTextarea style="width:310px" autoResize="false" value="#{appelBean.observation_four}"/>
+						</td>
+						</tr>
+						</table>
+						<br/>	
+						<br/>	
+						<div align="center">
+						<h:panelGrid columns="2">
+							<p:commandButton value="Valider" icon="ui-icon-check" actionListener="#{appelBean.enregistrer_four()}" update=":f1"/>
+							<p:commandButton value="Annuler" icon="ui-icon-arrowreturnthick-1-n" 
+							oncomplete="PF('four').hide()"/>
+						</h:panelGrid>
+					</div>
+						 	
+						 </p:dialog>
+						 		 
+			<p:dialog id="dlg" widgetVar="dialogmodif" modal="true"
+				closable="false" resizable="true"
+				header="#{appelBean.action} Fournisseur">
+
+
+				<p:panel style="width:100%" id="panel">
+					<h:panelGrid columns="2" cellpadding="3" cellspacing="5">
+
+						<p:outputLabel value="Nom*" />
+						<p:inputText value="#{appelBean.nomfour}" />
+
+						<p:outputLabel value="Adresse" />
+						<p:inputText value="#{appelBean.adrfour}" id="pro9" />
+
+
+
+						<p:outputLabel value="Email" />
+						<p:inputText value="#{appelBean.mailfour}" id="mailId">
+							
+
+						</p:inputText>
+
+
+
+
+
+						<p:outputLabel value="Gsm1" />
+						<p:inputText value="#{appelBean.gsm1four}" id="pro7" />
+
+						<p:outputLabel value="Gsm2" />
+						<p:inputText value="#{appelBean.gsm2four}" id="pro6" />
+
+						<p:outputLabel value="Tel" />
+						<p:inputText value="#{appelBean.telfour}" id="pro5" />
+
+						<p:outputLabel value="Fax" />
+						<p:inputText value="#{appelBean.faxfour}" id="pro4" />
+
+					</h:panelGrid>
+					<h:panelGrid columns="2" cellspacing="5">
+						<p:outputLabel value="Ville" />
+						<h:panelGrid columns="3" cellspacing="10">
+							<p:selectOneMenu value="#{appelBean.idville}"
+								style="width:125px">
+
+								<f:selectItem itemLabel="----Selectioner----" itemValue=" " />
+								<f:selectItems value="#{appelBean.villes}" var="vil"
+									itemLabel="#{vil.designationVille}" itemValue="#{vil.idville}" />
+							</p:selectOneMenu>
+							<p:commandButton icon="ui-icon-plus"
+								oncomplete="PF('dialogmodif2').show()">
+								<p:ajax listener="#{appelBean.ajouterVille}" update="dlg2" />
+							</p:commandButton>
+
+						</h:panelGrid>
+
+
+
+						<p:outputLabel value="Type_four*" />
+						<h:panelGrid columns="3" cellspacing="10">
+							<p:selectOneMenu value="#{appelBean.idtype_four}"
+								style="width:125px">
+								<f:selectItem itemLabel="----Selectioner----" itemValue=" " />
+								<f:selectItems value="#{appelBean.type_fours}" var="tfour"
+									itemLabel="#{tfour.nomtype}" itemValue="#{tfour.idtype_four}" />
+							</p:selectOneMenu>
+							<p:commandButton icon="ui-icon-plus"
+								oncomplete="PF('dialogmodif1').show()">
+								<p:ajax listener="#{appelBean.ajouterType_four}"
+									update="dlg1" />
+							</p:commandButton>
+
+						</h:panelGrid>
+
+
+					</h:panelGrid>
+					<h:panelGrid columns="2">
+						<p:commandButton value="Valider" icon="ui-icon-check"
+							actionListener="#{appelBean.ajouterfourApresValidation}"
+							update=":f1:f2:growl,panel2"
+							oncomplete="PF('four').show()" />
+						<p:commandButton value="Annuler"
+							icon="ui-icon-arrowreturnthick-1-n" 
+							onclick="PF('dialogmodif').hide()"   oncomplete="PF('four').show()"/>
+
+
+
+					</h:panelGrid>
+
+				</p:panel>
+			</p:dialog>
+
+
+			<p:dialog id="dlg2" widgetVar="dialogmodif2" modal="true"
+				closable="false" resizable="true"
+				header="#{appelBean.action} Ville">
+				<p:panel id="dialogmodif2">
+					<h:panelGrid columns="2" >
+						<p:outputLabel value="Nom" />
+						<p:inputText value="#{appelBean.designationVille}"
+							id="pro11" />
+							</h:panelGrid>
+						<h:panelGrid columns="2">
+							<p:commandButton value="Valider" icon="ui-icon-check"
+								actionListener="#{appelBean.ajouterVilApresValidation}"
+								update=":f1:f2:growl,panel" onclick="PF('dialogmodif').show()" />
+							<p:commandButton value="Annuler"
+								icon="ui-icon-arrowreturnthick-1-n"
+								oncomplete="PF('dialogmodif2').hide()" />
+						
+					</h:panelGrid>
+				</p:panel>
+			</p:dialog>
+
+			<p:dialog id="dlg1" widgetVar="dialogmodif1" modal="true"
+				closable="false" resizable="true"
+				header="#{appelBean.action} Type_four">
+				<p:panel id="dialogmodif1">
+					<h:panelGrid columns="2">
+						<p:outputLabel value="Nom" />
+						<p:inputText value="#{appelBean.nomtype}" id="pro12" />
+						</h:panelGrid>
+						<h:panelGrid columns="2">
+							<p:commandButton value="Valider" icon="ui-icon-check"
+								actionListener="#{appelBean.ajouterTypfourApresValidation}"
+								update=":f1:f2:growl,panel" onclick="PF('dialogmodif').show()" />
+							<p:commandButton value="Annuler"
+								icon="ui-icon-arrowreturnthick-1-n"
+								oncomplete="PF('dialogmodif1').hide()" />
+						
+					</h:panelGrid>
+				</p:panel>
+			</p:dialog>
+
+			<p:dialog widgetVar="dialogliste" modal="true" closable="true"
+				resizable="true" width="60%" id="c" header="Liste Fournisseurs"
+				style="align:center">
+				<div align="center"></div>
+				<br />
+				<div align="center">
+					<h:panelGrid columns="5">
+						<h:outputText value="Recherche: " />
+						<p:inputText value="#{fournisseurBean.valeurRecherche}" />
+						<p:selectOneMenu id="recherche" filterMatchMode="startsWith"
+							value="#{fournisseurBean.attribut}" filter="true" effect="fade">
+							<f:selectItems value="#{fournisseurBean.listesRecherches}" var="jo"
+								itemLabel="#{jo.toString()}" itemValue="#{jo}" />
+
+						</p:selectOneMenu>
+						<p:commandButton icon="ui-icon-search" title="Recherche Fournisseur" oncomplete="PF('dialogliste').show()"
+							update=":f1:f2:c" />
+						<p:commandButton icon="ui-icon-refresh" title="Actualiser"
+							actionListener="#{fournisseurBean.annulerRecherche}" update=":f1:f2:c" oncomplete="PF('dialogliste').show()"/>
+					</h:panelGrid>
+				</div>
+
+
+
+
+				<h:panelGrid columns="2">
+					<p:dataTable var="f" id="clt" value="#{fournisseurBean.fournisseurs}"
+						selectionMode="single" selection="#{appelBean.selfour}"
+						rowKey="#{f.idfournisseur}" paginator="true"
+						paginatorPosition="bottom"
+						paginatorTemplate=" {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} "
+						rows="5">
+						<p:ajax event="rowSelect" listener="#{appelBean.onRowSelectfour}"
+							update=":f1:f2:clt" />
+						<p:column headerText="Code"
+							style="font-size:small;font-weight:bold" width="1%">
+							<h:outputText value="#{f.idfournisseur}"
+								style="font-size:small;font-weight:bold" />
+						</p:column>
+						<p:column headerText="Fournisseur"
+							style="font-size:small;font-weight:bold" width="3%">
+							<h:outputText value="#{f.nomfour}"
+								style="font-size:small;font-weight:bold" />
+						</p:column>
+						<p:column headerText="GSM"
+							style="font-size:small;font-weight:bold" width="2%">
+							<h:outputText value="#{f.gsm1four}"
+								style="font-size:small;font-weight:bold" />
+						</p:column>
+						<p:column headerText="Type"
+							style="font-size:small;font-weight:bold" width="2%">
+							<h:outputText value="#{f.type_four.nomtype}"
+								style="font-size:small;font-weight:bold" />
+						</p:column>
+					</p:dataTable>
+					<h:panelGrid columns="1">
+						<p:commandButton value="OK" 
+							  onclick="PF('four').show()" actionListener="#{appelBean.list()}"
+							  update=":f1:f2:panel2"/>
+						<p:commandButton value="Nouveau" icon="ui-icon-plusthick" rendered="#{connectionBean.nouvFournisseur}"
+							  update=":f1:f2:dlg"
+							actionListener="#{appelBean.ajouterFournisseur}" />
+						<p:commandButton value="Modifier" icon="ui-icon-pencil"
+							update=":f1:f2:dlg" rendered="#{connectionBean.modifFournisseur}"
+							actionListener="#{appelBean.modifierFournisseur}"/>
+					</h:panelGrid>
+				</h:panelGrid>
+
+			</p:dialog>	 
+						 
+			<p:dialog widgetVar="retour_apl" modal="true" closable="true"
+				resizable="true" width="60%" id="rpal" header="Recevoir de fournisseur"
+				style="align:center">
+				<table >
+				<tr>
+				<td>
+				 <h:outputText value="Fournisseur : " style="font-weight:bold;font-size:12pt"/>
+				</td>
+				<td width="30%">
+			   	 <h:outputText value="#{appelBean.app_four.fournisseur.nomfour} "/>
+				</td>
+				<td>
+					<h:outputText value="Date Sortie : " style="font-weight:bold;font-size:12pt"/>
+				</td>
+				<td>
+					<h:outputText value="#{appelBean.app_four.date_sortie}">
+						<f:convertDateTime pattern="dd/MM/yyyy HH:mm:ss" />
+					</h:outputText>
+					</td>
+					</tr>
+				</table>
+				<br/>
+				<h:panelGrid columns="2">
+					<h:outputText value="Date Retour : " />
+ 						<p:calendar id="d_retour" value="#{appelBean.date_retour}" size="21" pattern="dd/MM/yyyy HH:mm:ss" navigator="true" locale="fr">
+							 	 <p:ajax event="dateSelect" listener="#{appelBean.dateSelectDR}"  />
+							 	
+            				</p:calendar>					<h:outputText value="Montant : " />
+					<p:inputText value="#{appelBean.montant}" size="21"/>
+					
+							<h:outputText value="Etat" />
+							<p:selectOneMenu id="eta" filterMatchMode="startsWith"
+								value="#{appelBean.etat_apl}" filter="true" effect="fade" style="width:100%" >
+								<f:selectItem itemLabel="----Selectionner----" />
+								<f:selectItems value="#{appelBean.etats}" var="jo"
+									itemLabel="#{jo.designationEtat}" itemValue="#{jo.idetat}" />
+								
+							</p:selectOneMenu>
+						
+				</h:panelGrid>
+				<br/><br/>
+				<div align="center">
+						<h:panelGrid columns="2">
+							<p:commandButton value="Valider" icon="ui-icon-check" actionListener="#{appelBean.retour_four()}"/>
+							<p:commandButton value="Annuler" icon="ui-icon-arrowreturnthick-1-n" 
+							oncomplete="PF('retour_apl').hide()"/>
+						</h:panelGrid>
+					</div>
+				</p:dialog>		 
+			<p:dialog widgetVar="detailEtat" modal="true" closable="true"
+				resizable="true" width="60%" id="detEta" header="Détail Etat"
+				style="align:center">
+				
+				<p:dataTable var="detEtat" id="detEat" value="#{appelBean.detEtatApls}"
+					border="1" paginator="true" paginatorPosition="bottom"
+					paginatorTemplate=" {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} "
+					rows="5" rowsPerPageTemplate="10">
+
+					<p:column headerText="Id Appel"
+						style="font-size:small;font-weight:bold" width="5%">
+						<h:outputText value="#{detEtat.appel.idappel}"
+							style="font-size:small;font-weight:bold" />
+					</p:column>
+					<p:column headerText="Service"
+						style="font-size:small;font-weight:bold" width="5%">
+						<h:outputText value="#{detEtat.service.designationSer}"
+							style="font-size:small;font-weight:bold" />
+					</p:column>
+					<p:column headerText="Etat"
+						style="font-size:small;font-weight:bold" width="5%">
+						<h:outputText value="#{detEtat.etat.designationEtat}"
+							style="font-size:small;font-weight:bold" />
+					</p:column>
+					</p:dataTable>
+				
+			</p:dialog>			 
+						 
+				<hr></hr>
+		<div align="center">DSI_2015(Développement Solution Informatique)</div>
+				</h:form>
+				
+			</h:form>
+
+		</div>
+		
+		<script type="text/javascript">
+		PrimeFaces.locales ['fr'] = {
+		    closeText: 'Fermer',
+		    prevText: 'Précédent',
+		    nextText: 'Suivant',
+		    monthNames: ['Janvier', 'Février', 'Mars', 'Avril', 'Mai', 'Juin', 'Juillet', 'Août', 'Septembre', 'Octobre', 'Novembre', 'Décembre' ],
+		    monthNamesShort: ['Janvier', 'Février', 'Mars', 'Avril', 'Mai', 'Juin', 'Juillet', 'Août', 'Septembre', 'Octobre', 'Novembre', 'Décembre' ],
+		    dayNames: ['Dimanche', 'Lundi', 'Mardi', 'Mercredi', 'Jeudi', 'Vendredi', 'Samedi'],
+		    dayNamesShort: ['Dim', 'Lun', 'Mar', 'Mer', 'Jeu', 'Ven', 'Sam'],
+		    dayNamesMin: ['D', 'L', 'M', 'M', 'J', 'V', 'S'],
+		    weekHeader: 'Semaine',
+		    firstDay:1,
+		    isRTL: false,
+		    showMonthAfterYear: false,
+		    yearSuffix:'',
+		    timeOnlyTitle: 'Choisir l\'heure',
+		    timeText: 'Heure',
+		    hourText: 'Heures',
+		    minuteText: 'Minutes',
+		    secondText: 'Secondes',
+		    currentText: 'Aujourd\'hui',
+		    ampm: false,
+		    month: 'Mois',
+		    week: 'Semaine',
+		    day: 'Jour',
+		    allDayText: 'Toute la journé',
+		};
+	</script>
+	<script type="text/javascript">
+					function handleLoginRequest(xhr, status, args) {
+						if (args.validationFailed || !args.addValid) {
+							PF('dialogmodif').jq.effect("shake", {
+								times : 5
+							}, 100);
+						} else {
+							PF('dialogmodif').hide();
+							$('#loginLink').fadeOut();
+						}
+					}
+
+					
+				</script>
+	<style type="text/css">
+		th {
+			  background-color: #5F83B9;
+			}
+	</style>
+		
+		<style type="text/css">
+.Sortie {
+	background: #E6ECEE
+}
+
+.Prét {
+	background: #99FF99
+}
+.Chez_Fournisseur {
+	background: #99CCFF
+}
+.EnAttente{
+	background: #BCEEFA
+}
+.EnCours{
+	background: #5DEBEB
+}
+</style>
+		<style type="text/css">
+.azert {
+	background-color: transparent;
+}
+</style>
+
+	</h:body>
+	
+</html>

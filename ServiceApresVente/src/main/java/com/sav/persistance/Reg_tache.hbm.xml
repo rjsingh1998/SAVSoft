@@ -1,0 +1,38 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated 22 janv. 2015 15:05:41 by Hibernate Tools 3.4.0.CR1 -->
+<hibernate-mapping>
+	<class name="com.sav.persistance.Reg_tache" table="reg_tache"
+		catalog="sav">
+
+		<id name="idreg_tache" type="java.lang.Integer">
+			<column name="idreg_tache" />
+			<generator class="increment" />
+		</id>
+		
+		<property name="dateDebutTach" type="java.util.Date">
+			<column name="dateDebutTach" sql-type="DATETIME"/>
+		</property>
+		
+		<property name="dateFinTach" type="java.util.Date">
+			<column name="dateFinTach" sql-type="DATETIME"/>
+		</property>
+      
+      <many-to-one lazy="false" name="reparation" class="com.sav.persistance.Reparation" fetch="join">
+			<column name="idreparation"  />
+		</many-to-one>
+		
+		
+		  <many-to-one lazy="false" name="tache" class="com.sav.persistance.Tache" fetch="join">
+			<column name="idtache"  />
+		</many-to-one>
+		 <many-to-one lazy="false" name="utilisateur" class="com.sav.persistance.Utilisateur" fetch="join">
+			<column name="idutilisateur"  />
+		</many-to-one>
+		
+		
+		
+		
+	</class>
+</hibernate-mapping>

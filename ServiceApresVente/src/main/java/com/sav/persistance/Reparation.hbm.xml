@@ -1,0 +1,51 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated 22 janv. 2015 15:05:41 by Hibernate Tools 3.4.0.CR1 -->
+<hibernate-mapping>
+	<class name="com.sav.persistance.Reparation" table="reparation"
+		catalog="sav" lazy="false">
+
+		<id name="idreparation" type="java.lang.Integer">
+			<column name="idreparation" />
+			<generator class="increment" />
+		</id>
+		<property name="totaltache" type="double">
+			<column name="totaltache"  />
+		</property>
+		<property name="totalpiece" type="double">
+			<column name="totalpiece"  />
+		</property>
+		<property name="totalrep" type="double">
+			<column name="totalrep" />
+		</property>
+		<property name="datesortie" type="string">
+			<column name="datesortie" length="45" />
+		</property>
+		<property name="observationRep" type="string">
+			<column name="observationRep" length="45" />
+		</property>
+	
+		<set name="reg_pieces" table="reg_piece" inverse="true" lazy="true" fetch="select">
+			<key>
+				<column name="idreparation"  />
+			</key>
+			<one-to-many class="com.sav.persistance.Reg_piece" />
+		</set>
+		<set name="reg_taches" table="reg_tache" inverse="true" lazy="true" fetch="select">
+			<key>
+				<column name="idreparation"  />
+			</key>
+			<one-to-many class="com.sav.persistance.Reg_tache" />
+		</set>
+			<set name="rep_utls" table="rep_utl" inverse="true" lazy="true" fetch="select">
+			<key>
+				<column name="idreparation"  />
+			</key>
+			<one-to-many class="com.sav.persistance.Rep_Utl" />
+		</set>
+		<many-to-one name="appel" class="com.sav.persistance.Appel"
+            column="idapl" unique="true" 
+            cascade="all" />
+	</class>
+</hibernate-mapping>

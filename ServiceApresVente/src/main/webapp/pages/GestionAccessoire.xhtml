@@ -1,0 +1,162 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:ui="http://java.sun.com/jsf/facelets">
+	
+	<h:head>
+	<title>Liste accessoires</title>
+	<link rel="stylesheet" type="text/css" href="../css/styles.css"></link>
+</h:head>
+
+<h:body style="background-image: url(../images/k11.jpg); background-repeat: no-repeat; background-size: cover;">
+	<p:graphicImage width="100%" value="/imageTitre/titreAccessoire.png"></p:graphicImage>
+	<br />
+	<h:form id="f1">
+	<div align="left" >
+			<h:panelGrid columns="3" cellspacing="5" >
+				<h:outputLink value="Acceuil2.xhtml">
+					<p:graphicImage value="/images/home3.png" ></p:graphicImage>
+		       </h:outputLink>
+				<h:outputLink value="Parametrage.xhtml">
+						<p:graphicImage value="/images/retourArr.png"></p:graphicImage>
+				</h:outputLink>
+				<h:commandLink actionListener="#{accessoireBean.viewListeAcc}" target="_blanc">
+						<p:graphicImage value="/images/PDF.png"></p:graphicImage>
+					</h:commandLink>
+			</h:panelGrid>
+		</div>
+	
+	
+	
+	<p:panel>
+
+		<div align="center">
+			
+			<p:growl id="growl" life="3000" />
+                <br />
+			<div align="center">
+				<h:panelGrid columns="4">
+					<h:outputText value="Recherche: " />
+					<p:inputText value="#{accessoireBean.valeurRecherche}" />
+					
+					<p:commandButton icon="ui-icon-search" title="Recherche accessoire"
+						update=":f1" />
+						<p:commandButton icon="ui-icon-refresh" title="Actualiser" actionListener="#{accessoireBean.annulerRecherche}"
+						update=":f1" />
+
+				</h:panelGrid>
+			</div>
+				<div style="width: 50%">
+					<div align="right">
+						<p:commandButton value="Nouveau" icon="ui-icon-plusthick"
+							style="font-size:small;font-weight:bold" update=":f1:f2:dlg"
+							oncomplete="PF('dialogmodif').show()"
+							actionListener="#{accessoireBean.ajouterAccessoire()}"
+							rendered="#{connectionBean.nouvAccessoire}"
+							 />
+					</div>
+					
+					
+					<p:dataTable  var="accessoire" id="f1" value="#{accessoireBean.accessoires}"
+						emptyMessage="Pas de Accessoires"  border="1" paginator="true"
+				paginatorPosition="bottom"
+				paginatorTemplate=" {FirstPageLink} {PreviousPageLink} {PageLinks} 
+				              {NextPageLink} {LastPageLink}  "
+				rows="5"  >
+						<p:column width="20%" >
+							<f:facet name="header">
+								<h:outputLabel value="Id" />
+							</f:facet>
+							<h:outputText value="#{accessoire.idaccessoire}"
+								style="font-size:small;font-weight:bold" />
+             
+            </p:column>
+						<p:column >
+							<f:facet name="header">
+								<h:outputLabel value="Accessoire" />
+							</f:facet>
+							<h:outputText value="#{accessoire.designationAcc}" 
+								style="font-size:small;font-weight:bold" />
+            
+          </p:column>
+
+
+						<p:column style="width:20%">
+							<p:commandButton
+								actionListener="#{accessoireBean.modifierAccessoire(accessoire)}"
+								update=":f1:f2:dlg" oncomplete="PF('dialogmodif').show()"
+								icon="ui-icon-pencil" title="Modification" 
+								rendered="#{connectionBean.modifAccessoire}" />
+
+
+							<p:commandButton
+								actionListener="#{accessoireBean.Supprimer(accessoire.idaccessoire)}"
+								icon="ui-icon-trash" title="Suppression Accessoire" update=":f1:growl"
+								rendered="#{connectionBean.supAccessoire}" >
+								<p:confirm header="Suppression Accessoire"
+									message="Voulez-vous vraiment supprimer cette Accessoire ?"
+									icon="ui-icon-alert" />
+							</p:commandButton>
+						</p:column>
+					</p:dataTable>
+				</div>
+
+				<p:confirmDialog global="true" showEffect="fade"
+					hideEffect="explode">
+					<p:commandButton value="Oui" type="button"
+						styleClass="ui-confirmdialog-yes" icon="ui-icon-check" />
+					<p:commandButton value="Non" type="button"
+						styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
+				</p:confirmDialog>
+
+				<h:form id="f2">
+					<p:dialog id="dlg" widgetVar="dialogmodif" modal="true"
+						closable="false" header="#{accessoireBean.action} Accessoire"
+						resizable="true">
+						<p:panel id="dialogmodif">
+							<h:panelGrid columns="2" cellspacing="20px">
+								<p:outputLabel value="Accessoire*: " />
+								<p:inputText value="#{accessoireBean.designationAcc}" id="acc" />
+								<h:message for="acc"/>
+							</h:panelGrid>
+							<h:panelGrid columns="2">
+								<p:commandButton value="Valider" icon="ui-icon-check"
+									actionListener="#{accessoireBean.ajouterAccApresValidation}" 
+									update=":f1:growl"
+									oncomplete="handleLoginRequest(xhr, status, args)" />
+								<p:commandButton value="Annuler"
+									icon="ui-icon-arrowreturnthick-1-n" update=":f1" />
+							</h:panelGrid>
+
+						</p:panel>
+
+
+					</p:dialog>
+				</h:form>
+				<script type="text/javascript">
+      function handleLoginRequest(xhr, status, args) {
+        if(args.validationFailed || !args.addValid) {
+            PF('dialogmodif').jq.effect("shake", {times:5}, 100);
+        }
+        else {
+            PF('dialogmodif').hide();
+            $('#loginLink').fadeOut();
+        }
+    }
+</script>
+				
+			
+		</div>
+
+</p:panel>
+<hr></hr>
+		<div align="center">DSI_2015(Développement Solution Informatique)</div>
+
+</h:form>
+</h:body>
+
+</html>

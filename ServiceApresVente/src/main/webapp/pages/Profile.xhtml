@@ -1,0 +1,156 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:ui="http://java.sun.com/jsf/facelets">
+
+<h:head>
+	<title>Profil</title>
+	<link rel="stylesheet" type="text/css" href="../css/styles.css"></link>
+</h:head>
+<h:body
+	style="background-image: url(../images/k11.jpg); background-repeat: no-repeat; background-size: cover;">
+	<p:graphicImage width="100%" value="/imageTitre/titreProfil.png"></p:graphicImage>
+	<br />
+
+
+
+	<h:form id="f1">
+		<p:growl id="growl" life="3000" />
+		<div align="left">
+
+			       <h:outputLink value="Acceuil2.xhtml">
+					   <p:graphicImage value="/images/home3.png" ></p:graphicImage>
+		           </h:outputLink>
+
+		</div>
+		<div align="center">
+			<p:panel style="width:90%">
+				<table border="0" width="100%">
+					<tr>
+						<td width="30%" align="center"><h:commandLink
+								actionListener="#{appelBean.appel_suiv()}">
+								<p:graphicImage value="/images/aplSuiv8.png"></p:graphicImage>
+
+							</h:commandLink>
+						</td>
+						<td><table border="0">
+								<tr>
+									<td><b><h:outputText value="Nom : " /></b></td>
+									<td><p:outputLabel value="#{appelBean.user.nomUtl}" /></td>
+									<td><b><h:outputText value="Prenom : " /></b></td>
+									<td><p:outputLabel value="#{appelBean.user.prenomUtl}" /></td>
+								</tr>
+								<tr>
+									<td><b><h:outputText value="Service: " /></b></td>
+									<td width="40%"><p:outputLabel
+											value="#{appelBean.user.service.designationSer}" /></td>
+									<td><b><h:outputText value="Grade : " /></b></td>
+									<td><p:outputLabel
+											value="#{appelBean.user.grade.libelleGrd}" /></td>
+								</tr>
+							</table>
+						</td>
+                        <td width="30%" align="center">
+                          <h:commandLink actionListener="#{appelBean.diag_suiv}">
+								<p:graphicImage value="/images/diagSuivant.png"></p:graphicImage>
+						  </h:commandLink>
+						</td>
+					</tr>
+				</table>
+
+				<br />
+				<p:dataTable var="appel" id="tablApl" paginator="true" border="1"
+					paginatorPosition="bottom"
+					paginatorTemplate=" {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} "
+					rows="10" value="#{appelBean.det_etat}" style="width:70%">
+					<p:column headerText="N°Appel"
+						style="font-size:small;font-weight:bold" width="5%">
+						<h:outputText value="#{appel.appel.idappel}"
+							style="font-size:small;font-weight:bold" />
+					</p:column>
+					<p:column headerText="Date Entrée"
+						style="font-size:small;font-weight:bold" width="11%">
+						<h:outputText value="#{appel.appel.date_entre}"
+							style="font-size:small;font-weight:bold">
+							<f:convertDateTime pattern="dd/MM/yyyy HH:mm:ss" />
+						</h:outputText>
+					</p:column>
+					<p:column headerText="Etat"
+						style="font-size:small;font-weight:bold" width="11%">
+						<h:outputText value="#{appel.etat.designationEtat}"
+							style="font-size:small;font-weight:bold" />
+					</p:column>
+					<p:column headerText="Type"
+						style="font-size:small;font-weight:bold" width="11%">
+						<h:outputText value="#{appel.typeApl}"
+							style="font-size:small;font-weight:bold" />
+					</p:column>
+					<p:column style="width:5%">
+						<p:commandButton icon="ui-icon-arrowreturnthick-1-e"
+							title="Charger Appel" actionListener="#{appelBean.charger_appel(appel.appel.idappel)}" action="Reparation"/>
+					</p:column>
+				</p:dataTable>
+			</p:panel>
+		</div>
+		<h:form id="f2">
+			<p:dialog widgetVar="apl" modal="true" closable="true"
+				resizable="true" width="75%">
+				<table width="90%" align="center">
+				<tr>
+				<td width="20%">
+					<p:dataTable var="pann" id="p" value="#{appelBean.selectedpans}"
+						scrollable="true" scrollHeight="100" >
+						<p:column headerText="Pannes"
+							style="font-size:small;font-weight:bold;width:30%" >
+							<h:outputText value="#{pann.designationPan}"
+								style="font-size:small;font-weight:bold" />
+						</p:column>
+						
+					</p:dataTable>
+					</td>
+					<td width="40%">
+					<p:dataTable var="det_etat" id="etat" value="#{appelBean.lde}"
+						scrollable="true" scrollHeight="100" >
+						<p:column headerText="Service"
+							style="font-size:small;font-weight:bold;width:20%">
+							<h:outputText value="#{appelBean.rech_ser(det_etat.service.idservice)}"
+								style="font-size:small;font-weight:bold" />
+						</p:column>
+						<p:column headerText="Etat"
+							style="font-size:small;font-weight:bold;width:20%">
+							<h:outputText value="#{appelBean.rech_etat(det_etat.etat.idetat)}"
+								style="font-size:small;font-weight:bold" />
+						</p:column>
+					</p:dataTable>
+					</td>
+					</tr>
+				</table>
+				<div align="center">
+				<h:outputText
+					value="L'appel existe dans un autre service. Voulez vous continuer ? " />
+				<h:panelGrid columns="2">
+					<p:commandButton value="Oui" actionListener="#{appelBean.ok()}"
+						oncomplete="PF('apl').hide()" />
+					<p:commandButton value="Non" oncomplete="PF('apl').hide()"
+						actionListener="#{appelBean.app_suiv()}" />
+				</h:panelGrid>
+				</div>
+			</p:dialog>
+
+
+		</h:form>
+	</h:form>
+	<style type="text/css">
+.profile {
+	background-color: #CCE5FF;
+}
+</style>
+	<hr></hr>
+	<div align="center">DSI_2015(Développement Solution Informatique)</div>
+</h:body>
+
+</html>

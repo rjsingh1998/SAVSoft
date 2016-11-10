@@ -1,0 +1,62 @@
+<?xml version="1.0"?>
+<faces-config version="2.0" xmlns="http://java.sun.com/xml/ns/javaee"
+	xmlns:xi="http://www.w3.org/2001/XInclude" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-facesconfig_2_0.xsd">
+	
+	<navigation-rule>
+		<from-view-id>/pages2/Connection.xhtml</from-view-id>
+
+		<navigation-case>
+			<from-action>#{connectionBean.connecter()}</from-action>
+			<from-outcome>accepted</from-outcome>
+			<to-view-id>/pages/Acceuil2.xhtml</to-view-id>
+			<redirect />
+		</navigation-case>
+	</navigation-rule>
+	
+	<navigation-rule>
+		<from-view-id>/pages/Acceuil2.xhtml</from-view-id>
+
+		<navigation-case>
+			<from-action>#{connectionBean.doLogout()}</from-action>
+			<from-outcome>logedOut</from-outcome>
+			<to-view-id>/pages2/Connection.xhtml</to-view-id>
+			<redirect />
+		</navigation-case>
+	</navigation-rule>
+	
+	<navigation-rule>
+		<from-view-id>/pages/AjoutUtilisateur.xhtml</from-view-id>
+
+		<navigation-case>
+			<from-action>#{utilisateurBean.validation()}</from-action>
+			<from-outcome>acceptedValidUtl</from-outcome>
+			<to-view-id>/pages/GestionUtilisateur.xhtml</to-view-id>
+			<redirect />
+		</navigation-case>
+	</navigation-rule>
+	
+	<navigation-rule>
+		<from-view-id>/pages/AjoutUtilisateur.xhtml</from-view-id>
+
+		<navigation-case>
+			<from-action>#{utilisateurBean.redirect()}</from-action>
+			<from-outcome>pageGestionUtl</from-outcome>
+			<to-view-id>/pages/GestionUtilisateur.xhtml</to-view-id>
+			<redirect />
+		</navigation-case>
+	</navigation-rule>
+	
+	<managed-bean>
+		<managed-bean-name>clientBean</managed-bean-name>
+		<managed-bean-class>
+			com.sav.bean.ClientBean
+		</managed-bean-class>
+		<managed-bean-scope>session</managed-bean-scope>
+</managed-bean>
+
+
+
+
+	
+</faces-config>
